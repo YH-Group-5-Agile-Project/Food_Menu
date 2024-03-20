@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
+import DishComponent from "./DishComponent";
+import { MainDishType } from "../Models/MainDishType";
 
-type MainDishType = {
-    title: string,
-    description: string,
-    imageUrl: string,
-    categories: string[],
-    ingredients: string[]
-       
-}
 
 export const MainDish = () => {
     const [mainDish, setmainDish] = useState<MainDishType[]>();
@@ -22,17 +16,10 @@ export const MainDish = () => {
     }, [])
     
 
- return (
-    <>{
-           mainDish?.map(dish => (
-                <li key={dish.title}>
-                    <p>{dish.title}</p>
-                </li>
-           ))   
-   
-    }
-    </>
- )
+ return (mainDish?.map(dish => <DishComponent dish={dish}/>))
+    
+        
+
 };
 
 //Vi kan hämta data från apiet men ImageUrl funkar ej.
