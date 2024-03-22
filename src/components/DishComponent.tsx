@@ -1,12 +1,7 @@
 import { MainDish } from "../Models/MainDish";
 
-<<<<<<< HEAD
 type DishComponentProps = {
-  dish: MainDishType
-=======
-interface DishComponentProps {
   dish: MainDish
->>>>>>> dev
 }
 
 const DishComponent = ({ dish }: DishComponentProps) => {
