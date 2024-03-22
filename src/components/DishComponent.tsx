@@ -1,17 +1,15 @@
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { MainDish } from "../Models/MainDish";
 
-const DishComponent = () => {
-  let navigate = useNavigate();
+interface DishComponentProps {
+  dish: MainDish
+}
+
+const DishComponent: React.FC<DishComponentProps> = ({ dish }) => {
   return (
     <div>
-      <h1>Maträtt</h1>
-      <p>Här kommer du att se en tydligare beskrivning av maträtten</p>
-      <p>och möjlighet att lägga till den i din beställning.</p>
-      <button onClick={() => navigate(-1)}>Tillbaka</button>
-      <Link to="/menu">
-        <button>Lägg till</button>
-      </Link>
+      <h2>{dish.title}</h2>
+      <img src={dish.imageUrl} width={250} height={250} alt={dish.title} ></img>
+      <p>{dish.description}</p>
     </div>
   );
 };
