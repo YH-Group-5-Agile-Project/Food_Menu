@@ -1,4 +1,4 @@
-export type MainDishType = {
+export type MainDish = {
     title: string,
     description: string,
     imageUrl: string,

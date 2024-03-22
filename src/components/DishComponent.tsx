@@ -1,7 +1,7 @@
-import { MainDishType } from "../Models/MainDishType";
+import { MainDish } from "../Models/MainDish";
 
 interface DishComponentProps {
-  dish: MainDishType
+  dish: MainDish
 }
 
 const DishComponent: React.FC<DishComponentProps> = ({ dish }) => {
