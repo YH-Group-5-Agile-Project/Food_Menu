@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { MainDish } from "../components/MainDish";
+import { MainDishComponent } from "../components/MainDishComponent";
 
 const MenuPage = () => {
   return (
     <>
       <div>
-        <ul><MainDish /></ul>
+        <ul><MainDishComponent /></ul>
       </div>
 
       <div>

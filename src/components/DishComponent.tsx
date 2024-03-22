@@ -1,16 +1,20 @@
-import { useNavigate } from "react-router-dom";
-import { MainDishType } from "../Models/MainDishType";
+import { MainDish } from "../Models/MainDish";
 
+<<<<<<< HEAD
 type DishComponentProps = {
   dish: MainDishType
+=======
+interface DishComponentProps {
+  dish: MainDish
+>>>>>>> dev
 }
 
 const DishComponent = ({ dish }: DishComponentProps) => {
   return (
     <div>
       <h2>{dish.title}</h2>
+      <img src={dish.imageUrl} width={250} height={250} alt={dish.title} ></img>
       <p>{dish.description}</p>
-      <img src={dish.imageUrl} alt={dish.title}></img>
     </div>
   );
 };

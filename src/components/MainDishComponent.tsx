@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import DishComponent from "./DishComponent";
-import { MainDishType } from "../Models/MainDishType";
+import { MainDish } from "../Models/MainDish";
 
 
-export const MainDish = () => {
-    const [mainDish, setmainDish] = useState<MainDishType[]>();
+export const MainDishComponent = () => {
+    const [mainDish, setMainDish] = useState<MainDish[]>();
     useEffect(() => {
         fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`)
         .then((res) => res.json())
         .then((data) => {
             console.log(data);
-            setmainDish(data)
+            setMainDish(data)
         });
             
     }, [])
