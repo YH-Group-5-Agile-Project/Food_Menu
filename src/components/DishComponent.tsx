@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { MainDishType } from "../Models/MainDishType";
 
-interface DishComponentProps {
+type DishComponentProps = {
   dish: MainDishType
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({ dish }) => {
+const DishComponent = ({ dish }: DishComponentProps) => {
   return (
     <div>
       <h2>{dish.title}</h2>

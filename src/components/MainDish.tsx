@@ -22,6 +22,12 @@ export const MainDish = () => {
 
 };
 
+
+
+
+
+
+
 //Vi kan hämta data från apiet men ImageUrl funkar ej.
 //Det är inget fel i datan, utan hur vi försöker implementera det.
 //Till Allex: Lägg in alla dbilder och commita det så vi alla får dem i projektet.
