@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DishComponent from "./DishComponent";
 import { MainDish } from "../Models/MainDish";
-import styled from "styled-components";
+//import styled from "styled-components";
 
 export const MainDishComponent = () => {
   const [mainDish, setMainDish] = useState<MainDish[]>();

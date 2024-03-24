@@ -4,12 +4,9 @@ import { MainDishComponent } from "../components/MainDishComponent";
 const MenuPage = () => {
   return (
     <>
-      <div>
-        <ul><MainDishComponent /></ul>
-      </div>
+      <MainDishComponent />
 
       <div>
-        
         <Link to="/order">
           <button>Min beställning</button>
         </Link>
