@@ -32,3 +32,4 @@ const DivParent = styled.div`
   display: flex;
   justify-content: center;
 `
+
