@@ -5,7 +5,7 @@ const MenuPage = () => {
   return (
     <>
       <div>
-        <ul><MainDishComponent /></ul>
+        <MainDishComponent />
       </div>
 
       <div>
