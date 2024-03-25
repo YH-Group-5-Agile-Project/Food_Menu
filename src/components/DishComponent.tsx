@@ -31,7 +31,7 @@ const DishComponent: React.FC<DishComponentProps> = ({ dish }) => {
 export default DishComponent;
 
 const DivParent = styled.div`
-  position: relative
+  position: relative;
   display: flex;
   justify-content: center;
 `;
