@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
 import DishComponent from "./DishComponent";
-import { MainDish } from "../Models/MainDish";
 import { GetAllMainDishes } from "../services/DbService";
 
 
-export const MainDishComponent = () => {
+interface dishInput {
+    dishType: string;
+}
+
+
+export const MainDishComponent = ({ dishType }: dishInput) => {
     // const [mainDish, setMainDish] = useState<MainDish[]>();
     // useEffect(() => {
     //     fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`)
@@ -15,7 +18,7 @@ export const MainDishComponent = () => {
     //     });
             
     // }, [])
-    let mainDish = GetAllMainDishes()
+    let mainDish = GetAllMainDishes( { dishType: dishType })
 
  return (mainDish?.map(dish => <DishComponent dish={dish}/>))
     
