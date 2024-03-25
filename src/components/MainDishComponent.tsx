@@ -13,21 +13,21 @@ export const MainDishComponent = () => {
       .then((data) => setMainDish(data));
   }, []);
 
-  const HandleClick = (index : number) => {
+  const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
-  }
+  };
 
   return (
-      <DishesContainer>
-        {mainDish?.map((dish, index) => 
-          <DishComponent
-            key={index}
-            dish={dish}
-            isSelected={index === selectedDish}
-            onClick={() => HandleClick(index)}
-          />
-        )}
-      </DishesContainer>
+    <DishesContainer>
+      {mainDish?.map((dish, index) => (
+        <DishComponent
+          key={index}
+          dish={dish}
+          isSelected={index === selectedDish}
+          onClick={() => HandleClick(index)}
+        />
+      ))}
+    </DishesContainer>
   );
 };
 

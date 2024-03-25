@@ -12,25 +12,26 @@ interface FoodProps {
   isSelected: boolean;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({ dish, isSelected, onClick }) => {
+const DishComponent: React.FC<DishComponentProps> = ({
+  dish,
+  isSelected,
+  onClick,
+}) => {
   return (
-      <DishContainer isSelected={isSelected} onClick={onClick}>
-        <ImageContainer>
-          <DishImage src={dish.imageUrl} alt={dish.title} />
-          <TitleOverlay>{dish.title}</TitleOverlay>
-        </ImageContainer>
-        {isSelected &&
-          <p>{dish.description}</p>
-        }
-
-      </DishContainer>
+    <DishContainer isSelected={isSelected} onClick={onClick}>
+      <ImageContainer>
+        <DishImage src={dish.imageUrl} alt={dish.title} />
+        <TitleOverlay>{dish.title}</TitleOverlay>
+      </ImageContainer>
+      {isSelected && <p>{dish.description}</p>}
+    </DishContainer>
   );
 };
 
 export default DishComponent;
 
 const DishContainer = styled.div<FoodProps>`
-  width: ${(props) => (props.isSelected ? '100%' : '250px')};
+  width: ${(props) => (props.isSelected ? "500px" : "250px")};
   cursor: pointer;
   margin-bottom: 20px;
   overflow: visible;
@@ -43,8 +44,8 @@ const DishContainer = styled.div<FoodProps>`
 
 const ImageContainer = styled.div`
   position: relative;
-  width: 100%;
-  height: 300px;
+  //width: 100%;
+  //height: 100%;
 `;
 
 const DishImage = styled.img`
