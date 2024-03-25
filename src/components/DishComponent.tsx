@@ -30,16 +30,6 @@ const DishComponent: React.FC<DishComponentProps> = ({ dish, isSelected, onClick
               <p>{dish.description}</p>
             </TextContainer>
           </ExpandedDish>
-        
-        {/* {isSelected &&
-          <ExpandedDish>
-            <DishImage src={dish.imageUrl} alt={dish.title} />
-            <h3>{dish.title}</h3>
-            <p>{dish.description}</p>
-
-          </ExpandedDish> */}
-        {/* } */}
-
       </DishContainer>
   );
 };
