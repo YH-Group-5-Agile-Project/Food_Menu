@@ -2,29 +2,38 @@ import { MainDish } from "../Models/MainDish";
 import styled from "styled-components";
 
 interface DishComponentProps {
+  key: number;
   dish: MainDish;
+  isSelected: boolean;
   onClick: () => void;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({ dish, onClick }) => {
+interface FoodProps {
+  isSelected: boolean;
+}
+
+const DishComponent: React.FC<DishComponentProps> = ({ key, dish, isSelected, onClick }) => {
   return (
-    <>
-      <DishContainer onClick={onClick}>
+      <DishContainer isSelected={isSelected}>
         <ImageContainer>
           <DishImage src={dish.imageUrl} alt={dish.title} />
           <TitleOverlay>{dish.title}</TitleOverlay>
         </ImageContainer>
+        {isSelected &&
+          <p>{dish.ingredients}</p>
+        }
+
       </DishContainer>
-    </>
   );
 };
 
 export default DishComponent;
 
-const DishContainer = styled.div`
+const DishContainer = styled.div<FoodProps>`
+  width: ${(props) => (props.isSelected ? '200px' : '250px')};
   cursor: pointer;
   margin-bottom: 20px;
-  width: 250px;
+  /* width: 250px; */
   @media (max-width: 768px) {
     width: calc(50% - 10px);
     margin-bottom: 20px;

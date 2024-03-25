@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import DishComponent from "./DishComponent";
-import DetailedDishComponent from "./DetailedDishComponent";
 import { MainDish } from "../Models/MainDish";
 import styled from "styled-components";
 
 export const MainDishComponent = () => {
   const [mainDish, setMainDish] = useState<MainDish[]>();
-  const [selectedDish, setSelectedDish] = useState<MainDish | null>(null);
+  const [selectedDish, setSelectedDish] = useState<number | null>(null);
 
   useEffect(() => {
     fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`)
@@ -14,53 +13,23 @@ export const MainDishComponent = () => {
       .then((data) => setMainDish(data));
   }, []);
 
+  const HandleClick = (index : number) => {
+    setSelectedDish(index === selectedDish ? null : index);
+  }
+
   return (
-    <>
       <DishesContainer>
-        {mainDish?.map((dish, index) => (
-          // <div key={dish.title} onClick={() => setSelectedDish(dish)}>
+        {mainDish?.map((dish, index) => 
           <DishComponent
             key={index}
             dish={dish}
-            onClick={() => setSelectedDish(dish)}
+            isSelected={index === selectedDish}
+            onClick={() => HandleClick(index)}
           />
-          // </div>
-        ))}
+        )}
       </DishesContainer>
-      {selectedDish && (
-        <div>
-          <DetailedDishComponent
-            dish={selectedDish}
-            onClose={() => setSelectedDish(null)}
-          />
-        </div>
-      )}
-    </>
   );
 };
-
-/*
-export const MainDishComponent = () => {
-  const [mainDish, setMainDish] = useState<MainDish[]>();
-
-  useEffect(() => {
-    fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setMainDish(data);
-      });
-  }, []);
-
-  return (
-    <DishesContainer>
-      {mainDish?.map((dish) => (
-        <DishComponent dish={dish} />
-      ))}
-    </DishesContainer>
-  );
-};
-*/
 
 const DishesContainer = styled.div`
   display: flex;
