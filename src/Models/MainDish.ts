@@ -3,5 +3,6 @@ export type MainDish = {
     description: string,
     imageUrl: string,
     categories: string[],
-    ingredients: string[]
+    ingredients: string[],
+    price: number
 }
