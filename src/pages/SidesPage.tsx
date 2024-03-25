@@ -5,15 +5,15 @@ const MenuPage = () => {
   return (
     <>
       <div>
-        <ul><MainDishComponent dishType="mainDish"/></ul>
+        <ul><MainDishComponent dishType="sideDish"/></ul>
       </div>
 
       <div>
         
-        <Link to="/order">
-          <button>Min beställning</button>
+        <Link to="/menu">
+          <button>Tillbaka</button>
         </Link>
-        <Link to="/sides">
+        <Link to="/drink">
           <button>Nästa steg</button>
         </Link>
       </div>
