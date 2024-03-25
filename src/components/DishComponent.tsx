@@ -1,19 +1,21 @@
 import { MainDish } from "../Models/MainDish";
-//import React, { useState } from "react";
 import styled from "styled-components";
 
 interface DishComponentProps {
   dish: MainDish;
+  onClick: () => void;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({ dish }) => {
+const DishComponent: React.FC<DishComponentProps> = ({ dish, onClick }) => {
   return (
-    <DishContainer>
-      <ImageContainer>
-        <DishImage src={dish.imageUrl} alt={dish.title} />
-        <TitleOverlay>{dish.title}</TitleOverlay>
-      </ImageContainer>
-    </DishContainer>
+    <>
+      <DishContainer onClick={onClick}>
+        <ImageContainer>
+          <DishImage src={dish.imageUrl} alt={dish.title} />
+          <TitleOverlay>{dish.title}</TitleOverlay>
+        </ImageContainer>
+      </DishContainer>
+    </>
   );
 };
 
