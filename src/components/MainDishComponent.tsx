@@ -18,7 +18,7 @@ export const MainDishComponent = () => {
   }
 
   return (
-      <DishesContainer>
+      <DishesContainer isSelected={selectedDish !== null}>
         {mainDish?.map((dish, index) => 
           <DishComponent
             key={index}
@@ -31,11 +31,15 @@ export const MainDishComponent = () => {
   );
 };
 
-const DishesContainer = styled.div`
+const DishesContainer = styled.div<{isSelected : boolean}>`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  max-width: 100%;
   justify-content: center;
+  ${(props) => props.isSelected && `
+    margin-bottom: 400px;
+  `}
 
   @media (max-width: 768px) {
     justify-content: space-between;
