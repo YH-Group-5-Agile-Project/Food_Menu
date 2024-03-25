@@ -12,15 +12,15 @@ interface FoodProps {
   isSelected: boolean;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({ key, dish, isSelected, onClick }) => {
+const DishComponent: React.FC<DishComponentProps> = ({ dish, isSelected, onClick }) => {
   return (
-      <DishContainer isSelected={isSelected}>
+      <DishContainer isSelected={isSelected} onClick={onClick}>
         <ImageContainer>
           <DishImage src={dish.imageUrl} alt={dish.title} />
           <TitleOverlay>{dish.title}</TitleOverlay>
         </ImageContainer>
         {isSelected &&
-          <p>{dish.ingredients}</p>
+          <p>{dish.description}</p>
         }
 
       </DishContainer>
@@ -30,9 +30,10 @@ const DishComponent: React.FC<DishComponentProps> = ({ key, dish, isSelected, on
 export default DishComponent;
 
 const DishContainer = styled.div<FoodProps>`
-  width: ${(props) => (props.isSelected ? '200px' : '250px')};
+  width: ${(props) => (props.isSelected ? '100%' : '250px')};
   cursor: pointer;
   margin-bottom: 20px;
+  overflow: visible;
   /* width: 250px; */
   @media (max-width: 768px) {
     width: calc(50% - 10px);
@@ -43,7 +44,7 @@ const DishContainer = styled.div<FoodProps>`
 const ImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 300px;
 `;
 
 const DishImage = styled.img`
