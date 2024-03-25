@@ -9,7 +9,6 @@ const MenuPage = () => {
       </div>
 
       <div>
-        
         <Link to="/order">
           <button>Min beställning</button>
         </Link>
