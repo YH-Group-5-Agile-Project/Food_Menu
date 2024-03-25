@@ -6,17 +6,17 @@ type FoodProps = {
   color: string;
   width?: string;
   height?: string;
+  isBig: boolean;
 }
-
-const Wrapper = styled.div`
-  margin: 0 auto;
-`
 
 const StyledFood = styled.div<FoodProps>`
   background-color: ${(props) => props.color};
-  width: ${(props) => props.width || '300px'};
-  height: ${(props) => props.height || 'auto'};
+  width: ${(props) => (props.isBig ? '90%' : '200px')};
+  /* height: ${(props) => (props.isBig ? '400px' : '250px')}; */
+  margin: ${(props) => (props.isBig ? '100px 200px' : '0')};
+  flex: 0 0 30%;
   position: relative;
+  transition: all 1s ease;
 
   h2 {
     position: absolute;
@@ -39,35 +39,22 @@ const StyledFood = styled.div<FoodProps>`
 `
 
 interface DishComponentProps {
+  key: number
   dish: MainDish
+  isBig: boolean
+  onClick: () => void
 }
 
 
 
-const DishComponent: React.FC<DishComponentProps> = ({ dish }) => {
-
-  const [isBig,setIsBig] = useState(true);
-
-  const handleClick = () => {
-    setIsBig(!isBig)
-  }
+const DishComponent: React.FC<DishComponentProps> = ({ key, dish, isBig }) => {
   
   return (
-    <Wrapper onClick={handleClick}>
-      {isBig ? (
-        <StyledFood color="blue">
-          <h2>{dish.title}</h2>
-          <img src={dish.imageUrl} width={250} height={250} alt={dish.title} >
-          </img>
-        </StyledFood>
-      ):(
-        <StyledFood color="red">
-          <h2>{dish.title}</h2>
-          <img src={dish.imageUrl} width={250} height={250} alt={dish.title} ></img>
-          <p>{dish.description}</p>
-        </StyledFood>
-      )}
-    </Wrapper>
+      <StyledFood color={isBig ? 'blue' : 'red'} isBig={isBig}>
+        <h2>{dish.title}</h2>
+        <img src={dish.imageUrl} width={200} alt={dish.title} ></img>
+        {isBig && <p>{dish.description}</p>}
+      </StyledFood>
   );
 };
 

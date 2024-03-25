@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import DishComponent from "./DishComponent";
 import { MainDish } from "../Models/MainDish";
+import { styled } from "styled-components";
 
 
 export const MainDishComponent = () => {
@@ -14,14 +15,36 @@ export const MainDishComponent = () => {
         });
             
     }, [])
-    
 
- return (mainDish?.map(dish => <DishComponent dish={dish}/>))
-    
+    const [bigCard, setBigCard] = useState<number | null>(null);
+
+    const HandleClick = (index: number) => {
+        setBigCard(index === bigCard ? null : index);
+    }
+
+ return (
+    <DisplayWrapper>
+        {(mainDish?.map((dish, index) => 
+        <DishComponent 
+            key={index}
+            dish={dish}
+            isBig={index === bigCard}
+            onClick={() => HandleClick(index)}            
+        />))}
+    </DisplayWrapper>
+ )
         
 
 };
 
+
+const DisplayWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 20px;
+    gap: 20px;
+`
 
 
 
