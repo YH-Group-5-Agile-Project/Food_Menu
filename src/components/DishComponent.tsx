@@ -208,6 +208,6 @@ const TextContainer = styled.div<FoodProps>`
   }
 `;
 
-const StyledButton = styled.button<FoodProps>`
+const StyledButton = styled.button`
   margin: 20px;
 `;
