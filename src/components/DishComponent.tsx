@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MainDish } from "../Models/MainDish";
 
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
 
 interface DishComponentProps {
@@ -177,13 +177,13 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
+  transition: all 0.3s ease-in-out;
 
   ${(props) =>
     props.isSelected &&
     css`
       opacity: 1;
-      max-height: 1500px;
-      transition: max-height 0.8s ease-in-out;
+      max-height: 1200px;
     `}
 
   @media (prefers-color-scheme: light) {
