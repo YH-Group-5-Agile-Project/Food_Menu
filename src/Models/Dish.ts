@@ -5,7 +5,7 @@ export type Ingredient = {
   _id: string;
 };
 
-export type MainDish = {
+export type Dish = {
   title: string;
   description: string;
   imageUrl: string;

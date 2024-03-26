@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MainDish as Dish } from "../Models/Dish";
+import { Dish } from "../Models/Dish";
 import { GetDishes } from "../services/DbService";
 
   interface AddToCartPopupProps {

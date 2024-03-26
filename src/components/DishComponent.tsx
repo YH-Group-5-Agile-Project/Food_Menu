@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MainDish as Dish } from "../Models/Dish";
+import { Dish } from "../Models/Dish";
 
 import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
