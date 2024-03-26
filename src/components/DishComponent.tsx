@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { MainDish } from "../Models/MainDish";
+import { MainDish as Dish } from "../Models/Dish";
 
 import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
 
 interface DishComponentProps {
   key: number;
-  dish: MainDish;
+  dish: Dish;
   isSelected: boolean;
   onClick: () => void;
 }
@@ -21,9 +21,8 @@ const DishComponent: React.FC<DishComponentProps> = ({
   onClick,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const handleAddToCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  
+  const handleAddToCartClick = () => {
     setIsPopupOpen(true);
   };
   const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);

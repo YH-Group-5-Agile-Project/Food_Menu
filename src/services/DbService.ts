@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { MainDish } from "../Models/MainDish";
+import { MainDish } from "../Models/Dish";
 
 
-interface dishInput {
-    dishType: string;
-}
+// interface dishInput {
+//     dishType: string;
+// }
 
-export const GetAllMainDishes = ({ dishType }: dishInput) => {
+export const GetDishes = (dishType: string) => {
 
 const [mainDish, setMainDish] = useState<MainDish[]>();
     useEffect(() => {
