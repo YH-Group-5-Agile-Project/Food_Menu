@@ -1,24 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DishComponent from "./DishComponent";
-import { MainDish } from "../Models/MainDish";
+import { GetAllMainDishes } from "../services/DbService";
+// import { MainDish } from "../Models/MainDish";
 import styled from "styled-components";
 
-export const MainDishComponent = () => {
-  const [mainDish, setMainDish] = useState<MainDish[]>();
-  const [selectedDish, setSelectedDish] = useState<number | null>(null);
+interface dishInput {
+  dishType: string;
+}
 
-  useEffect(() => {
-    fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`)
-      .then((res) => res.json())
-      .then((data) => setMainDish(data));
-  }, []);
+export const MainDishComponent = ({ dishType }: dishInput) => {
+  const [selectedDish, setSelectedDish] = useState<number | null>(null);
+  const mainDish = GetAllMainDishes({ dishType: dishType });
 
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
   };
 
   return (
-    <DishesContainer>
+    <DishesContainer isSelected={selectedDish !== null}>
       {mainDish?.map((dish, index) => (
         <DishComponent
           key={index}
@@ -31,11 +30,17 @@ export const MainDishComponent = () => {
   );
 };
 
-const DishesContainer = styled.div`
+const DishesContainer = styled.div<{ isSelected: boolean }>`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  max-width: 100%;
   justify-content: center;
+  ${(props) =>
+    props.isSelected &&
+    `
+    margin-bottom: 400px;
+  `}
 
   @media (max-width: 768px) {
     justify-content: space-between;
