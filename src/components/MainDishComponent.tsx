@@ -28,12 +28,12 @@ export const MainDishComponent = () => {
         ))}
       </DishesContainer>
       {selectedDish && (
-        <div>
+        <Test>
           <DetailedDishComponent
             dish={selectedDish}
             onClose={() => setSelectedDish(null)}
           />
-        </div>
+        </Test>
       )}
     </>
   );
@@ -61,6 +61,10 @@ export const MainDishComponent = () => {
   );
 };
 */
+
+const Test = styled.div`
+  margin: 20px;
+`;
 
 const DishesContainer = styled.div`
   display: flex;
