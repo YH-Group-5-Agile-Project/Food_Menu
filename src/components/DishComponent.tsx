@@ -39,9 +39,9 @@ const DishComponent: React.FC<DishComponentProps> = ({ dish, isSelected, onClick
               <h3>{dish.title}</h3>
               <p>{dish.description}</p>
             </TextContainer>
-              <button style={{zIndex:3}} onClick={handleAddToCartClick}>Add to Cart</button>
-              {isPopupOpen && <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />}
+            <button onClick={handleAddToCartClick}>Add to Cart</button>
           </ExpandedDish>
+            {isPopupOpen && <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />}
       </DishContainer>
   );
 };
