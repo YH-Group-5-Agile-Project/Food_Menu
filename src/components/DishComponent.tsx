@@ -133,6 +133,7 @@ const TitleOverlay = styled.div`
 const ExpandedDish = styled.div<FoodProps>`
   position: absolute;
   background-color: #242424;
+  color: rgba(255, 255, 255, 0.87);
   text-align: left;
   left: 0px;
   min-width: 200px;
@@ -150,9 +151,14 @@ const ExpandedDish = styled.div<FoodProps>`
   
   ${(props) => props.isSelected && css`
     opacity: 1;
-    max-height: 600px;
-    transition: all .8s ease-in-out;
+    max-height: 1500px;
+    transition: max-height .8s ease-in-out;
     `
+  }
+
+  @media (prefers-color-scheme: light) {
+      color: #213547;
+      background-color: #ffffff;
   }
 
 
@@ -166,7 +172,9 @@ const ExpandedDish = styled.div<FoodProps>`
 const TextContainer = styled.div<FoodProps>`
   width: 100%;
   margin-top: 200px;
+  margin-bottom: 1150px;
   overflow-wrap: break-word;
+  overflow-y: auto;
 
   @media (max-width: 768px) {
     font-size: 2.5vw;
