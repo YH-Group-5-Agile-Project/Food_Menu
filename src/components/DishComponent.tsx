@@ -97,15 +97,6 @@ const ImageContainer = styled.div<FoodProps>`
   position: relative;
   width: 250px;
   height: 250px;
-  ${(props) =>
-    props.isSelected &&
-    `
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    top: 0;
-    left: 20px;
-  `}
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
@@ -176,7 +167,7 @@ const ExpandedDish = styled.div<FoodProps>`
   max-width: 100vw;
   max-height: 0;
   overflow: hidden;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   z-index: 1;
   display: flex;
   flex-flow: column;
@@ -207,13 +198,11 @@ const ExpandedDish = styled.div<FoodProps>`
 
 const TextContainer = styled.div<FoodProps>`
   width: 100%;
-  margin-top: 200px;
   margin-bottom: 30px;
   overflow-wrap: break-word;
   overflow-y: auto;
 
   @media (max-width: 768px) {
     font-size: 2.5vw;
-    margin-top: 100px;
   }
 `;
