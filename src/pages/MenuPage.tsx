@@ -5,7 +5,7 @@ const MenuPage = () => {
   return (
     <>
       <div>
-        <MainDishComponent dishType="mainDish"/>
+        <MainDishComponent dishType="mainDish" />
       </div>
 
       <div>
