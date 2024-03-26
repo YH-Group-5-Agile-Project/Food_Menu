@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MainDish } from "../Models/MainDish";
-import { FaCocktail } from "react-icons/fa";
 
 import styled, { css, keyframes } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
