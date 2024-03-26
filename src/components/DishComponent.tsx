@@ -47,7 +47,7 @@ const DishComponent: React.FC<DishComponentProps> = ({
           <DishImage src={dish.imageUrl} alt={dish.title} />
         </ImageContainer>
         <TextContainer isSelected={isSelected}>
-          <h3>{dish.title}</h3>
+          <DishTitle>{dish.title}</DishTitle>
           <DishDescription>
             <strong>Description: </strong>
             {dish.description}
@@ -157,6 +157,10 @@ const DishDescription = styled.p`
   text-align: left;
 `;
 
+const DishTitle = styled.h2`
+  margin: 10px;
+`;
+
 const ExpandedDish = styled.div<FoodProps>`
   position: absolute;
   background-color: #242424;
@@ -173,19 +177,19 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
-  
-  ${(props) => props.isSelected && css`
-    opacity: 1;
-    max-height: 1500px;
-    transition: max-height .8s ease-in-out;
-    `
-  }
+
+  ${(props) =>
+    props.isSelected &&
+    css`
+      opacity: 1;
+      max-height: 1500px;
+      transition: max-height 0.8s ease-in-out;
+    `}
 
   @media (prefers-color-scheme: light) {
-      color: #213547;
-      background-color: #ffffff;
+    color: #213547;
+    background-color: #ffffff;
   }
-
 
   @media (max-width: 768px) {
     font-size: 2.5vw;
