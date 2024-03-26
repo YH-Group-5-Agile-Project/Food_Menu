@@ -208,7 +208,7 @@ const ExpandedDish = styled.div<FoodProps>`
 const TextContainer = styled.div<FoodProps>`
   width: 100%;
   margin-top: 200px;
-  margin-bottom: 1150px;
+  margin-bottom: 30px;
   overflow-wrap: break-word;
   overflow-y: auto;
 
