@@ -56,7 +56,7 @@ const DishComponent: React.FC<DishComponentProps> = ({
             {ingredients}.
           </DishIngredients>
         </TextContainer>
-        <button onClick={handleAddToCartClick}>Add to Cart</button>
+          <StyledButton onClick={handleAddToCartClick}>Add to Cart</StyledButton>        
       </ExpandedDish>
       {isPopupOpen && (
         <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />
@@ -168,7 +168,6 @@ const ExpandedDish = styled.div<FoodProps>`
   max-width: 100vw;
   max-height: 0;
   overflow: hidden;
-  padding: 0 20px 20px 20px;
   z-index: 1;
   display: flex;
   flex-flow: column;
@@ -176,7 +175,7 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
-  transition: all 0.3s ease-in-out;
+  transition: all .3s ease-in-out;
 
   ${(props) =>
     props.isSelected &&
@@ -207,4 +206,8 @@ const TextContainer = styled.div<FoodProps>`
   @media (max-width: 768px) {
     font-size: 2.5vw;
   }
+`;
+
+const StyledButton = styled.button<FoodProps>`
+  margin: 20px;
 `;
