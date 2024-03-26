@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DishComponent from "./DishComponent";
-import { GetAllMainDishes } from "../services/DbService";
+import { GetDishes } from "../services/DbService";
 // import { MainDish } from "../Models/MainDish";
 import styled from "styled-components";
 
@@ -9,10 +9,9 @@ interface dishInput {
     dishType: string;
 }
 
-
 export const MainDishComponent = ({ dishType }: dishInput) => {
     const [selectedDish, setSelectedDish] = useState<number | null>(null);
-    const mainDish = GetAllMainDishes( { dishType: dishType })
+    const mainDish = GetDishes(dishType)
 
   const HandleClick = (index : number) => {
     setSelectedDish(index === selectedDish ? null : index);

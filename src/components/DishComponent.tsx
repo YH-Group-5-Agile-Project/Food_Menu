@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { MainDish } from "../Models/MainDish";
+import { MainDish as Dish } from "../Models/Dish";
 
 import styled, { css, keyframes } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
 
 interface DishComponentProps {
   key: number;
-  dish: MainDish;
+  dish: Dish;
   isSelected: boolean;
   onClick: () => void;
 }
@@ -18,8 +18,7 @@ interface FoodProps {
 const DishComponent: React.FC<DishComponentProps> = ({ dish, isSelected, onClick }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   
-  const handleAddToCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  const handleAddToCartClick = () => {
     setIsPopupOpen(true);
   };
 
