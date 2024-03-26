@@ -26,7 +26,16 @@ const DishComponent: React.FC<DishComponentProps> = ({
     event.stopPropagation();
     setIsPopupOpen(true);
   };
-
+  const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
+  let ingredients;
+  if (ingredientsList.length > 1) {
+    ingredients =
+      ingredientsList.slice(0, -1).join(", ") +
+      " and " +
+      ingredientsList.slice(-1);
+  } else {
+    ingredients = ingredientsList[0] || "";
+  }
   return (
     <DishContainer isSelected={isSelected} onClick={onClick}>
       <ImageContainer isSelected={isSelected}>
@@ -39,7 +48,14 @@ const DishComponent: React.FC<DishComponentProps> = ({
         </ImageContainer>
         <TextContainer isSelected={isSelected}>
           <h3>{dish.title}</h3>
-          <p>{dish.description}</p>
+          <DishDescription>
+            <strong>Description: </strong>
+            {dish.description}
+          </DishDescription>
+          <DishIngredients>
+            <strong>Ingredients: </strong>
+            {ingredients}.
+          </DishIngredients>
         </TextContainer>
         <button onClick={handleAddToCartClick}>Add to Cart</button>
       </ExpandedDish>
@@ -139,6 +155,15 @@ const TitleOverlay = styled.div`
   @media (min-width: 1024px) {
     font-size: 16px;
   }
+`;
+
+const DishIngredients = styled.div`
+  text-align: left;
+`;
+
+const DishDescription = styled.p`
+  margin: 10px 0;
+  text-align: left;
 `;
 
 const ExpandedDish = styled.div<FoodProps>`
