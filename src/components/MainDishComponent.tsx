@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DishComponent from "./DishComponent";
 import { GetDishes } from "../services/DbService";
+// import { MainDish } from "../Models/MainDish";
 import styled from "styled-components";
 
 interface dishInput {
