@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MainDish as Dish } from "../Models/Dish";
 
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
 
 interface DishComponentProps {
@@ -15,33 +15,53 @@ interface FoodProps {
   isSelected: boolean;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({ dish, isSelected, onClick }) => {
+const DishComponent: React.FC<DishComponentProps> = ({
+  dish,
+  isSelected,
+  onClick,
+}) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   
   const handleAddToCartClick = () => {
     setIsPopupOpen(true);
   };
-
+  const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
+  let ingredients;
+  if (ingredientsList.length > 1) {
+    ingredients =
+      ingredientsList.slice(0, -1).join(", ") +
+      " and " +
+      ingredientsList.slice(-1);
+  } else {
+    ingredients = ingredientsList[0] || "";
+  }
   return (
-      <DishContainer isSelected={isSelected} onClick={onClick} >
+    <DishContainer isSelected={isSelected} onClick={onClick}>
+      <ImageContainer isSelected={isSelected}>
+        <DishImage src={dish.imageUrl} alt={dish.title} />
+        {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
+      </ImageContainer>
+      <ExpandedDish isSelected={isSelected}>
         <ImageContainer isSelected={isSelected}>
           <DishImage src={dish.imageUrl} alt={dish.title} />
-          {!isSelected && (
-            <TitleOverlay>{dish.title}</TitleOverlay>
-          )}
-        </ImageContainer> 
-          <ExpandedDish isSelected={isSelected}>
-            <ImageContainer isSelected={isSelected}>
-              <DishImage src={dish.imageUrl} alt={dish.title} />
-            </ImageContainer>
-            <TextContainer isSelected={isSelected}>
-              <h3>{dish.title}</h3>
-              <p>{dish.description}</p>
-            </TextContainer>
-            <button onClick={handleAddToCartClick}>Add to Cart</button>
-          </ExpandedDish>
-            {isPopupOpen && <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />}
-      </DishContainer>
+        </ImageContainer>
+        <TextContainer isSelected={isSelected}>
+          <DishTitle>{dish.title}</DishTitle>
+          <DishDescription>
+            <strong>Description: </strong>
+            {dish.description}
+          </DishDescription>
+          <DishIngredients>
+            <strong>Ingredients: </strong>
+            {ingredients}.
+          </DishIngredients>
+        </TextContainer>
+        <button onClick={handleAddToCartClick}>Add to Cart</button>
+      </ExpandedDish>
+      {isPopupOpen && (
+        <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />
+      )}
+    </DishContainer>
   );
 };
 
@@ -55,14 +75,18 @@ const DishContainer = styled.div<FoodProps>`
   width: calc(33.33% - 20px);
   margin-bottom: 20px;
 
-  ${(props) => props.isSelected && `
+  ${(props) =>
+    props.isSelected &&
+    `
     z-index: 1;
   `}
 
-  @media (max-width: 768px) {
+  @media (max-width: 885px) {
     width: calc(50% - 10px);
     margin-bottom: 20px;
-    ${(props) => props.isSelected && `
+    ${(props) =>
+      props.isSelected &&
+      `
       z-index: 1;
   `}
   }
@@ -72,19 +96,14 @@ const ImageContainer = styled.div<FoodProps>`
   position: relative;
   width: 250px;
   height: 250px;
-  ${(props) => props.isSelected && `
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    top: 0;
-    left: 20px;
-  `}
   transition: all 0.3s ease;
 
-  @media (max-width: 768px) {
+  @media (max-width: 550px) {
     width: 150px;
-    height:150px;
-    ${(props) => props.isSelected && `
+    height: 150px;
+    ${(props) =>
+      props.isSelected &&
+      `
     width: 100px;
     height: 100px;
   `}
@@ -113,13 +132,13 @@ const TitleOverlay = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2em;
-  font-size: calc(2.5vw + 2.5vh + 0.5vmin);
+  font-size: calc(1.5vw + 2.5vh + 0.5vmin);
 
-  @media (max-width: 768px) {
-    font-size: 2.5vw;
+  @media (max-width: 500px) {
+    font-size: 0.5em;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 501px) {
     font-size: 1.5vw;
   }
 
@@ -128,17 +147,28 @@ const TitleOverlay = styled.div`
   }
 `;
 
+const DishIngredients = styled.div`
+  text-align: left;
+`;
+
+const DishDescription = styled.p`
+  margin: 10px 0;
+  text-align: left;
+`;
+
+const DishTitle = styled.h2`
+  margin: 10px;
+`;
 
 const ExpandedDish = styled.div<FoodProps>`
   position: absolute;
   background-color: #242424;
-  text-align: left;
-  left: 0px;
+  color: rgba(255, 255, 255, 0.87);
   min-width: 200px;
   max-width: 100vw;
   max-height: 0;
   overflow: hidden;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   z-index: 1;
   display: flex;
   flex-flow: column;
@@ -146,29 +176,35 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
-  
-  ${(props) => props.isSelected && css`
-    opacity: 1;
-    max-height: 600px;
-    transition: all .8s ease-in-out;
-    `
-  }
+  transition: all 0.3s ease-in-out;
 
+  ${(props) =>
+    props.isSelected &&
+    css`
+      opacity: 1;
+      max-height: 1200px;
+    `}
+
+  @media (prefers-color-scheme: light) {
+    color: #213547;
+    background-color: #ffffff;
+  }
 
   @media (max-width: 768px) {
     font-size: 2.5vw;
-    min-width: 100px;
-    max-width: 100px;
+    padding: 0 5px 5px 5px;
+    min-width: 150px;
+    max-width: 100%;
   }
 `;
 
 const TextContainer = styled.div<FoodProps>`
   width: 100%;
-  margin-top: 200px;
+  margin-bottom: 30px;
   overflow-wrap: break-word;
+  overflow-y: auto;
 
   @media (max-width: 768px) {
     font-size: 2.5vw;
-    margin-top: 100px;
   }
 `;
