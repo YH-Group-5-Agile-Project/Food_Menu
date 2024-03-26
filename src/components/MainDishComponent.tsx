@@ -33,7 +33,7 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
 const DishesContainer = styled.div<{ isSelected: boolean }>`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 2px;
   max-width: 100%;
   justify-content: center;
   ${(props) =>

@@ -82,7 +82,7 @@ const DishContainer = styled.div<FoodProps>`
     z-index: 1;
   `}
 
-  @media (max-width: 768px) {
+  @media (max-width: 885px) {
     width: calc(50% - 10px);
     margin-bottom: 20px;
     ${(props) =>
@@ -99,7 +99,7 @@ const ImageContainer = styled.div<FoodProps>`
   height: 250px;
   transition: all 0.3s ease;
 
-  @media (max-width: 768px) {
+  @media (max-width: 550px) {
     width: 150px;
     height: 150px;
     ${(props) =>
@@ -133,13 +133,13 @@ const TitleOverlay = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2em;
-  font-size: calc(2.5vw + 2.5vh + 0.5vmin);
+  font-size: calc(1.5vw + 2.5vh + 0.5vmin);
 
-  @media (max-width: 768px) {
-    font-size: 2.5vw;
+  @media (max-width: 500px) {
+    font-size: .5em;
   }
 
-  @media (min-width: 769px) {
+  @media (min-width: 501px) {
     font-size: 1.5vw;
   }
 
@@ -161,8 +161,6 @@ const ExpandedDish = styled.div<FoodProps>`
   position: absolute;
   background-color: #242424;
   color: rgba(255, 255, 255, 0.87);
-  text-align: left;
-  left: 0px;
   min-width: 200px;
   max-width: 100vw;
   max-height: 0;
@@ -191,8 +189,9 @@ const ExpandedDish = styled.div<FoodProps>`
 
   @media (max-width: 768px) {
     font-size: 2.5vw;
-    min-width: 100px;
-    max-width: 100px;
+    padding: 0 5px 5px 5px;
+    min-width: 150px;
+    max-width: 100%;
   }
 `;
 
