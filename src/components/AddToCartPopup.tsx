@@ -1,39 +1,70 @@
 import styled from "styled-components";
-import { MainDish } from "../Models/MainDish";
+import { MainDish as Dish } from "../Models/Dish";
+import { GetDishes } from "../services/DbService";
 
   interface AddToCartPopupProps {
-    dish: MainDish;
+    dish: Dish;
     onClose: () => void;
   }
 
+const sendToCart = (dish: Dish, sideDish: Dish) => {
+  
+}
+
 export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
-        /* const [quantity, setQuantity] = useState(1);
-      
-        const handleQuantityChange = (event) => {
-          setQuantity(parseInt(event.target.value));
-        };
-      
-        const handleAddToCart = () => {
-          // Add item to cart logic (using your cart state management approach)
-          console.log(`Adding ${quantity} of ${foodItem.name} to cart`);
-          onClose(); // Close the popup
-        }; */
-       
+       let sideDishes = GetDishes("sideDish");
         return (
             <>
             <a onClick={onClose}><Overlay/></a>
-            <PopupContainer className="add-to-cart-popup">
-              <h3>{dish.title}</h3>
-                <h2>Choose side</h2>
-
-        {/*         <button onClick={}>Add to Cart</button>
-                <button onClick={}>Close</button> */}
-
-            </PopupContainer>
+            <AntiLink onClick={(event) => event.stopPropagation()}>
+              <PopupContainer className="add-to-cart-popup">
+                <h3>{dish.title}</h3>
+                  <h2>Choose side</h2>
+                {sideDishes?.map((sideDish) =>
+                  <SideContainer onClick={() => {sendToCart(dish, sideDish), onClose()}}>
+                    <DishImage src="/src/assets/images/beefBurgerStilton.png" alt="" />
+                    <div>{sideDish.title}</div>
+                  </SideContainer>
+                )}
+              </PopupContainer>
+            </AntiLink>
             </>
         );
 }
 
+const SideContainer = styled.a`
+  border: solid 3px black;
+  border-radius: 30px;
+  display: flex;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  align-items: center;
+  font-size: 20px;
+
+  color: inherit;
+  &:hover,
+  &:focus {
+    color: black;
+    text-decoration: none;
+  }
+`
+const DishImage = styled.img`
+  width: 25%;
+  margin-right: 2rem;
+  border-radius: 20px;
+`
+
+
+
+const AntiLink = styled.a`
+  color: inherit;
+  &:hover,
+  &:focus {
+    color: inherit;
+    text-decoration: none;
+  }
+`
 
 const Overlay = styled.div`
     width: 100%;
@@ -54,7 +85,7 @@ const PopupContainer = styled.div`
     height: 30rem;
     z-index: 3;
     background-color: grey;
-
+    border-radius: 30px;
 `
 
 

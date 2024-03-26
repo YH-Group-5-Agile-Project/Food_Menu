@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DishComponent from "./DishComponent";
-import { GetAllMainDishes } from "../services/DbService";
+import { GetDishes } from "../services/DbService";
 // import { MainDish } from "../Models/MainDish";
 import styled from "styled-components";
 
@@ -9,8 +9,8 @@ interface dishInput {
 }
 
 export const MainDishComponent = ({ dishType }: dishInput) => {
-  const [selectedDish, setSelectedDish] = useState<number | null>(null);
-  const mainDish = GetAllMainDishes({ dishType: dishType });
+    const [selectedDish, setSelectedDish] = useState<number | null>(null);
+    const mainDish = GetDishes(dishType)
 
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
@@ -30,17 +30,12 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
   );
 };
 
-const DishesContainer = styled.div<{ isSelected: boolean }>`
+const DishesContainer = styled.div<{ isSelected: boolean}>`
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
   max-width: 100%;
   justify-content: center;
-  ${(props) =>
-    props.isSelected &&
-    `
-    margin-bottom: 400px;
-  `}
 
   @media (max-width: 768px) {
     justify-content: space-between;

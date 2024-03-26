@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { MainDish } from "../Models/MainDish";
-import { FaCocktail } from "react-icons/fa";
+import { MainDish as Dish } from "../Models/Dish";
 
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
 
 interface DishComponentProps {
   key: number;
-  dish: MainDish;
+  dish: Dish;
   isSelected: boolean;
   onClick: () => void;
 }
@@ -22,9 +21,8 @@ const DishComponent: React.FC<DishComponentProps> = ({
   onClick,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const handleAddToCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  
+  const handleAddToCartClick = () => {
     setIsPopupOpen(true);
   };
   const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
@@ -59,7 +57,6 @@ const DishComponent: React.FC<DishComponentProps> = ({
           </DishIngredients>
         </TextContainer>
         <button onClick={handleAddToCartClick}>Add to Cart</button>
-        <FaCocktail />
       </ExpandedDish>
       {isPopupOpen && (
         <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />
@@ -179,13 +176,13 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
+  transition: all 0.3s ease-in-out;
 
   ${(props) =>
     props.isSelected &&
     css`
       opacity: 1;
-      max-height: 1500px;
-      transition: max-height 0.8s ease-in-out;
+      max-height: 1200px;
     `}
 
   @media (prefers-color-scheme: light) {
