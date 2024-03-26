@@ -136,7 +136,7 @@ const TitleOverlay = styled.div`
   font-size: calc(1.5vw + 2.5vh + 0.5vmin);
 
   @media (max-width: 500px) {
-    font-size: .5em;
+    font-size: 0.5em;
   }
 
   @media (min-width: 501px) {
