@@ -8,7 +8,10 @@ import { GetDishes } from "../services/DbService";
   }
 
 const sendToCart = (dish: Dish, sideDish: Dish) => {
-  
+  // CartService(dish);
+  // sideDish.price = 0;
+  // CartService(sideDish);
+  alert(`${dish.title} \nwith \n${sideDish.title} added`)
 }
 
 export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
