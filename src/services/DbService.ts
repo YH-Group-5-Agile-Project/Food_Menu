@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MainDish } from "../Models/Dish";
+import { Dish } from "../Models/Dish";
 
 
 // interface dishInput {
@@ -8,7 +8,7 @@ import { MainDish } from "../Models/Dish";
 
 export const GetDishes = (dishType: string) => {
 
-const [mainDish, setMainDish] = useState<MainDish[]>();
+const [mainDish, setMainDish] = useState<Dish[]>();
     useEffect(() => {
         fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`)
         .then((res) => res.json())

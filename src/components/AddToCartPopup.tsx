@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MainDish as Dish } from "../Models/Dish";
+import { Dish } from "../Models/Dish";
 import { GetDishes } from "../services/DbService";
 
   interface AddToCartPopupProps {
@@ -8,7 +8,10 @@ import { GetDishes } from "../services/DbService";
   }
 
 const sendToCart = (dish: Dish, sideDish: Dish) => {
-  
+  // CartService(dish);
+  // sideDish.price = 0;
+  // CartService(sideDish);
+  alert(`${dish.title} \nwith \n${sideDish.title} added`)
 }
 
 export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
