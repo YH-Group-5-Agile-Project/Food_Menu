@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { Navbar } from "../components/NavbarComponent";
 
-const Sidepage = () => {
+const SidePage = () => {
   return (
     <>
+        <Navbar/>
+    
       <div>
         <h1>Sides</h1>
         <p>Här kommer det finnas olika Sides att välja på.</p>
@@ -45,4 +48,4 @@ const Sidepage = () => {
   );
 };
 
-export default Sidepage;
+export default SidePage;

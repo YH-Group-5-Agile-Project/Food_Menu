@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { MainDishComponent } from "../components/MainDishComponent";
+import { Navbar } from "../components/NavbarComponent";
 
 const MenuPage = () => {
   return (
     <>
-    <div>
-      
-    </div>
+    
+    <Navbar/>
+  
       <div>
         <ul><MainDishComponent /></ul>
       </div>

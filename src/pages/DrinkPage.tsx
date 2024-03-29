@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { Navbar } from "../components/NavbarComponent";
 
 const DrinkPage = () => {
   return (
     <>
+
+      <Navbar/>
       <div>
         <h1>Drinkar</h1>
         <p>Här kommer det finnas olika drinkar att välja på.</p>
