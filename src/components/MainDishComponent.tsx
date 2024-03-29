@@ -1,27 +1,43 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import DishComponent from "./DishComponent";
-import { MainDish } from "../Models/MainDish";
+import { GetDishes } from "../services/DbService";
+// import { MainDish } from "../Models/MainDish";
+import styled from "styled-components";
 
+interface dishInput {
+  dishType: string;
+}
 
-export const MainDishComponent = () => {
-    const [mainDish, setMainDish] = useState<MainDish[]>();
-    useEffect(() => {
-        fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            setMainDish(data)
-        });
-            
-    }, [])
-    
+export const MainDishComponent = ({ dishType }: dishInput) => {
+    const [selectedDish, setSelectedDish] = useState<number | null>(null);
+    const mainDish = GetDishes(dishType)
 
- return (mainDish?.map(dish => <DishComponent dish={dish}/>))
-    
-        
+  const HandleClick = (index: number) => {
+    setSelectedDish(index === selectedDish ? null : index);
+  };
 
+  return (
+    <DishesContainer isSelected={selectedDish !== null}>
+      {mainDish?.map((dish, index) => (
+        <DishComponent
+          key={index}
+          dish={dish}
+          isSelected={index === selectedDish}
+          onClick={() => HandleClick(index)}
+        />
+      ))}
+    </DishesContainer>
+  );
 };
 
-//Vi kan hämta data från apiet men ImageUrl funkar ej.
-//Det är inget fel i datan, utan hur vi försöker implementera det.
-//Till Allex: Lägg in alla dbilder och commita det så vi alla får dem i projektet.
+const DishesContainer = styled.div<{ isSelected: boolean}>`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  max-width: 100%;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    justify-content: space-between;
+  }
+`;

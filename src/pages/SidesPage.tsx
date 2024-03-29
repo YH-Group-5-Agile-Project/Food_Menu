@@ -1,22 +1,19 @@
 import { Link } from "react-router-dom";
 import { MainDishComponent } from "../components/MainDishComponent";
-import { Navbar } from "../components/NavbarComponent";
 
 const MenuPage = () => {
   return (
     <>
-    
-    <Navbar/>
-  
       <div>
-        <MainDishComponent dishType="mainDish" />
+        <ul><MainDishComponent dishType="sideDish"/></ul>
       </div>
 
       <div>
-        <Link to="/order">
-          <button>Min beställning</button>
+        
+        <Link to="/menu">
+          <button>Tillbaka</button>
         </Link>
-        <Link to="/sides">
+        <Link to="/drink">
           <button>Nästa steg</button>
         </Link>
       </div>
