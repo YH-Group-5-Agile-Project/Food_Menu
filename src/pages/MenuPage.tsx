@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { MainDishComponent } from "../components/MainDishComponent";
 import { Navbar } from "../components/NavbarComponent";
 
+
+
 const MenuPage = () => {
   return (
     <>
+    <Navbar currentPage="menu" />
     
-    <Navbar/>
   
       <div>
         <MainDishComponent dishType="mainDish" />

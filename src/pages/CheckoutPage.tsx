@@ -6,7 +6,7 @@ const CheckoutPage = () => {
   let navigate = useNavigate();
   return (
     <>
-    <Navbar/>
+    <Navbar currentPage="checkout" />
     <div>
       <h1>Min beställning</h1>
       <p>Här kommer du att se alla val du gjort</p>

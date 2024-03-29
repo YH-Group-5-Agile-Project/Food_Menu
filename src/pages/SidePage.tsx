@@ -4,7 +4,7 @@ import { Navbar } from "../components/NavbarComponent";
 const SidePage = () => {
   return (
     <>
-        <Navbar/>
+        <Navbar currentPage="sides" />
     
       <div>
         <h1>Sides</h1>

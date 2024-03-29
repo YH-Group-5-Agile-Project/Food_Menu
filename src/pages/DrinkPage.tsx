@@ -5,7 +5,7 @@ const DrinkPage = () => {
   return (
     <>
 
-      <Navbar/>
+      <Navbar currentPage="drink" />
       <div>
         <h1>Drinkar</h1>
         <p>Här kommer det finnas olika drinkar att välja på.</p>
