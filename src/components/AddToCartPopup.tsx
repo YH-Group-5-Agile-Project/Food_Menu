@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
 import { GetDishes } from "../services/DbService";
+import { Link } from "react-router-dom";
 
   interface AddToCartPopupProps {
     dish: Dish;
@@ -24,10 +25,13 @@ export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
                 <h3>{dish.title}</h3>
                   <h2>Choose side</h2>
                 {sideDishes?.map((sideDish) =>
-                  <SideContainer onClick={() => {sendToCart(dish, sideDish), onClose()}}>
+                <Link to="/order">
+                    <SideContainer onClick={() => {sendToCart(dish, sideDish), onClose()}}>
                     <DishImage src="/src/assets/images/beefBurgerStilton.png" alt="" />
                     <div>{sideDish.title}</div>
                   </SideContainer>
+                </Link>
+                  
                 )}
               </PopupContainer>
             </AntiLink>
