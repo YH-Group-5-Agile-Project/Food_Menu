@@ -4,6 +4,7 @@ import MenuPage from "./pages/MenuPage";
 import SidesPage from "./pages/SidesPage";
 
 import "./App.css";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} /> 
         <Route path="/sides" element={<SidesPage />} />
+        <Route path="/order" element={<CheckoutPage/>} />
       </Routes>
     </Router>
   );
