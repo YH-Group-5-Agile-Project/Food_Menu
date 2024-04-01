@@ -38,8 +38,8 @@ const DrinkPage = () => {
       </div>
 
       <div>
-        <Link to="/menu">
-          <button>Menysida</button>
+        <Link to="/sides">
+          <button>Tillbaka</button>
         </Link>
         <Link to="/order">
           <button>Min beställning</button>

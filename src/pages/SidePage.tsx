@@ -35,13 +35,13 @@ const SidePage = () => {
 
       <div>
         <Link to="/menu">
-          <button>Menysida</button>
+          <button>Tillbaka</button>
         </Link>
         <Link to="/order">
           <button>Min beställning</button>
         </Link>
-        <Link to="/checkout">
-          <button>Till betalning</button>
+        <Link to="/drink">
+          <button>Nästa steg</button>
         </Link>
       </div>
     </>

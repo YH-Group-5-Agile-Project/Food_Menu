@@ -10,15 +10,16 @@ const NavbarContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-// Define styles for the individual menu items
-interface MenuItemProps {
-  isActive: boolean; // Define isActive prop to determine if the link is active
+interface MenuItemProps 
+{
+  isActive: boolean;
 }
 
 const MenuItem = styled(NavLink)<MenuItemProps>`
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
+  min-width: 200px;
   width: 25%;
   height: 100%;
   padding: 10px;
