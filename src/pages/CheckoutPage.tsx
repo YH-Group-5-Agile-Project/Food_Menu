@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Navbar } from "../components/NavbarComponent";
 
 const CheckoutPage = () => {
   let navigate = useNavigate();
   return (
+    <>
+    <Navbar currentPage="checkout" />
     <div>
       <h1>Min beställning</h1>
       <p>Här kommer du att se alla val du gjort</p>
@@ -13,6 +16,8 @@ const CheckoutPage = () => {
         <button>Beställ</button>
       </Link>
     </div>
+    </>
+    
   );
 };
 
