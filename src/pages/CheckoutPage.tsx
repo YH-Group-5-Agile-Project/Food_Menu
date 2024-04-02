@@ -6,7 +6,11 @@ import { GetCart } from "../services/CartService";
 
 const CheckoutPage = () => {
   let navigate = useNavigate();
-  const [cart, setCart] = useState<Cart>(null);
+  const [cart, setCart] = useState<Cart>({
+    id: 0,
+    OrderList: [],
+    TotalCost: 0
+  });
   // Load
   setCart(GetCart());
   return (
@@ -17,7 +21,7 @@ const CheckoutPage = () => {
       <ul>
         {cart.OrderList.map(order => (
           <li key={order.id}>
-            Main: {order.main.title}
+            Main: {order.main.title} Side: {order.sides.title}
           </li>
         ))}
       </ul>
