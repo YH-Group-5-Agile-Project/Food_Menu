@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Dish } from "../Models/Dish";
 import { GetDishes } from "../services/DbService";
 import { Link } from "react-router-dom";
+import { Order } from "../Models/Order";
+import { CalculateCostOrder, IncreamentId, SaveOrderToCart } from "../services/CartService";
 
   interface AddToCartPopupProps {
     dish: Dish;
@@ -9,8 +11,19 @@ import { Link } from "react-router-dom";
   }
 
 const sendToCart = (dish: Dish, sideDish: Dish) => {
+  // First SideDish is free
+  sideDish.price = 0;
+  // Create Order
+  let newOrder: Order = {
+    id: IncreamentId(),
+    main: dish,
+    sides: sideDish,
+    OrderCost: 0,
+  };
+  // Calculate price for Order
+  newOrder.OrderCost = CalculateCostOrder(newOrder);
+  SaveOrderToCart(newOrder);
   // CartService(dish);
-  // sideDish.price = 0;
   // CartService(sideDish);
   alert(`${dish.title} \nwith \n${sideDish.title} added`)
 }
