@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
+import { Cart } from "../Models/Cart";
 
 const HomePage = () => {
+  // Initialize a Cart
+  const storedCart = localStorage.getItem("cart");
+  if(!storedCart){
+    // if storedCart is null -> create
+    let cart: Cart = {
+      id: 1,
+      OrderList: [],
+      TotalCost: 0
+    }
+    SaveCart(cart);
+  }
+  
   return (
     <div>
       <h1>
