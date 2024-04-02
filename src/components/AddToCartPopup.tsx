@@ -102,6 +102,7 @@ const PopupContainer = styled.div`
     background-color: grey;
     border-radius: 30px;
     overflow: scroll;
+    overflow-x: hidden;
     padding: 10px;
 `
 
