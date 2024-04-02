@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Cart } from "../Models/Cart";
@@ -12,7 +12,9 @@ const CheckoutPage = () => {
     TotalCost: 0
   });
   // Load
-  setCart(GetCart());
+  useEffect(() => {
+    setCart(GetCart());
+  }, []) // render only first time
   return (
     <div>
       <h1>Min beställning</h1>
@@ -20,9 +22,14 @@ const CheckoutPage = () => {
       <p>och möjlighet att ta bort eventuellt val.</p>
       <ul>
         {cart.OrderList.map(order => (
-          <li key={order.id}>
-            Main: {order.main.title} Side: {order.sides.title}
-          </li>
+          <>
+            <li key={order.id}>
+                Main: {order.main.title}
+            </li>
+            <li key={order.id}>
+                Side: {order.sides.title}
+            </li>
+          </>          
         ))}
       </ul>
       <button onClick={() => navigate(-1)}>Tillbaka</button>
