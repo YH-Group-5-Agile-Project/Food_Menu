@@ -31,7 +31,7 @@ const MenuItem = styled(NavLink)<MenuItemProps>`
 `;
 
 interface NavbarProps {
-  currentPage: string; // Prop to indicate the current page
+  currentPage: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ currentPage }) => {
