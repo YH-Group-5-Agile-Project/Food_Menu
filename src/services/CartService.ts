@@ -1,3 +1,4 @@
+import { Cart } from "../Models/Cart";
 import { Order } from "../Models/Order";
 
 export const SaveOrderToCart = (order: Order): void => {
@@ -32,6 +33,17 @@ export const IncreamentId = () => {
     return id;
 }
 
-export const CalculateCost = () => {
-    let cost = 0.0;
+export const CalculateCostOrder = (order: Order) => {
+    let cost = 0;
+    cost = +order.main.price;
+    cost += +order.sides.price;
+    return cost;
+}
+
+export const CalculateCostCart = (cart: Cart) => {
+    let cost = 0;
+    cart.OrderList.forEach(order => {
+        cost += +order.OrderCost;
+    });
+    return cost;
 }
