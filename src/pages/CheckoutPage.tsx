@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Cart } from "../Models/Cart";
 import { GetCart, ResetCart } from "../services/CartService";
+import { Navbar } from "../components/NavbarComponent";
 
 const CheckoutPage = () => {
   let navigate = useNavigate();
@@ -16,6 +17,8 @@ const CheckoutPage = () => {
     setCart(GetCart());
   }, []) // render only first time
   return (
+    <>
+    <Navbar currentPage="checkout" />
     <div>
       <h1>Min beställning</h1>
       <p>Här kommer du att se alla val du gjort</p>
@@ -40,6 +43,8 @@ const CheckoutPage = () => {
         Reset Cart
       </button>
     </div>
+    </>
+    
   );
 };
 

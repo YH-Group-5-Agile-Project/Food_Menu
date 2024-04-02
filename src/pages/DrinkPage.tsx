@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { Navbar } from "../components/NavbarComponent";
 
 const DrinkPage = () => {
   return (
     <>
+
+      <Navbar currentPage="drink" />
       <div>
         <h1>Drinkar</h1>
         <p>Här kommer det finnas olika drinkar att välja på.</p>
@@ -35,8 +38,8 @@ const DrinkPage = () => {
       </div>
 
       <div>
-        <Link to="/menu">
-          <button>Menysida</button>
+        <Link to="/sides">
+          <button>Tillbaka</button>
         </Link>
         <Link to="/order">
           <button>Min beställning</button>

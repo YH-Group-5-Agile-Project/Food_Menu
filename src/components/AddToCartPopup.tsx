@@ -39,34 +39,46 @@ export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
                   <h2>Choose side</h2>
                 {sideDishes?.map((sideDish) =>
                 <Link to="/order">
-                    <SideContainer onClick={() => {sendToCart(dish, sideDish), onClose()}}>
-                    <DishImage src="/src/assets/images/beefBurgerStilton.png" alt="" />
+                  <SideContainer onClick={() => {sendToCart(dish, sideDish), onClose()}}>
+                    <DishImage src={sideDish.imageUrl} alt="" />
                     <div>{sideDish.title}</div>
                   </SideContainer>
                 </Link>
                   
                 )}
+                <CancelButton onClick={onClose}>Cancel</CancelButton>
               </PopupContainer>
             </AntiLink>
             </>
         );
 }
 
-const SideContainer = styled.a`
-  border: solid 3px black;
+const CancelButton = styled.button`
+border: solid 2px black;
+border-radius: 30px;
+  &:hover,
+  &:focus {
+    color: grey;
+    border-color: grey; 
+  }
+`
+
+const SideContainer = styled.button`
+  border: solid 2px black;
   border-radius: 30px;
   display: flex;
   margin-left: 1rem;
   margin-right: 1rem;
+  margin-bottom: 4px;
   padding: 0.5rem;
   align-items: center;
   font-size: 20px;
+  transition: color 0.3s, border-color 0.3s;
 
-  color: inherit;
   &:hover,
   &:focus {
-    color: black;
-    text-decoration: none;
+    color: grey;
+    border-color: grey; 
   }
 `
 const DishImage = styled.img`
@@ -106,6 +118,9 @@ const PopupContainer = styled.div`
     z-index: 3;
     background-color: grey;
     border-radius: 30px;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 10px;
 `
 
 
