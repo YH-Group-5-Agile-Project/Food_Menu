@@ -29,6 +29,16 @@ export const GetCart = () => {
     return cart;
 }
 
+export const ResetCart = () => {
+    console.log("Reset Cart");
+    let newCart: Cart = {
+        id: 1,
+        OrderList: [],
+        TotalCost: 0
+      }
+      SaveCart(newCart);
+}
+
 // Simple ID setter
 export const IncreamentId = () => {
     let id = 0;

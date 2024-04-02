@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Cart } from "../Models/Cart";
-import { GetCart } from "../services/CartService";
+import { GetCart, ResetCart } from "../services/CartService";
 
 const CheckoutPage = () => {
   let navigate = useNavigate();
@@ -29,6 +29,9 @@ const CheckoutPage = () => {
       <Link to="/orderConfirmation">
         <button>Beställ</button>
       </Link>
+      <button type="button" onClick={ResetCart}>
+        Reset Cart
+      </button>
     </div>
   );
 };
