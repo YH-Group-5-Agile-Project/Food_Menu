@@ -1,24 +1,32 @@
 import { Cart } from "../Models/Cart";
 import { Order } from "../Models/Order";
 
+export const SaveCart = (cart: Cart): void => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+} 
+
 export const SaveOrderToCart = (order: Order): void => {
     console.log("Saving order...", order);
     // Get
-    let storedList: Order[] = GetOrderList();
+    let storedCart: Cart = GetCart();
     // Add
-    storedList.push(order);
+    storedCart.OrderList.push(order);
     // Save
-    localStorage.setItem("orderlist", JSON.stringify(order));
+    localStorage.setItem("cart", JSON.stringify(storedCart));
 }
 
-export const GetOrderList = () => {
+export const GetCart = () => {
     console.log("Getting Cart...");
-    const storedList = localStorage.getItem("orderlist");
-    let orderlist: Order[] = [];
-    if(storedList){
-        orderlist = JSON.parse(storedList);
+    const storedCart = localStorage.getItem("cart");
+    let cart: Cart = {
+        id: 1,
+        OrderList: [],
+        TotalCost: 0
+      }
+    if(storedCart){
+        cart = JSON.parse(storedCart);
     }
-    return orderlist;
+    return cart;
 }
 
 // Simple ID setter
