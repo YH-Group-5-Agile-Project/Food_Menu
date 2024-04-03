@@ -6,6 +6,7 @@ export type Ingredient = {
 };
 
 export type MainDish = {
+  _id: string;
   title: string;
   description: string;
   imageUrl: string;
