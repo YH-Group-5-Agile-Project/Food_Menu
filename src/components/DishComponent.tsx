@@ -19,51 +19,51 @@ const DishComponent: React.FC<DishComponentProps> = ({
   dish,
   isSelected,
   onClick,
-}) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  
-  const handleAddToCartClick = () => {
-    setIsPopupOpen(true);
-  };
-  const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
-  let ingredients;
-  if (ingredientsList.length > 1) {
-    ingredients =
-      ingredientsList.slice(0, -1).join(", ") +
-      " and " +
-      ingredientsList.slice(-1);
-  } else {
-    ingredients = ingredientsList[0] || "";
-  }
-  return (
-    <DishContainer isSelected={isSelected} onClick={onClick}>
-      <ImageContainer isSelected={isSelected}>
-        <DishImage src={dish.imageUrl} alt={dish.title} />
-        {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
-      </ImageContainer>
-      <ExpandedDish isSelected={isSelected}>
+  }) => {
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    
+    const handleAddToCartClick = () => {
+      setIsPopupOpen(true);
+    };
+    const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
+    let ingredients;
+    if (ingredientsList.length > 1) {
+      ingredients =
+        ingredientsList.slice(0, -1).join(", ") +
+        " and " +
+        ingredientsList.slice(-1);
+    } else {
+      ingredients = ingredientsList[0] || "";
+    }
+    return (
+      <DishContainer isSelected={isSelected} onClick={onClick}>
         <ImageContainer isSelected={isSelected}>
           <DishImage src={dish.imageUrl} alt={dish.title} />
+          {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
         </ImageContainer>
-        <TextContainer isSelected={isSelected}>
-          <DishTitle>{dish.title}</DishTitle>
-          <DishDescription>
-            <strong>Description: </strong>
-            {dish.description}
-          </DishDescription>
-          <DishIngredients>
-            <strong>Ingredients: </strong>
-            {ingredients}.
-          </DishIngredients>
-        </TextContainer>
-          <StyledButton onClick={handleAddToCartClick}>Add to Cart</StyledButton>        
-      </ExpandedDish>
-      {isPopupOpen && (
-        <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />
-      )}
-    </DishContainer>
-  );
-};
+        <ExpandedDish isSelected={isSelected}>
+          <ImageContainer isSelected={isSelected}>
+            <DishImage src={dish.imageUrl} alt={dish.title} />
+          </ImageContainer>
+          <TextContainer isSelected={isSelected}>
+            <DishTitle>{dish.title}</DishTitle>
+            <DishDescription>
+              <strong>Description: </strong>
+              {dish.description}
+            </DishDescription>
+            <DishIngredients>
+              <strong>Ingredients: </strong>
+              {ingredients}.
+            </DishIngredients>
+          </TextContainer>
+            <StyledButton onClick={handleAddToCartClick}>Add to Cart</StyledButton>        
+        </ExpandedDish>
+        {isPopupOpen && (
+          <AddToCartPopup dish={dish} onClose={() => setIsPopupOpen(false)} />
+        )}
+      </DishContainer>
+    );
+  };
 
 export default DishComponent;
 

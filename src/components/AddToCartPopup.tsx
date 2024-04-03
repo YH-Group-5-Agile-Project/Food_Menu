@@ -23,9 +23,7 @@ const sendToCart = (dish: Dish, sideDish: Dish) => {
   // Calculate price for Order
   newOrder.OrderCost = CalculateCostOrder(newOrder);
   SaveOrderToCart(newOrder);
-  // CartService(dish);
-  // CartService(sideDish);
-  alert(`${dish.title} \nwith \n${sideDish.title} added`)
+  location.reload();
 }
 
 export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
@@ -33,22 +31,21 @@ export function AddToCartPopup({dish, onClose}: AddToCartPopupProps) {
         return (
             <>
             <a onClick={onClose}><Overlay/></a>
-            <AntiLink onClick={(event) => event.stopPropagation()}>
+            {/* <AntiLink onClick={(event) => event.stopPropagation()}> */}
               <PopupContainer className="add-to-cart-popup">
                 <h3>{dish.title}</h3>
-                  <h2>Choose side</h2>
+                <h2>Choose side</h2>
                 {sideDishes?.map((sideDish) =>
-                <Link to="/order">
-                  <SideContainer onClick={() => {sendToCart(dish, sideDish), onClose()}}>
+                // <Link to="/order">
+                  <SideContainer key={sideDish._id} onClick={() => {sendToCart(dish, sideDish), onClose()}}>
                     <DishImage src={sideDish.imageUrl} alt="" />
                     <div>{sideDish.title}</div>
                   </SideContainer>
-                </Link>
-                  
+                // </Link>  
                 )}
                 <CancelButton onClick={onClose}>Cancel</CancelButton>
               </PopupContainer>
-            </AntiLink>
+            {/* </AntiLink> */}
             </>
         );
 }
@@ -89,14 +86,14 @@ const DishImage = styled.img`
 
 
 
-const AntiLink = styled.a`
+/* const AntiLink = styled.a`
   color: inherit;
   &:hover,
   &:focus {
     color: inherit;
     text-decoration: none;
   }
-`
+` */
 
 const Overlay = styled.div`
     width: 100%;

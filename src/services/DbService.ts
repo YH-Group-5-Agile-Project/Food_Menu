@@ -8,17 +8,17 @@ import { Dish } from "../Models/Dish";
 
 export const GetDishes = (dishType: string) => {
 
-const [mainDish, setMainDish] = useState<Dish[]>();
+const [dish, setDish] = useState<Dish[]>();
     useEffect(() => {
         fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            setMainDish(data)
-        });
-            
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setDish(data);
+            });
+
     }, [])
-    return mainDish
+    return dish
 }
 
 

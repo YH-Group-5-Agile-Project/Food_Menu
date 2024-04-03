@@ -46,7 +46,7 @@ export const IncreamentId = () => {
     if(lastId && typeof(Number)){
         id = JSON.parse(lastId);
     }
-    id++
+    id++;
     localStorage.setItem("id", JSON.stringify(id));
     return id;
 }
