@@ -30,7 +30,7 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
   );
 };
 
-const DishesContainer = styled.div<{ isSelected: boolean}>`
+const DishesContainer = styled.div<{ isSelected: boolean }>`
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
