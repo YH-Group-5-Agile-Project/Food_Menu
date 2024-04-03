@@ -17,7 +17,7 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
   };
 
   return (
-    <DishesContainer isSelected={selectedDish !== null}>
+    <DishesContainer isSelectedMain={selectedDish !== null}>
       {mainDish?.map((dish, index) => (
         <DishComponent
           key={index}
@@ -30,7 +30,7 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
   );
 };
 
-const DishesContainer = styled.div<{ isSelected: boolean}>`
+const DishesContainer = styled.div<{ isSelectedMain: boolean }>`
   display: flex;
   flex-wrap: wrap;
   gap: 2px;

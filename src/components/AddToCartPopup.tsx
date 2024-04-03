@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
 import { GetDishes } from "../services/DbService";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Order } from "../Models/Order";
 import { CalculateCostOrder, IncreamentId, SaveOrderToCart } from "../services/CartService";
 

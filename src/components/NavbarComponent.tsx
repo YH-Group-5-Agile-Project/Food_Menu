@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './NavbarComponent.module.css';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -10,12 +11,12 @@ const NavbarContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-interface MenuItemProps 
+/* interface MenuItemProps 
 {
   isActive: boolean;
-}
+} */
 
-const MenuItem = styled(NavLink)<MenuItemProps>`
+/* const MenuItem = styled(NavLink)`
   text-decoration: none;
   font-size: 18px;
   font-weight: bold;
@@ -23,32 +24,30 @@ const MenuItem = styled(NavLink)<MenuItemProps>`
   width: 25%;
   height: 100%;
   padding: 10px;
-  border: 1px solid black;
+  border: 5px solid black;
   border-radius: 50px; 
   color: black;
-  background-color: ${({ isActive }) => (isActive ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 0, 0, 0.3)')};
-
-`;
+`; */
 
 interface NavbarProps {
   currentPage: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ currentPage }) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <NavbarContainer>
-      <MenuItem to="/menu" isActive={currentPage === "menu"}>
+    <NavbarContainer >
+      <NavLink to="/menu" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
         Main dish
-      </MenuItem>
-      <MenuItem to="/sides" isActive={currentPage === "sides"}>
+      </NavLink>
+      <NavLink to="/sides" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
         Side dish
-      </MenuItem>
-      <MenuItem to="/drink" isActive={currentPage === "drink"}>
+      </NavLink>
+      <NavLink to="/drink" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
         Drink
-      </MenuItem>
-      <MenuItem to="/checkout" isActive={currentPage === "checkout"}>
+      </NavLink>
+      <NavLink to="/checkout" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
         Checkout
-      </MenuItem>
+      </NavLink>
     </NavbarContainer>
   );
 };
