@@ -29,8 +29,9 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                 sendToCart(dish, sideDish);
                 onClose();
               }}
-            >
-               {sideDish.categories.includes(Recommendation(dish._id)) && (
+            >{/*sideDish.categories.includes(Recommendation(dish._id))*/}
+               {
+               sideDish._id===(Recommendation(dish._id)) && (
                 <h6>Recommended choice</h6>
               )}
               <DishImage src={sideDish.imageUrl} alt="" />
