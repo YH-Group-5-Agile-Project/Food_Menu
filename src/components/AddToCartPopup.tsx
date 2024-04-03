@@ -33,6 +33,7 @@ const sendToCart = (dish: Dish, sideDish: Dish) => {
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   let sideDishes = GetDishes("sideDish");
+  let recomendation = Recommendation(dish._id)
   return (
     <>
       <a onClick={onClose}>
@@ -51,8 +52,8 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                 sendToCart(dish, sideDish), onClose();
               }}
             >
-              {/*sideDish.categories.includes(Recommendation(dish._id))*/}
-              {sideDish._id === Recommendation(dish._id) && (
+              {/*sideDish.categories.includes(recomendation)*/}
+              {sideDish._id === recomendation && (
                   <RecommendedChoice>Recommended choice</RecommendedChoice>
                 )}
               <DishImage src={sideDish.imageUrl} alt="" />
