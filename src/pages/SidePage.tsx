@@ -5,11 +5,11 @@ import { MainDishComponent } from "../components/MainDishComponent";
 const SidePage = () => {
   return (
     <>
-        <Navbar currentPage="sides" />
-    
-        <div>
-          <ul><MainDishComponent dishType="sideDish"/></ul>
-        </div>
+      <Navbar currentPage="sides" />
+
+      <div>
+        <MainDishComponent dishType="sideDish" />
+      </div>
       <div>
         <Link to="/menu">
           <button>Tillbaka</button>
