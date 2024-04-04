@@ -16,10 +16,10 @@ const MenuPage = () => {
 
       <div>
         <Link to="/order">
-          <button>Min beställning</button>
+          <button>My order</button>
         </Link>
         <Link to="/sides">
-          <button>Nästa steg</button>
+          <button>Next</button>
         </Link>
       </div>
     </>
