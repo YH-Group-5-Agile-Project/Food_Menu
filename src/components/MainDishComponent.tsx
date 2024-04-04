@@ -9,15 +9,15 @@ interface dishInput {
 }
 
 export const MainDishComponent = ({ dishType }: dishInput) => {
-    const [selectedDish, setSelectedDish] = useState<number | null>(null);
-    const mainDish = GetDishes(dishType)
+  const [selectedDish, setSelectedDish] = useState<number | null>(null);
+  const mainDish = GetDishes(dishType);
 
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
   };
 
   return (
-    <DishesContainer isSelected={selectedDish !== null}>
+    <DishesContainer>
       {mainDish?.map((dish, index) => (
         <DishComponent
           key={index}
@@ -30,14 +30,22 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
   );
 };
 
-const DishesContainer = styled.div<{ isSelected: boolean}>`
+const DishesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 2px;
-  max-width: 100%;
+  gap: 20px;
+  width: 880px;
   justify-content: center;
 
-  @media (max-width: 768px) {
-    justify-content: space-between;
+  @media (max-width: 949px) {
+    width: 560px;
+    gap: 20px;
+    margin: auto;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+    gap: 10px;
+    margin: auto;
   }
 `;

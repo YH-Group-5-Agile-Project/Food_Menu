@@ -1,38 +1,15 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
+import { MainDishComponent } from "../components/MainDishComponent";
 
 const SidePage = () => {
   return (
     <>
-        <Navbar currentPage="sides" />
-    
-      <div>
-        <h1>Sides</h1>
-        <p>Här kommer det finnas olika Sides att välja på.</p>
-    
-      </div>
+      <Navbar currentPage="sides" />
 
       <div>
-        <Link to="/side/:id">
-          <button>Drink 1</button>
-        </Link>
-        <Link to="/side/:id">
-          <button>Drink 2</button>
-        </Link>
-        <Link to="/side/:id">
-          <button>Drink 3</button>
-        </Link>
-        <Link to="/side/:id">
-          <button>Drink 4</button>
-        </Link>
-        <Link to="/side/:id">
-          <button>Drink 5</button>
-        </Link>
-        <Link to="/side/:id">
-          <button>Drink 6</button>
-        </Link>
+        <MainDishComponent dishType="sideDish" />
       </div>
-
       <div>
         <Link to="/menu">
           <button>Tillbaka</button>
