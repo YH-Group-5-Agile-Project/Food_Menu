@@ -12,7 +12,7 @@ interface DishComponentProps {
 }
 
 interface FoodProps {
-  isSelected: boolean;
+  selected: boolean;
 }
 
 const DishComponent: React.FC<DishComponentProps> = ({
@@ -36,16 +36,16 @@ const DishComponent: React.FC<DishComponentProps> = ({
     ingredients = ingredientsList[0] || "";
   }
   return (
-    <DishContainer isSelected={isSelected} onClick={onClick}>
-      <ImageContainer isSelected={isSelected}>
+    <DishContainer selected={isSelected} onClick={onClick}>
+      <ImageContainer selected={isSelected}>
         <DishImage src={dish.imageUrl} alt={dish.title} />
         {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
       </ImageContainer>
-      <ExpandedDish isSelected={isSelected}>
-        <ImageContainer isSelected={isSelected}>
+      <ExpandedDish selected={isSelected}>
+        <ImageContainer selected={isSelected}>
           <DishImage src={dish.imageUrl} alt={dish.title} />
         </ImageContainer>
-        <TextContainer isSelected={isSelected}>
+        <TextContainer selected={isSelected}>
           <DishTitle>{dish.title}</DishTitle>
           <DishDescription>
             <strong>Description: </strong>
@@ -76,7 +76,7 @@ const DishContainer = styled.div<FoodProps>`
   margin-bottom: 20px;
 
   ${(props) =>
-    props.isSelected &&
+    props.selected &&
     `
     z-index: 1;
   `}
@@ -85,7 +85,7 @@ const DishContainer = styled.div<FoodProps>`
     width: calc(50% - 10px);
     margin-bottom: 20px;
     ${(props) =>
-      props.isSelected &&
+      props.selected &&
       `
       z-index: 1;
   `}
@@ -102,7 +102,7 @@ const ImageContainer = styled.div<FoodProps>`
     width: 150px;
     height: 150px;
     ${(props) =>
-      props.isSelected &&
+      props.selected &&
       `
     width: 100px;
     height: 100px;
@@ -170,7 +170,7 @@ const ExpandedDish = styled.div<FoodProps>`
   transition: all 0.3s ease-in-out;
 
   ${(props) =>
-    props.isSelected &&
+    props.selected &&
     css`
       opacity: 1;
       max-height: 1200px;
