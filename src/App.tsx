@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
+import SidePage from "./pages/SidePage";
+import DrinkPage from "./pages/DrinkPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 import "./App.css";
 
@@ -10,6 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
+        <Route path="/sides" element={<SidePage />} />
+        <Route path="/drink" element={<DrinkPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
     </Router>
   );
