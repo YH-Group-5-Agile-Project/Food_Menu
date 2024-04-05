@@ -3,28 +3,42 @@ import { Dish } from "../Models/Dish";
 
 import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
+import { Order } from "../Models/Order";
+import { CalculateCostCart, IncreamentId, SaveOrderToCart } from "../services/CartService";
 
 interface DishComponentProps {
   key: number;
   dish: Dish;
   isSelected: boolean;
   onClick: () => void;
+  isSideDish: boolean;
 }
 
 interface FoodProps {
   selected: boolean;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({
-  dish,
-  isSelected,
-  onClick,
-}) => {
+const SendToCart = (dish : Dish) => {
+  const newOrder : Order = {
+    id: IncreamentId(),
+    sides: dish,
+    OrderCost: dish.price
+  };
+  SaveOrderToCart(newOrder);
+}
+
+
+const DishComponent = ({dish, isSelected, onClick, isSideDish} :  DishComponentProps) => {
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleAddToCartClick = () => {
-    setIsPopupOpen(true);
+    if (!isSideDish)
+      setIsPopupOpen(true);
+    else
+      SendToCart(dish);
   };
+
   const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
   let ingredients;
   if (ingredientsList.length > 1) {
@@ -35,6 +49,7 @@ const DishComponent: React.FC<DishComponentProps> = ({
   } else {
     ingredients = ingredientsList[0] || "";
   }
+
   return (
     <DishContainer selected={isSelected} onClick={onClick}>
       <ImageContainer selected={isSelected}>
@@ -42,9 +57,6 @@ const DishComponent: React.FC<DishComponentProps> = ({
         {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
       </ImageContainer>
       <ExpandedDish selected={isSelected}>
-        {/* <ImageContainer selected={isSelected}>
-          <DishImage src={dish.imageUrl} alt={dish.title} />
-        </ImageContainer> */}
         <TextContainer selected={isSelected}>
           <DishTitle>{dish.title}</DishTitle>
           <DishDescription>
@@ -167,7 +179,7 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
-  transition: all 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   margin-top: 250px;
 
   ${(props) =>
@@ -187,7 +199,6 @@ const ExpandedDish = styled.div<FoodProps>`
     padding: 0 5px 5px 5px;
     min-width: 150px;
     max-width: 100%;
-    margin-top: 100px;
   }
 `;
 

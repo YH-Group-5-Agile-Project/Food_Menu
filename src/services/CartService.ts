@@ -53,7 +53,7 @@ export const IncreamentId = () => {
 
 export const CalculateCostOrder = (order: Order) => {
     let cost = 0;
-    cost = +order.main.price;
+    cost = order.main !== undefined ? +order.main.price : 0;
     cost += +order.sides.price;
     return cost;
 }
