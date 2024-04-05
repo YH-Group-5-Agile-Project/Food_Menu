@@ -19,8 +19,9 @@ export const CartComponent = () => {
   }
   return (
     <>
-    <div>      
-      <table style={"border: 1px solid black"}>
+    <div>   
+      <h1>Your Order</h1>   
+      <table>
         <tr>
             <th>Dish</th>
             <th>Side</th>
