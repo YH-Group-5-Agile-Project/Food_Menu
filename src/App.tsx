@@ -10,6 +10,7 @@ import "./App.css";
 
 function App() {
   return (
+    // navbar
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
