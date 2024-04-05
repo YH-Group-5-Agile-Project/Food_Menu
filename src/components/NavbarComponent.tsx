@@ -27,6 +27,7 @@ const NavbarContainer = styled.div`
   border: 5px solid black;
   border-radius: 50px; 
   color: black;
+  background-color: {isActive}: shajkfhsadkfjhashj
 `; */
 
 interface NavbarProps {
