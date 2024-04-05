@@ -42,9 +42,6 @@ const DishComponent: React.FC<DishComponentProps> = ({
         {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
       </ImageContainer>
       <ExpandedDish selected={isSelected}>
-        {/* <ImageContainer selected={isSelected}>
-          <DishImage src={dish.imageUrl} alt={dish.title} />
-        </ImageContainer> */}
         <TextContainer selected={isSelected}>
           <DishTitle>{dish.title}</DishTitle>
           <DishDescription>
@@ -167,7 +164,7 @@ const ExpandedDish = styled.div<FoodProps>`
   border-radius: 20px;
   opacity: 0;
   word-wrap: break-word;
-  transition: all 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   margin-top: 250px;
 
   ${(props) =>
@@ -187,7 +184,6 @@ const ExpandedDish = styled.div<FoodProps>`
     padding: 0 5px 5px 5px;
     min-width: 150px;
     max-width: 100%;
-    margin-top: 100px;
   }
 `;
 
