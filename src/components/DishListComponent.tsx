@@ -8,7 +8,7 @@ interface dishInput {
   dishType: string;
 }
 
-export const MainDishComponent = ({ dishType }: dishInput) => {
+export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
   const mainDish = GetDishes(dishType);
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
