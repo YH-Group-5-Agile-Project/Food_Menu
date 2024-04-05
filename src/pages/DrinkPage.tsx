@@ -1,9 +1,30 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
+import { GetDrink } from "../services/DbService";
+import { Drink } from "../Models/Drink";
+import { useEffect } from "react";
 
 const DrinkPage = () => {
+
+  let drinkListIDs = [
+    "11007",
+    "11009",
+    "11011"
+  ]
+
+  let drinkList = drinkListIDs.map(drinkId => {
+    return GetDrink(drinkId);
+  })
+
   return (
     <>
+      <div>
+        {drinkList.map(drink => (
+          <p>{drink?.name}</p>
+        ))}
+      </div>
+
+
 
       <Navbar currentPage="drink" />
       <div>
