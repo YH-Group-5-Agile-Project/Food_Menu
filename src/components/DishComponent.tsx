@@ -3,28 +3,42 @@ import { Dish } from "../Models/Dish";
 
 import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
+import { Order } from "../Models/Order";
+import { CalculateCostCart, IncreamentId, SaveOrderToCart } from "../services/CartService";
 
 interface DishComponentProps {
   key: number;
   dish: Dish;
   isSelected: boolean;
   onClick: () => void;
+  isSideDish: boolean;
 }
 
 interface FoodProps {
   selected: boolean;
 }
 
-const DishComponent: React.FC<DishComponentProps> = ({
-  dish,
-  isSelected,
-  onClick,
-}) => {
+const SendToCart = (dish : Dish) => {
+  const newOrder : Order = {
+    id: IncreamentId(),
+    sides: dish,
+    OrderCost: dish.price
+  };
+  SaveOrderToCart(newOrder);
+}
+
+
+const DishComponent = ({dish, isSelected, onClick, isSideDish} :  DishComponentProps) => {
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleAddToCartClick = () => {
-    setIsPopupOpen(true);
+    if (!isSideDish)
+      setIsPopupOpen(true);
+    else
+      SendToCart(dish);
   };
+
   const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
   let ingredients;
   if (ingredientsList.length > 1) {
@@ -35,6 +49,7 @@ const DishComponent: React.FC<DishComponentProps> = ({
   } else {
     ingredients = ingredientsList[0] || "";
   }
+
   return (
     <DishContainer selected={isSelected} onClick={onClick}>
       <ImageContainer selected={isSelected}>

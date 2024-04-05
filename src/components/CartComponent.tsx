@@ -20,7 +20,7 @@ export const CartComponent = () => {
   return (
     <>
     <div>      
-      <table style={"border: 1px solid black"}>
+      <table>
         <tr>
             <th>Dish</th>
             <th>Side</th>
@@ -30,13 +30,13 @@ export const CartComponent = () => {
         {cart.OrderList.map(order => (
           <tr>
             <td key={order.id}>
-               {order.main.title} 
+               {order.main?.title} 
             </td>
             <td key={order.id}>
                 {order.sides.title}
             </td>
             <td key={order.id}>
-                {order.main.price}
+                {order.main?.price}
             </td>
             <button onClick={onDelete}>Remove</button>             
           </tr>          

@@ -11,6 +11,7 @@ interface dishInput {
 export const MainDishComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
   const mainDish = GetDishes(dishType);
+  const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
 
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
@@ -24,6 +25,7 @@ export const MainDishComponent = ({ dishType }: dishInput) => {
           dish={dish}
           isSelected={index === selectedDish}
           onClick={() => HandleClick(index)}
+          isSideDish={isSideDish}
         />
       ))}
     </DishesContainer>
