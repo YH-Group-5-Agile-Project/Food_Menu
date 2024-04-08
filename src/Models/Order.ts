@@ -2,7 +2,7 @@ import { Dish } from "./Dish";
 
 export type Order = {
     id: number;
-    main: Dish;
+    main?: Dish;
     sides: Dish;
     OrderCost: number;
 }
