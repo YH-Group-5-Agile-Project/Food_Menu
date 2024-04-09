@@ -7,7 +7,7 @@ import { Navbar } from "../components/NavbarComponent";
 const MenuPage = () => {
   return (
     <>
-    <Navbar currentPage="menu" />
+    <Navbar currentPage="main" />
     
   
       <div>
