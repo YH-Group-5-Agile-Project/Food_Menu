@@ -5,7 +5,20 @@ import DrinkComponent from "../components/DrinkComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
 
 const DrinkPage = () => {
-  let drinkListIDs = ["11007", "11009", "11011"];
+  let drinkListIDs = [
+    "12768",
+    "12618",
+    "15092",
+    "12630",
+    "12724",
+    "12726",
+    "11288",
+    "178365",
+    "11462",
+    "11000",
+    "11003",
+    "12528",
+  ];
 
   let drinkList = drinkListIDs.map((drinkId) => {
     return GetDrink(drinkId);
