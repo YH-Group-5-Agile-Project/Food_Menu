@@ -48,7 +48,7 @@ export const CartComponent = () => {
           <tr>
             <td></td>
             <td></td>
-            <Link to={"/main}"}>
+            <Link to={"/main"}>
               <button>Back</button>
             </Link>
           </tr>
