@@ -18,7 +18,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <NavbarContainer >
-      <NavLink to="/menu" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
+      <NavLink to="/main" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
         Main dish
       </NavLink>
       <NavLink to="/sides" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>

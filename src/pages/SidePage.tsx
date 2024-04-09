@@ -11,7 +11,7 @@ const SidePage = () => {
         <DishListComponent dishType="sideDish" />
       </div>
       <div>
-        <Link to="/menu">
+        <Link to="/main">
           <button>Tillbaka</button>
         </Link>
         <Link to="/order">
