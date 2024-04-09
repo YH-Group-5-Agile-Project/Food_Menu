@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
 import { GetDrink } from "../services/DbService";
 import DrinkComponent from "../components/DrinkComponent";
+import { ToCartButton } from "../components/CartButtonComponent";
 
 const DrinkPage = () => {
   let drinkListIDs = ["11007", "11009", "11011"];
@@ -29,9 +30,7 @@ const DrinkPage = () => {
         <Link to="/sides">
           <button>Tillbaka</button>
         </Link>
-        <Link to="/order">
-          <button>Min beställning</button>
-        </Link>
+        <ToCartButton/>
         <Link to="/checkout">
           <button>Till betalning</button>
         </Link>
