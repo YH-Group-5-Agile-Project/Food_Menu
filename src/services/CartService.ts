@@ -20,7 +20,7 @@ export const SendDrinkToCart = (drink: Drink): void => {
   const newOrder: Order = {
     id: IncreamentId(),
     drink: drink,
-    OrderCost: 100,
+    OrderCost: drink.price,
   };
   SaveOrderToCart(newOrder);
 };
