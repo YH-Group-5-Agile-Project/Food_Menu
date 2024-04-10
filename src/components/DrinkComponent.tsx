@@ -1,10 +1,16 @@
 import { Drink } from "../Models/Drink";
 import styled from "styled-components";
+import { SendDrinkToCart } from "../services/CartService";
 
 const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
   if (!drink) {
     return null;
   }
+
+  const handleAddToCartClick = () => {
+    SendDrinkToCart(drink);
+  };
+
   const ingredientsList = drink.ingredients.map((ingredient) => ingredient);
   let ingredients;
   if (ingredientsList.length > 1) {
@@ -14,8 +20,8 @@ const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
       ingredientsList.slice(-1);
   } else {
     ingredients = ingredientsList[0] || "";
-  } 
-//Meningsubyggaren återanvänds nästan ofärändrad från DishComponent. Bör nog modifieras och flyttas till en separat fil så att den kan användas för båda?
+  }
+  //Meningsubyggaren återanvänds nästan ofärändrad från DishComponent. Bör nog modifieras och flyttas till en separat fil så att den kan användas för båda?
 
   return (
     <DrinkContainer key={drink.id}>
@@ -27,8 +33,7 @@ const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
           <br></br>
           {drink.alcoholic === false && <p>&nbsp;Non-Alcholic.</p>}
         </TextContainer>
-
-        <CartButton>Add to cart</CartButton>
+        <CartButton onClick={handleAddToCartClick}>Add to cart</CartButton>
       </InfoContainer>
     </DrinkContainer>
   );
