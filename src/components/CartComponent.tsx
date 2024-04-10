@@ -41,7 +41,7 @@ export const CartComponent = () => {
             <button onClick={onDelete}>Remove</button>             
           </tr>          
         ))}
-        <tr><td></td><td></td><h2>Total price: {CalculateCostCart(cart)} </h2></tr>
+        <tr><td></td><td></td><h2>Total price: £{CalculateCostCart(cart)} </h2></tr>
         <tr><td></td><td></td><Link to="/orderConfirmation"><button>Proceed with purchase</button>
       </Link></tr>
       </table>

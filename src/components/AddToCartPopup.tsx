@@ -52,8 +52,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                 sendToCart(dish, sideDish), onClose();
               }}
             >
-              {/*sideDish.categories.includes(recomendation)*/}
-              {sideDish._id === recomendation && (
+              {sideDish.timeInMins === dish.price && (
                   <RecommendedChoice>Recommended choice</RecommendedChoice>
                 )}
               <DishImage src={sideDish.imageUrl} alt="" />

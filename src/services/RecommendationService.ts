@@ -7,6 +7,8 @@
     '660becfe29f983c33c4d5166': 'risottoRecommended'
   };*/
   
+//Denna gör inget längre, bör tas bort vid lämpligt tillfälle
+
   let dictionary: { [key: string]: string } = {
     '6604087a29f983c33c7b4141': '660ad46229f983c33c37ab4a', //burger  
     '6604089029f983c33c7b630e': '660aef0e29f983c33c38a3c2', //salmon

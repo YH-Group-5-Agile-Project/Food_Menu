@@ -60,6 +60,7 @@ const DishComponent = ({dish, isSelected, onClick, isSideDish} :  DishComponentP
         <TextContainer selected={isSelected}>
           <DishTitle>{dish.title}</DishTitle>
           <DishDescription>
+            <DishPrice>£{dish.price}</DishPrice>
             <strong>Description: </strong>
             {dish.description}
           </DishDescription>
@@ -163,6 +164,8 @@ const DishDescription = styled.p`
 const DishTitle = styled.h2`
   margin: 10px;
 `;
+
+const DishPrice = styled.h2``;
 
 const ExpandedDish = styled.div<FoodProps>`
   position: absolute;

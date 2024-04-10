@@ -5,6 +5,7 @@ const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
   if (!drink) {
     return null;
   }
+  drink.price = 50;
   const ingredientsList = drink.ingredients.map((ingredient) => ingredient);
   let ingredients;
   if (ingredientsList.length > 1) {
@@ -24,10 +25,9 @@ const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
         <h1>{drink.name}</h1>
         <TextContainer>
           <p> {ingredients}.</p>
-          <br></br>
           {drink.alcoholic === false && <p>&nbsp;Non-Alcholic.</p>}
         </TextContainer>
-
+        <DrinkPrice>£{drink.price}</DrinkPrice>
         <CartButton>Add to cart</CartButton>
       </InfoContainer>
     </DrinkContainer>
@@ -39,6 +39,7 @@ export default DrinkComponent;
 const DrinkContainer = styled.div`
   display: flex;
   align-items: flex-start;
+  padding: 20px;
 `;
 
 const ImageContainer = styled.img`
@@ -60,4 +61,8 @@ const TextContainer = styled.div`
 const CartButton = styled.button`
   position: relative;
   width: fit-content;
+  margin-top: px;
+`;
+const DrinkPrice = styled.h2`
+  display: flex;
 `;
