@@ -22,8 +22,6 @@ const CheckoutPage = () => {
     <>
     <Navbar currentPage="checkout" />
 
-    <h1>Your order:</h1>
-
     <CartComponent></CartComponent>
 
     

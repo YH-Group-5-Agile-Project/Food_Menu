@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { DishListComponent } from "../components/DishListComponent";
 import { Navbar } from "../components/NavbarComponent";
+import { ToCartButton } from "../components/CartButtonComponent";
 
 
 
 const MenuPage = () => {
   return (
     <>
-    <Navbar currentPage="menu" />
+    <Navbar currentPage="main" />
     
   
       <div>
@@ -15,9 +16,8 @@ const MenuPage = () => {
       </div>
 
       <div>
-        <Link to="/order">
-          <button>My order</button>
-        </Link>
+        <ToCartButton/>
+
         <Link to="/sides">
           <button>Next</button>
         </Link>

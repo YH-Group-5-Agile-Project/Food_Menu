@@ -2,9 +2,23 @@ import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
 import { GetDrink } from "../services/DbService";
 import DrinkComponent from "../components/DrinkComponent";
+import { ToCartButton } from "../components/CartButtonComponent";
 
 const DrinkPage = () => {
-  let drinkListIDs = ["11007", "11009", "11011"];
+  let drinkListIDs = [
+    "12768",
+    "12618",
+    "15092",
+    "12630",
+    "12724",
+    "12726",
+    "11288",
+    "178365",
+    "11462",
+    "11000",
+    "11003",
+    "12528",
+  ];
 
   let drinkList = drinkListIDs.map((drinkId) => {
     return GetDrink(drinkId);
@@ -29,9 +43,7 @@ const DrinkPage = () => {
         <Link to="/sides">
           <button>Tillbaka</button>
         </Link>
-        <Link to="/order">
-          <button>Min beställning</button>
-        </Link>
+        <ToCartButton/>
         <Link to="/checkout">
           <button>Till betalning</button>
         </Link>
