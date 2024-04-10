@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart, } from "../services/CartService";
-import styled, { css } from "styled-components";
+import styles from './CartComponent.module.css';
+import styled from 'styled-components';
 
 export const CartComponent = () => {
   const [cart, setCart] = useState<Cart>({
