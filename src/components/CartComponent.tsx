@@ -47,7 +47,7 @@ export const CartComponent = () => {
                 <td>{order.main?.title || "-"}</td>
                 <td>{order.sides?.title || "-"}</td>
                 <td>{order.drink?.name || "-"}</td>
-                <td>${order.OrderCost}</td>
+                <td>£{order.OrderCost}</td>
                 <td>
                   <button onClick={() => onDelete(order.id)}>Remove</button>
                 </td>
@@ -55,7 +55,7 @@ export const CartComponent = () => {
             ))}
             <tr>
               <td>
-                <h2>Total price: ${CalculateCostCart(cart)}</h2>
+                <h2>Total price: £{CalculateCostCart(cart)}</h2>
               </td>
             </tr>
           </tbody>
