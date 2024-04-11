@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Cart } from "../Models/Cart";
-import { CalculateCostCart, GetCart } from "../services/CartService";
-import { Link } from "react-router-dom";
+import { CalculateCostCart, GetCart } from "../services/CartService";;
+import styles from "./CartComponent.module.css";
 
 export const CartComponent = () => {
   const [cart, setCart] = useState<Cart>({
@@ -9,6 +9,8 @@ export const CartComponent = () => {
     OrderList: [],
     TotalCost: 0,
   }); // Load
+
+  const [showCart, setShowCart] = useState(true); // State to control cart visibility
 
   useEffect(() => {
     setCart(GetCart());
@@ -28,9 +30,13 @@ export const CartComponent = () => {
     console.log("Order removed", orderId);
   };
 
+  const handleClose = () => {
+    setShowCart(false); // Close the cart component
+  };
+
   return (
     <>
-      <div>
+      <div className={styles.PopUpOrder}>
         <h1>Your Order</h1>
         <table>
           <thead>
@@ -58,9 +64,6 @@ export const CartComponent = () => {
               <td>
                 <h2>Total price: £{CalculateCostCart(cart)}</h2>
               </td>
-              <Link to={"/main"}>
-                <button>Back</button>
-              </Link>
             </tr>
           </tbody>
         </table>

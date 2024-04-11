@@ -20,7 +20,7 @@ const CheckoutPage = () => {
     <>
       <Navbar currentPage="checkout" />
 
-      <CartComponent></CartComponent>
+      <CartComponent/>
 
       <div>
         <button onClick={() => navigate(-1)}>Back</button>

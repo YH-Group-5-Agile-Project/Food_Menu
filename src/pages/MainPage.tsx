@@ -1,11 +1,17 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { DishListComponent } from "../components/DishListComponent";
 import { Navbar } from "../components/NavbarComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
+import CartComponent from "../components/CartComponent";
 
+const MainPage = () => {
+  const [cartVisible, setCartVisible] = useState(false);
 
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  }
 
-const MenuPage = () => {
   return (
     <>
     <Navbar currentPage="main" />
@@ -16,14 +22,16 @@ const MenuPage = () => {
       </div>
 
       <div>
-        <ToCartButton/>
+      <ToCartButton onClick={toggleCart}/>
 
         <Link to="/sides">
           <button>Next</button>
         </Link>
       </div>
+
+      {cartVisible && <CartComponent />}
     </>
   );
 };
 
-export default MenuPage;
+export default MainPage;

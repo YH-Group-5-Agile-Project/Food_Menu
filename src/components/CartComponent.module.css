@@ -1,11 +1,15 @@
 .PopUpOrder {
-  text-decoration: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 18px;
-  font-weight: bold;
-  min-width: 10rem;
   width: 100%;
+  max-width: 55rem;
   height: 100%;
-  padding: 10px;
+  max-height: 35rem;
   border: 1px solid black;
-  border-radius: 50px;
+  border-radius: 20px;
+  background-color: white;
+  z-index: 999;
 }

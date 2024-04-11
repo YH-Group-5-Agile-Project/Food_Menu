@@ -1,10 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
 import { GetDrink } from "../services/DbService";
 import DrinkComponent from "../components/DrinkComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
-
+import CartComponent from "../components/CartComponent";
 const DrinkPage = () => {
+  const [cartVisible, setCartVisible] = useState(false);
+
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  }
   let drinkListIDs = [
     "12768",
     "12618",
@@ -43,11 +49,12 @@ const DrinkPage = () => {
         <Link to="/sides">
           <button>Tillbaka</button>
         </Link>
-        <ToCartButton/>
+        <ToCartButton onClick={toggleCart}/>
         <Link to="/checkout">
           <button>Till betalning</button>
         </Link>
       </div>
+      {cartVisible && <CartComponent />}
     </>
   );
 };
