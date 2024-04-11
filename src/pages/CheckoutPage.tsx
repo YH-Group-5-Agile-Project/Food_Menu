@@ -18,18 +18,18 @@ const CheckoutPage = () => {
   }, []); // render only first time
   return (
     <>
-      <Navbar currentPage="checkout" />
-
-      <CartComponent/>
-
-      <div>
-        <button onClick={() => navigate(-1)}>Back</button>
-        <button type="button" onClick={ResetCart}>
-          Reset Cart
-        </button>
-      </div>
+        <Navbar currentPage="checkout" />
+          <CartComponent/>
+          <div>
+            <button onClick={() => navigate(-1)}>Back</button>
+            <button type="button" onClick={ResetCart}>
+              Reset Cart
+            </button>
+          </div>
     </>
   );
 };
+
+
 
 export default CheckoutPage;

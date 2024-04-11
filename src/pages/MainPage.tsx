@@ -4,6 +4,7 @@ import { DishListComponent } from "../components/DishListComponent";
 import { Navbar } from "../components/NavbarComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
 import CartComponent from "../components/CartComponent";
+import { ToggleCartOverlay } from "../App";
 
 const MainPage = () => {
   const [cartVisible, setCartVisible] = useState(false);
@@ -29,7 +30,11 @@ const MainPage = () => {
         </Link>
       </div>
 
-      {cartVisible && <CartComponent />}
+      {cartVisible && <>
+        <ToggleCartOverlay onClick={toggleCart} />
+          <CartComponent />
+      </>
+      }
     </>
   );
 };

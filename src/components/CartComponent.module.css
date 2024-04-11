@@ -12,4 +12,6 @@
   border-radius: 20px;
   background-color: white;
   z-index: 999;
+  color: black;
+  overflow: scroll;
 }

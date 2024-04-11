@@ -5,6 +5,8 @@ import { GetDrink } from "../services/DbService";
 import DrinkComponent from "../components/DrinkComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
 import CartComponent from "../components/CartComponent";
+import { ToggleCartOverlay } from "../App";
+
 const DrinkPage = () => {
   const [cartVisible, setCartVisible] = useState(false);
 
@@ -53,8 +55,12 @@ const DrinkPage = () => {
         <Link to="/checkout">
           <button>Till betalning</button>
         </Link>
+      {cartVisible && <>
+        <ToggleCartOverlay onClick={toggleCart} />
+          <CartComponent />
+      </>
+      }
       </div>
-      {cartVisible && <CartComponent />}
     </>
   );
 };

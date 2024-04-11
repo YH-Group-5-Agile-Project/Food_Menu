@@ -58,7 +58,8 @@ const mapDrink = (oldDrink: any): Drink => {
         name: oldDrink.strDrink,
         alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
         imgUrl: oldDrink.strDrinkThumb,
-        ingredients: newIngredients
+        ingredients: newIngredients,
+        price: oldDrink.price
     };
 }
 

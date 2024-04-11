@@ -7,6 +7,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import CartComponent from "./components/CartComponent";
 
 import "./App.css";
+import { styled } from "styled-components";
 
 function App() {
   return (
@@ -23,5 +24,15 @@ function App() {
     </Router>
   );
 }
+
+export const ToggleCartOverlay = styled.a`
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 10;
+`
 
 export default App;
