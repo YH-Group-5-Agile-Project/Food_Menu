@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Dish } from "../Models/Dish";
-
 import styled, { css } from "styled-components";
 import { AddToCartPopup } from "./AddToCartPopup";
 import { Order } from "../Models/Order";
-import { CalculateCostCart, IncreamentId, SaveOrderToCart } from "../services/CartService";
+import { IncreamentId, SaveOrderToCart } from "../services/CartService";
 
 interface DishComponentProps {
   key: number;
@@ -18,25 +17,26 @@ interface FoodProps {
   selected: boolean;
 }
 
-const SendToCart = (dish : Dish) => {
-  const newOrder : Order = {
+const SendToCart = (dish: Dish) => {
+  const newOrder: Order = {
     id: IncreamentId(),
     sides: dish,
-    OrderCost: dish.price
+    OrderCost: dish.price,
   };
   SaveOrderToCart(newOrder);
-}
+};
 
-
-const DishComponent = ({dish, isSelected, onClick, isSideDish} :  DishComponentProps) => {
-
+const DishComponent = ({
+  dish,
+  isSelected,
+  onClick,
+  isSideDish,
+}: DishComponentProps) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleAddToCartClick = () => {
-    if (!isSideDish)
-      setIsPopupOpen(true);
-    else
-      SendToCart(dish);
+    if (!isSideDish) setIsPopupOpen(true);
+    else SendToCart(dish);
   };
 
   const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
@@ -60,6 +60,7 @@ const DishComponent = ({dish, isSelected, onClick, isSideDish} :  DishComponentP
         <TextContainer selected={isSelected}>
           <DishTitle>{dish.title}</DishTitle>
           <DishDescription>
+            <DishPrice>£{dish.price}</DishPrice>
             <strong>Description: </strong>
             {dish.description}
           </DishDescription>
@@ -163,6 +164,8 @@ const DishDescription = styled.p`
 const DishTitle = styled.h2`
   margin: 10px;
 `;
+
+const DishPrice = styled.h2``;
 
 const ExpandedDish = styled.div<FoodProps>`
   position: absolute;

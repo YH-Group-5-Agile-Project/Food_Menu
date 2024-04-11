@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
 import { GetDishes } from "../services/DbService";
-import { Recommendation } from "../services/RecommendationService";
+import { SideRecommendation } from "../services/RecommendationService";
 // import { Link } from "react-router-dom";
 import { Order } from "../Models/Order";
 import {
@@ -33,7 +33,7 @@ const sendToCart = (dish: Dish, sideDish: Dish) => {
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   let sideDishes = GetDishes("sideDish");
-  let recomendation = Recommendation(dish._id)
+  let recomendation = SideRecommendation(dish._id)
   return (
     <>
       <a onClick={onClose}>
@@ -52,8 +52,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                 sendToCart(dish, sideDish), onClose();
               }}
             >
-              {/*sideDish.categories.includes(recomendation)*/}
-              {sideDish._id === recomendation && (
+              {sideDish.timeInMins === dish.price && (
                   <RecommendedChoice>Recommended choice</RecommendedChoice>
                 )}
               <DishImage src={sideDish.imageUrl} alt="" />
