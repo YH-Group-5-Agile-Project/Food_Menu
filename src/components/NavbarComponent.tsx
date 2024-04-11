@@ -11,24 +11,6 @@ const NavbarContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-/* interface MenuItemProps 
-{
-  isActive: boolean;
-} */
-
-/* const MenuItem = styled(NavLink)`
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  min-width: 200px;
-  width: 25%;
-  height: 100%;
-  padding: 10px;
-  border: 5px solid black;
-  border-radius: 50px; 
-  color: black;
-`; */
-
 interface NavbarProps {
   currentPage: string;
 }
@@ -36,7 +18,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <NavbarContainer >
-      <NavLink to="/menu" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
+      <NavLink to="/main" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
         Main dish
       </NavLink>
       <NavLink to="/sides" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>

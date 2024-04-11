@@ -20,7 +20,7 @@ const HomePage = () => {
       <h1>
         COCKTAILS<br></br>AND FOOD
       </h1>
-      <Link to="/menu">
+      <Link to="/main">
         <button>Lägg ny beställning</button>
       </Link>
     </div>

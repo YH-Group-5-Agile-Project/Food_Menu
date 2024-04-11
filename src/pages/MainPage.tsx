@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Navbar } from "../components/NavbarComponent";
 import { DishListComponent } from "../components/DishListComponent";
+import { Navbar } from "../components/NavbarComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
-import CartComponent from "../components/CartComponent"; // Import CartComponent
+import CartComponent from "../components/CartComponent";
 import { ToggleCartOverlay } from "../App";
 
-const SidePage = () => {
+const MainPage = () => {
   const [cartVisible, setCartVisible] = useState(false);
 
   const toggleCart = () => {
@@ -15,18 +15,18 @@ const SidePage = () => {
 
   return (
     <>
-      <Navbar currentPage="sides" />
+    <Navbar currentPage="main" />
+    
+  
+      <div>
+        <DishListComponent dishType="mainDish" />
+      </div>
 
       <div>
-        <DishListComponent dishType="sideDish" />
-      </div>
-      <div>
-        <Link to="/main">
-          <button>Tillbaka</button>
-        </Link>
-        <ToCartButton onClick={toggleCart}/>
-        <Link to="/drink">
-          <button>Nästa steg</button>
+      <ToCartButton onClick={toggleCart}/>
+
+        <Link to="/sides">
+          <button>Next</button>
         </Link>
       </div>
 
@@ -39,4 +39,4 @@ const SidePage = () => {
   );
 };
 
-export default SidePage;
+export default MainPage;

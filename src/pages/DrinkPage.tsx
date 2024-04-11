@@ -1,52 +1,65 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
+import { GetDrink } from "../services/DbService";
+import DrinkComponent from "../components/DrinkComponent";
+import { ToCartButton } from "../components/CartButtonComponent";
+import CartComponent from "../components/CartComponent";
+import { ToggleCartOverlay } from "../App";
 
 const DrinkPage = () => {
+  const [cartVisible, setCartVisible] = useState(false);
+
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  }
+  let drinkListIDs = [
+    "12768",
+    "12618",
+    "15092",
+    "12630",
+    "12724",
+    "12726",
+    "11288",
+    "178365",
+    "11462",
+    "11000",
+    "11003",
+    "12528",
+  ];
+
+  let drinkList = drinkListIDs.map((drinkId) => {
+    return GetDrink(drinkId);
+  });
+
   return (
     <>
-
       <Navbar currentPage="drink" />
       <div>
         <h1>Drinkar</h1>
-        <p>Här kommer det finnas olika drinkar att välja på.</p>
-        <p>En föreslagen drink erbjuds beroende på val av maträtt maträtt.</p>
-        <p>
-          Man ska nu kunna acceptera erbjudandet, <br></br>välja egen drink,
-          eller hoppa över drink?
-        </p>
-      </div>
 
-      <div>
-        <Link to="/drink/:id">
-          <button>Drink 1</button>
-        </Link>
-        <Link to="/drink/:id">
-          <button>Drink 2</button>
-        </Link>
-        <Link to="/drink/:id">
-          <button>Drink 3</button>
-        </Link>
-        <Link to="/drink/:id">
-          <button>Drink 4</button>
-        </Link>
-        <Link to="/drink/:id">
-          <button>Drink 5</button>
-        </Link>
-        <Link to="/drink/:id">
-          <button>Drink 6</button>
-        </Link>
+        <div>
+          <div>
+            {drinkList.map((drink) => (
+              <DrinkComponent key={drink?.id} drink={drink} />
+            ))}
+          </div>
+        </div>
       </div>
 
       <div>
         <Link to="/sides">
           <button>Tillbaka</button>
         </Link>
-        <Link to="/order">
-          <button>Min beställning</button>
-        </Link>
+        <ToCartButton onClick={toggleCart}/>
         <Link to="/checkout">
           <button>Till betalning</button>
         </Link>
+      {cartVisible && <>
+        <ToggleCartOverlay onClick={toggleCart} />
+          <CartComponent />
+      </>
+      }
       </div>
     </>
   );

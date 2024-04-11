@@ -12,5 +12,6 @@ export type Dish = {
   imageUrl: string;
   categories: string[];
   ingredients: Ingredient[];
+  timeInMins: number;
   price: number;
 };
