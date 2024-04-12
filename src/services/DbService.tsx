@@ -1,53 +1,8 @@
 import { useEffect, useState } from "react";
 import { Dish } from "../Models/Dish";
 import { Drink } from "../Models/Drink";
-import axios from 'axios'
-import { useQuery } from "@tanstack/react-query";
-
-export const TanDishes = async () => {
-  const { data } = await axios.get(
-    `https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`
-  );
-  return data;
-};
-
-export function Example() {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['repoData'],
-    staleTime: 5000,
-    queryFn: () =>
-      fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`).then((res) =>
-        res.json(),
-      ),
-  })
-
-  if (isLoading) return 'Loading...'
-
-  if (error) return 'An error has occurred: ' + error.message
-
-  return (
-    <div>
-      <h1>{data[2].title}</h1>
-      <p>{data[2].description}</p>
-    </div>
-  )
-}
 
 
-export const GetAllDishes = () => {
-  const [dish, setDish] = useState<Dish[]>();
-  useEffect(() => {
-    fetch(
-      `https://iths-2024-recept-grupp5-o9n268.reky.se/recipes`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setDish(data);
-      });
-  }, []);
-  return dish;
-};
 
 export const GetDishes = (dishType: string) => {
   const [dish, setDish] = useState<Dish[]>();

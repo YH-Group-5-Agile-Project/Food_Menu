@@ -1,24 +1,31 @@
-import { useState } from "react";
 import DishComponent from "./DishComponent";
-import { GetDishes } from "../services/DbService";
 import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
 
-interface dishInput {
-  dishType: string;
-}
+export function DishList(dishType: string) {
 
-export const DishListComponent = ({ dishType }: dishInput) => {
+  const postQuery = useQuery({
+    queryKey: [{dishType}],
+    queryFn: async () => {
+      const response = await axios.get(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`);
+      const data = await response.data;
+      return data;
+    }, 
+    staleTime: 300000,
+  })
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
-  const mainDish = GetDishes(dishType);
-  const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
-
+  const isSideDish = false;
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
   };
+  if( postQuery.isLoading ) return ( <h1>Loading....</h1>)
+  if( postQuery.isError ) return (<h1>Error loading data!!!</h1>)
 
   return (
     <DishesContainer>
-      {mainDish?.map((dish, index) => (
+      {postQuery.data?.map((dish, index) => (
         <DishComponent
           key={index}
           dish={dish}

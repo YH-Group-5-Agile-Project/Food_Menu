@@ -1,29 +1,27 @@
 import { Link } from "react-router-dom";
-import { DishListComponent } from "../components/DishListComponent";
 import { Navbar } from "../components/NavbarComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
+import { DishList } from "../components/DishListComponent2";
 
 
 
-const MenuPage = () => {
+const MainPage = () => {
   return (
     <>
     <Navbar currentPage="main" />
-    
-  
-      <div>
-        <DishListComponent dishType="mainDish" />
-      </div>
-
-      <div>
+    <DishList />
+    <div>
+        <Link to="/home">
+          <button>Tillbaka</button>
+        </Link>
         <ToCartButton/>
-
-        <Link to="/sides">
-          <button>Next</button>
+        <Link to="/side">
+          <button>Nästa steg</button>
         </Link>
       </div>
     </>
-  );
-};
 
-export default MenuPage;
+  )
+}
+
+export default MainPage;
