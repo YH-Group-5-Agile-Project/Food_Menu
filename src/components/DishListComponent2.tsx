@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import { Dish } from "../Models/Dish";
 
-export function DishList(dishType: string) {
+export function DishListComponent2(dishType: string) {
 
   const postQuery = useQuery({
     queryKey: [{dishType}],
@@ -25,7 +26,7 @@ export function DishList(dishType: string) {
 
   return (
     <DishesContainer>
-      {postQuery.data?.map((dish, index) => (
+      {postQuery.data?.map((dish: Dish, index: number) => (
         <DishComponent
           key={index}
           dish={dish}
