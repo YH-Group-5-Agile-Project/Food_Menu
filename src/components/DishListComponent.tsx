@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DishComponent from "./DishComponent";
-import { GetDishes } from "../services/DbService";
-// import { MainDish } from "../Models/MainDish";
+import { GetDishes, TanDishes } from "../services/DbService";
 import styled from "styled-components";
 
 interface dishInput {
@@ -11,7 +10,16 @@ interface dishInput {
 export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
   const mainDish = GetDishes(dishType);
+  const [allDish, setAllDish] = useState<any[]>([]);
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
+
+  useEffect(() => {
+    const fetchAllDishes = async () => {
+      const dishes = await TanDishes();
+      setAllDish(dishes);
+    };
+    fetchAllDishes();
+  }, []);
 
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
@@ -27,6 +35,9 @@ export const DishListComponent = ({ dishType }: dishInput) => {
           onClick={() => HandleClick(index)}
           isSideDish={isSideDish}
         />
+      ))}
+      {allDish.map((dish: any, index: number) => (
+        <h1 key={index}>{dish.title}</h1>
       ))}
     </DishesContainer>
   );

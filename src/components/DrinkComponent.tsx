@@ -6,7 +6,6 @@ const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
   if (!drink) {
     return null;
   }
-  drink.price = 50;
 
   const handleAddToCartClick = () => {
     SendDrinkToCart(drink);
