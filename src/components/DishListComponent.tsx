@@ -1,10 +1,13 @@
 import { useState } from "react";
 import DishComponent from "./DishComponent";
 import { GetDishes } from "../services/DbService";
-// import { MainDish } from "../Models/MainDish";
 import styled, { keyframes } from "styled-components";
-import React from "react";
 import { Dish } from "../Models/Dish";
+import { IncreamentId, SaveOrderToCart } from "../services/CartService";
+import { Order } from "../Models/Order";
+import { AddToCartPopup } from "./AddToCartPopup";
+
+const transitionTime = 800;
 
 interface dishInput {
   dishType: string;
@@ -12,56 +15,85 @@ interface dishInput {
 
 interface FoodProps {
   selected: boolean;
+  isOpen: boolean;
 }
-const transitionTime = 500;
-let timeOutBool = false;
+
+const SendToCart = (dish: Dish) => {
+  const newOrder: Order = {
+    id: IncreamentId(),
+    sides: dish,
+    OrderCost: dish.price,
+  };
+  SaveOrderToCart(newOrder);
+};
+
+const getIngredients = (dish: Dish) => {
+  const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
+  let ingredients;
+  if (ingredientsList.length > 1) {
+    ingredients =
+      ingredientsList.slice(0, -1).join(", ") +
+      " and " +
+      ingredientsList.slice(-1);
+  } else {
+    ingredients = ingredientsList[0] || "";
+  }
+  return ingredients
+}
+
+let tempDish: Dish;
 
 export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
   const dishes = GetDishes(dishType);
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
+  const [selectedInfo, setSelectedInfo] = useState<boolean>(false);
+  const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const HandleClick = (index: number) => {
     if(index === selectedDish) {
-      timeOutBool = false;
+      setIsOpenInfo(false);
+      setSelectedInfo(false);
       setTimeout(() => {
         setSelectedDish(null);
-      }, transitionTime);
+      }, transitionTime - 100);
     }
-    else {
-      timeOutBool = true;
+    else if ((selectedDish || selectedDish === 0) && index !== selectedDish)
+    {
+      setIsOpenInfo(true);
+      setSelectedInfo(false);
       setSelectedDish(index);
     }
-  };
-  
-  const getIngredients = (dish: Dish) => {
-    const ingredientsList = dish.ingredients.map((ingredient) => ingredient.name);
-    let ingredients;
-    if (ingredientsList.length > 1) {
-      ingredients =
-        ingredientsList.slice(0, -1).join(", ") +
-        " and " +
-        ingredientsList.slice(-1);
-    } else {
-      ingredients = ingredientsList[0] || "";
+    else {
+      setIsOpenInfo(true);
+      setSelectedInfo(true);
+      setSelectedDish(index);
     }
-    return ingredients
-  }
+  }; 
+
+  const handleAddToCartClick = (dish: Dish) => {
+    if (!isSideDish){
+      setIsPopupOpen(true);
+      tempDish = dish;
+    } 
+    else SendToCart(dish);
+  };
 
   return (
-    <DishesContainer>
-      {dishes?.map((dish, index) => (
-        <>
-          <DishComponent
-          key={index}
-          dish={dish}
-          isSelected={index === selectedDish}
-          onClick={() => HandleClick(index)}
-          isSideDish={isSideDish}
-          />
-
+    <>
+      <DishesContainer>
+        {dishes?.map((dish, index) => (
+          <>
+            <DishComponent
+              key={index}
+              dish={dish}
+              isSelected={index === selectedDish}
+              onClick={() => HandleClick(index)}
+              isSideDish={isSideDish}
+            />
             {index === selectedDish &&
-              <ExpandedDish selected = {timeOutBool}>
+              <ExpandedDish isOpen={isOpenInfo} selected={selectedInfo}>
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
                   <DishDescription>
@@ -74,16 +106,18 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     {getIngredients(dish)}.
                   </DishIngredients>
                 </TextContainer>
-                <StyledButton >Add</StyledButton>
+                <StyledButton onClick={() => handleAddToCartClick(dish)}>Add</StyledButton>
               </ExpandedDish>
             }
           </>
         ))}
-    </DishesContainer>
+      </DishesContainer>
+      {isPopupOpen && (
+        <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />
+      )}
+    </>
   );
 };
-
-
 
 const ExpandAnimation = keyframes`
   0% {
@@ -97,7 +131,8 @@ const ExpandAnimation = keyframes`
     max-height: 300px;
     opacity: 1;
   }
-`
+`;
+
 const CloseAnimation = keyframes`
   0% {
     max-height: 300px;
@@ -110,18 +145,33 @@ const CloseAnimation = keyframes`
     max-height: 0px;
     opacity: 0;
   }
-`
+`;
+
+const StayOpenAnimation = keyframes`
+  100% {
+    opacity: 1;
+  }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const ExpandedDish = styled.div<FoodProps>`
   width: 100%;
   grid-column: 1 / -1;
   grid-row: auto;
-  max-height: ${(prop) => (prop.selected ? '300px' : '0')};
-  transition: max-height ${transitionTime}ms;
-`
-/* animation-name: ${(prop) => (prop.selected ? ExpandAnimation : CloseAnimation)};
-  animation-duration: ${transitionTime / 1000}s; */
+  animation-name: ${(props) =>
+    props.selected && props.isOpen ? ExpandAnimation :
+    !props.selected && props.isOpen ? StayOpenAnimation : CloseAnimation};
+  animation-duration: ${transitionTime}ms;
+`;
+
 const DishesContainer = styled.div`
+  position: relative;
+  place-items: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-flow: dense;
@@ -166,15 +216,3 @@ const DishIngredients = styled.div`
 const StyledButton = styled.button`
   margin: 20px;
 `;
-
-const MiddleDiv = styled.div<FoodProps>`
-  
-`
-{/*  */}
-          {/* <button onClick={handleAddToCartClick}>Add to Cart</button> */}
-/* 
-          {!MiddleDivRendered &&
-            <MiddleDiv selected={selectedDish !== null}>
-            </MiddleDiv>
-            }
-            {MiddleDivRendered = true} */
