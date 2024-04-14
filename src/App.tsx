@@ -9,7 +9,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import "./App.css";
 import { styled } from "styled-components";
 import { Navbar } from "./components/NavbarComponent";
-import { PageNav } from "./components/PageNavComponent";
+import { NavButtons } from "./components/NavButtonsComponent";
 function App() {
 
   const location = useLocation();
@@ -20,7 +20,7 @@ function App() {
       {location.pathname !== "/" && (
           <NavigationWrapper>
             <Navbar currentPage={location.pathname} />
-            <PageNav />
+            <NavButtons />
           </NavigationWrapper>
         )}
       

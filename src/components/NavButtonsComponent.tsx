@@ -68,7 +68,7 @@ const initialState = {
 }
 
 
-export const PageNav = () => {
+export const NavButtons = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     
     useEffect(() => {
