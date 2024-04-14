@@ -1,29 +1,46 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MainPage";
 import SidePage from "./pages/SidePage";
 import DrinkPage from "./pages/DrinkPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import CartComponent from "./components/CartComponent";
+// import CartComponent from "./components/CartComponent";
 
 import "./App.css";
 import { styled } from "styled-components";
-
+import { Navbar } from "./components/NavbarComponent";
+import { PageNav } from "./components/PageNavComponent";
 function App() {
+
+  const location = useLocation();
+
   return (
     // navbar
-    <Router>
+    <>
+      {location.pathname !== "/" && (
+          <NavigationWrapper>
+            <Navbar currentPage={location.pathname} />
+            <PageNav />
+          </NavigationWrapper>
+        )}
+      
+
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/main" element={<MenuPage />} />
-        <Route path="/sides" element={<SidePage />} />
-        <Route path="/drink" element={<DrinkPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/order" element={<CartComponent />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/main" element={<MenuPage />} />
+          <Route path="/sides" element={<SidePage />} />
+          <Route path="/drink" element={<DrinkPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
-    </Router>
+    </>
   );
 }
+
+const NavigationWrapper = styled.div`
+  position: sticky;
+  top: 5px;
+  z-index: 1;
+`
 
 export const ToggleCartOverlay = styled.a`
   position: fixed;

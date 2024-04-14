@@ -14,6 +14,7 @@ const HomePage = () => {
     }
     SaveCart(cart);
   }
+  console.log(location.pathname)
   
   return (
     <div>

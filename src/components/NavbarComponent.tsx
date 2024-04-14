@@ -5,10 +5,12 @@ import { NavLink } from 'react-router-dom';
 
 
 const NavbarContainer = styled.div`
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   width: 100%; /* Set a fixed width for the NavbarContainer */
   margin-bottom: 20px;
+  padding: 5px;
 `;
 
 interface NavbarProps {
