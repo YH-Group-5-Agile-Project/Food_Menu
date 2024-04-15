@@ -10,15 +10,36 @@ import "./App.css";
 import { styled } from "styled-components";
 import { Navbar } from "./components/NavbarComponent";
 import { NavButtons } from "./components/NavButtonsComponent";
-function App() {
+import { useEffect, useState } from "react";
 
+
+function App() {
+  const [scrolled, setScrolled] = useState<boolean>(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        console.log(scrolled);
+        setScrolled(true);
+      } else {
+        console.log(scrolled);
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     // navbar
     <>
       {location.pathname !== "/" && (
-          <NavigationWrapper>
+          <NavigationWrapper scrolled={scrolled}>
             <Navbar currentPage={location.pathname} />
             <NavButtons />
           </NavigationWrapper>
@@ -36,10 +57,18 @@ function App() {
   );
 }
 
-const NavigationWrapper = styled.div`
+const NavigationWrapper = styled.div<{scrolled: boolean}>`
   position: sticky;
-  top: 5px;
+  top: 0;
   z-index: 1;
+  padding: 5px;
+  width: 100%;
+  background-color: ${(props) => (props.scrolled ? '#242424' : '')};
+
+  @media (prefers-color-scheme: light) {
+    color: #213547;
+    background-color: #ffffff;
+  }
 `
 
 export const ToggleCartOverlay = styled.a`

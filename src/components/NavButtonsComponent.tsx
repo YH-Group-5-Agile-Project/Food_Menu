@@ -9,7 +9,6 @@ import { styled } from "styled-components";
 
 const setCurrentPages = (setPages: Function) => {
     const currentPage = location.pathname;
-    console.log(currentPage);
     switch (currentPage) {
         case "/main":
             setPages('', '/sides', '', 'Next');
@@ -51,8 +50,7 @@ const reducer = (state : PageNavState, action: Action) => {
                         nextPage: action.payload.nextPage,
                         prevButtonText: action.payload.prevButtonText,
                         nextButtonText: action.payload.nextButtonText
-                    }
-
+            }
         default:
             return state;
     }
@@ -80,7 +78,6 @@ export const NavButtons = () => {
     }
 
     const toggleCart = () => {
-        // setCartVisible(!cartVisible);
         dispatch({ type: 'TOGGLE_CART' });
     }
     
@@ -109,7 +106,7 @@ export const NavButtons = () => {
 }
 
 const PageNavWrapper = styled.div`
-    margin-bottom: 1rem;
+    margin-bottom: 5px;
     display: flex;
     flex-flow: row;
     justify-content: center;
@@ -127,5 +124,10 @@ const PageNavWrapper = styled.div`
     button:hover {
         color: #1a1a1a;
         background-color: rgba(255, 255, 255, 0.87);
+
+        @media (prefers-color-scheme: light) {
+            color: rgba(255, 255, 255, 0.87);
+            background-color: #242424;
+        }
     }
 `
