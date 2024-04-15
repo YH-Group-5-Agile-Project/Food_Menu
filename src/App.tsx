@@ -20,10 +20,8 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
-        console.log(scrolled);
         setScrolled(true);
       } else {
-        console.log(scrolled);
         setScrolled(false);
       }
     };
