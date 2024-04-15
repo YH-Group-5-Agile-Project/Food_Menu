@@ -180,13 +180,12 @@ const DishesContainer = styled.div`
   @media (max-width: 949px) {
     width: 560px;
     gap: 20px;
-    margin: auto;
   }
 
   @media (max-width: 549px) {
     width: 360px;
     gap: 10px;
-    margin: auto;
+    
   }
 `;
 
