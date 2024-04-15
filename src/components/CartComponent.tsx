@@ -20,11 +20,13 @@ export const CartComponent = () => {
     const updatedOrderList = cart.OrderList.filter(
       (order) => order.id !== orderId
     );
+
     const updatedCart = {
       ...cart,
       OrderList: updatedOrderList,
       TotalCost: CalculateCostCart({ ...cart, OrderList: updatedOrderList }),
     };
+
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     console.log("Order removed", orderId);
@@ -65,8 +67,10 @@ export const CartComponent = () => {
                 <h2>Total price: £{CalculateCostCart(cart)}</h2>
               </td>
             </tr>
+
           </tbody>
         </table>
+        <button onClick={() => onEmpty()}>Empty Order</button>
       </div>
     </>
   );
