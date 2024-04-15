@@ -43,7 +43,7 @@ const DrinkPage = () => {
         <Link to="/sides">
           <button>Tillbaka</button>
         </Link>
-        <ToCartButton/>
+        <ToCartButton />
         <Link to="/checkout">
           <button>Till betalning</button>
         </Link>

@@ -8,6 +8,8 @@ import {
   SaveOrderToCart,
 } from "../services/CartService";
 
+//Hela komponenten måste konverteras till att använda PostQuery istället för GetDishes
+
 interface AddToCartPopupProps {
   dish: Dish;
   onClose: () => void;

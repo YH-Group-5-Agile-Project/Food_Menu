@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
-import { DishListComponent } from "../components/DishListComponent";
+import { DishListComponent2 } from "../components/DishListComponent2";
 import { ToCartButton } from "../components/CartButtonComponent";
 
 const SidePage = () => {
@@ -9,13 +9,13 @@ const SidePage = () => {
       <Navbar currentPage="sides" />
 
       <div>
-        <DishListComponent dishType="sideDish" />
+        <DishListComponent2 dishType="sideDish" />
       </div>
       <div>
         <Link to="/main">
           <button>Tillbaka</button>
         </Link>
-        <ToCartButton/>
+        <ToCartButton />
         <Link to="/drink">
           <button>Nästa steg</button>
         </Link>

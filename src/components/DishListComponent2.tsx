@@ -1,32 +1,25 @@
 import DishComponent from "./DishComponent";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import { Dish } from "../Models/Dish";
-
-export function DishListComponent2(dishType: string) {
-
-  const postQuery = useQuery({
-    queryKey: [{dishType}],
-    queryFn: async () => {
-      const response = await axios.get(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`);
-      const data = await response.data;
-      return data;
-    }, 
-    staleTime: 300000,
-  })
+import { PostQuery } from "../services/DbService";
+interface dishInput {
+  dishType: string;
+}
+export const DishListComponent2 = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
   const isSideDish = false;
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
   };
-  if( postQuery.isLoading ) return ( <h1>Loading....</h1>)
-  if( postQuery.isError ) return (<h1>Error loading data!!!</h1>)
+  const { data, isLoading, error } = PostQuery(dishType);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <DishesContainer>
-      {postQuery.data?.map((dish: Dish, index: number) => (
+      {data?.map((dish: Dish, index: number) => (
         <DishComponent
           key={index}
           dish={dish}

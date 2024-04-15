@@ -1,9 +1,23 @@
 import { useEffect, useState } from "react";
 import { Dish } from "../Models/Dish";
 import { Drink } from "../Models/Drink";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
+export const PostQuery = (dishType: string) => {
+  return useQuery({
+    queryKey: [{ dishType }],
+    queryFn: async () => {
+      const response = await axios.get(
+        `https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`
+      );
+      return response.data;
+    },
+    staleTime: 300000,
+  });
+};
 
-
+//GetDishes tas bort när AddToCartPopup.tsx är konverterad till PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER
 export const GetDishes = (dishType: string) => {
   const [dish, setDish] = useState<Dish[]>();
   useEffect(() => {
