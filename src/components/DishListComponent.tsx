@@ -176,6 +176,7 @@ const DishesContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-flow: dense;
   width: 880px;
+  overflow: hidden;
 
   @media (max-width: 949px) {
     width: 560px;
