@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
-import { Navbar } from "../components/NavbarComponent";
 import { GetDrink } from "../services/DbService";
 import DrinkComponent from "../components/DrinkComponent";
-import { ToCartButton } from "../components/CartButtonComponent";
 
 const DrinkPage = () => {
+
   let drinkListIDs = [
     "12768",
     "12618",
@@ -26,7 +24,6 @@ const DrinkPage = () => {
 
   return (
     <>
-      <Navbar currentPage="drink" />
       <div>
         <h1>Drinkar</h1>
 
@@ -37,16 +34,6 @@ const DrinkPage = () => {
             ))}
           </div>
         </div>
-      </div>
-
-      <div>
-        <Link to="/sides">
-          <button>Tillbaka</button>
-        </Link>
-        <ToCartButton />
-        <Link to="/checkout">
-          <button>Till betalning</button>
-        </Link>
       </div>
     </>
   );

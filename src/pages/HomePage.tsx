@@ -14,14 +14,15 @@ const HomePage = () => {
     };
     SaveCart(cart);
   }
-
+  console.log(location.pathname)
+  
   return (
     <div>
       <h1>
         COCKTAILS<br></br>AND FOOD
       </h1>
       <Link to="/main">
-        <button>Lägg ny beställning</button>
+        <button>New order</button>
       </Link>
     </div>
   );

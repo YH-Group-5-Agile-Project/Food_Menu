@@ -34,7 +34,7 @@ const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
         </TextContainer>
         <DrinkPrice>£{drink.price}</DrinkPrice>
 
-        <CartButton onClick={handleAddToCartClick}>Add to cart</CartButton>
+        <CartButton onClick={handleAddToCartClick}>Add to order</CartButton>
       </InfoContainer>
     </DrinkContainer>
   );

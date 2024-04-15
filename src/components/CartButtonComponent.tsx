@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import React from "react";
 
-export const ToCartButton = () => {
+interface ToCartButtonProps {
+  onClick: () => void;
+}
+
+export const ToCartButton: React.FC<ToCartButtonProps> = ({ onClick }) => {
   return (
-    <>
-      <Link to="/order">
-        <button>My order</button>
-      </Link>
-    </>
+    <button onClick={onClick}>
+      My order
+    </button>
   );
 };

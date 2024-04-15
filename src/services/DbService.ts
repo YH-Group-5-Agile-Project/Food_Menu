@@ -69,12 +69,15 @@ const mapDrink = (oldDrink: any): Drink => {
     }
   }
 
-  return {
-    id: oldDrink.idDrink,
-    name: oldDrink.strDrink,
-    alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
-    imgUrl: oldDrink.strDrinkThumb,
-    price: 45,
-    ingredients: newIngredients,
-  };
-};
+    return {
+        id: oldDrink.idDrink,
+        name: oldDrink.strDrink,
+        alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
+        imgUrl: oldDrink.strDrinkThumb,
+        ingredients: newIngredients,
+        price: oldDrink.price
+    };
+}
+
+
+
