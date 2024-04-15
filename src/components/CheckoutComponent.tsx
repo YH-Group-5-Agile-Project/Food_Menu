@@ -56,7 +56,7 @@ export const CheckoutComponent = () => {
       </StyledTable>
       <PricePayContainer>
         <h2>Total price: £{CalculateCostCart(cart)}</h2>
-        <button>Send order</button>
+        <button>Place order</button>
       </PricePayContainer>
     </>
   );

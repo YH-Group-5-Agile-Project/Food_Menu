@@ -22,7 +22,7 @@ const HomePage = () => {
         COCKTAILS<br></br>AND FOOD
       </h1>
       <Link to="/main">
-        <button>Lägg ny beställning</button>
+        <button>New order</button>
       </Link>
     </div>
   );

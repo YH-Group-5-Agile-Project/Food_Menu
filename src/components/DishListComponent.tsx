@@ -106,7 +106,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     {getIngredients(dish)}.
                   </DishIngredients>
                 </TextContainer>
-                <StyledButton onClick={() => handleAddToCartClick(dish)}>Add</StyledButton>
+                <StyledButton onClick={() => handleAddToCartClick(dish)}>Add to order</StyledButton>
               </ExpandedDish>
             }
           </>
