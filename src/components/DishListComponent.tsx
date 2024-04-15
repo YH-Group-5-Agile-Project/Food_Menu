@@ -1,11 +1,12 @@
-import { useState } from "react";
 import DishComponent from "./DishComponent";
+import { useState } from "react";
 import { GetDishes } from "../services/DbService";
 import styled, { keyframes } from "styled-components";
 import { Dish } from "../Models/Dish";
 import { IncreamentId, SaveOrderToCart } from "../services/CartService";
 import { Order } from "../Models/Order";
 import { AddToCartPopup } from "./AddToCartPopup";
+import { PostQuery } from "../services/DbService";
 
 const transitionTime = 800;
 
@@ -38,52 +39,51 @@ const getIngredients = (dish: Dish) => {
   } else {
     ingredients = ingredientsList[0] || "";
   }
-  return ingredients
-}
+  return ingredients;
+};
 
 let tempDish: Dish;
 
 export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
-  const dishes = GetDishes(dishType);
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
   const [selectedInfo, setSelectedInfo] = useState<boolean>(false);
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const HandleClick = (index: number) => {
-    if(index === selectedDish) {
+    if (index === selectedDish) {
       setIsOpenInfo(false);
       setSelectedInfo(false);
       setTimeout(() => {
         setSelectedDish(null);
       }, transitionTime - 100);
-    }
-    else if ((selectedDish || selectedDish === 0) && index !== selectedDish)
-    {
+    } else if ((selectedDish || selectedDish === 0) && index !== selectedDish) {
       setIsOpenInfo(true);
       setSelectedInfo(false);
       setSelectedDish(index);
-    }
-    else {
+    } else {
       setIsOpenInfo(true);
       setSelectedInfo(true);
       setSelectedDish(index);
     }
-  }; 
+  };
 
   const handleAddToCartClick = (dish: Dish) => {
-    if (!isSideDish){
+    if (!isSideDish) {
       setIsPopupOpen(true);
       tempDish = dish;
-    } 
-    else SendToCart(dish);
+    } else SendToCart(dish);
   };
+  const { data, isLoading, error } = PostQuery(dishType);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <>
       <DishesContainer>
-        {dishes?.map((dish, index) => (
+        {data?.map((dish, index) => (
           <>
             <DishComponent
               key={index}
@@ -92,7 +92,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
               onClick={() => HandleClick(index)}
               isSideDish={isSideDish}
             />
-            {index === selectedDish &&
+            {index === selectedDish && (
               <ExpandedDish isOpen={isOpenInfo} selected={selectedInfo}>
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
@@ -106,9 +106,11 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     {getIngredients(dish)}.
                   </DishIngredients>
                 </TextContainer>
-                <StyledButton onClick={() => handleAddToCartClick(dish)}>Add to order</StyledButton>
+                <StyledButton onClick={() => handleAddToCartClick(dish)}>
+                  Add to order
+                </StyledButton>
               </ExpandedDish>
-            }
+            )}
           </>
         ))}
       </DishesContainer>
@@ -164,8 +166,11 @@ const ExpandedDish = styled.div<FoodProps>`
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
-    props.selected && props.isOpen ? ExpandAnimation :
-    !props.selected && props.isOpen ? StayOpenAnimation : CloseAnimation};
+    props.selected && props.isOpen
+      ? ExpandAnimation
+      : !props.selected && props.isOpen
+      ? StayOpenAnimation
+      : CloseAnimation};
   animation-duration: ${transitionTime}ms;
 `;
 
@@ -176,17 +181,16 @@ const DishesContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-flow: dense;
   width: 880px;
+  overflow: hidden;
 
   @media (max-width: 949px) {
     width: 560px;
     gap: 20px;
-    margin: auto;
   }
 
   @media (max-width: 549px) {
     width: 360px;
     gap: 10px;
-    margin: auto;
   }
 `;
 
@@ -200,14 +204,12 @@ const DishTitle = styled.h2`
 `;
 
 const TextContainer = styled.div`
-
   @media (max-width: 768px) {
     font-size: 2.5vw;
   }
 `;
 
 const DishPrice = styled.h2``;
-
 
 const DishIngredients = styled.div`
   text-align: left;

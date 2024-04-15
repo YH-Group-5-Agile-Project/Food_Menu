@@ -1,8 +1,7 @@
-import React from 'react';
-import styles from './NavbarComponent.module.css';
-import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
-
+import React from "react";
+import styles from "./NavbarComponent.module.css";
+import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const NavbarContainer = styled.div`
   margin: 0 auto;
@@ -19,17 +18,37 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = () => {
   return (
-    <NavbarContainer >
-      <NavLink to="/main" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
+    <NavbarContainer>
+      <NavLink
+        to="/main"
+        className={({ isActive }) =>
+          isActive ? styles.activeNav : styles.inactiveNav
+        }
+      >
         Main dish
       </NavLink>
-      <NavLink to="/sides" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
+      <NavLink
+        to="/sides"
+        className={({ isActive }) =>
+          isActive ? styles.activeNav : styles.inactiveNav
+        }
+      >
         Side dish
       </NavLink>
-      <NavLink to="/drink" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
+      <NavLink
+        to="/drink"
+        className={({ isActive }) =>
+          isActive ? styles.activeNav : styles.inactiveNav
+        }
+      >
         Drink
       </NavLink>
-      <NavLink to="/checkout" className={({isActive}) => isActive ? styles.activeNav : styles.inactiveNav }>
+      <NavLink
+        to="/checkout"
+        className={({ isActive }) =>
+          isActive ? styles.activeNav : styles.inactiveNav
+        }
+      >
         Checkout
       </NavLink>
     </NavbarContainer>
