@@ -18,7 +18,7 @@ const setCurrentPages = (setPages: Function) => {
             setPages('/main', '/drink', 'Back', 'Next');
             break;
         case '/drink':
-            setPages('/sides', '/checkout', 'Back', 'To Checkout');
+            setPages('/sides', '/checkout', 'Back', 'To checkout');
             break;
         case '/checkout':
             setPages('/drink', '', 'Back', '');
