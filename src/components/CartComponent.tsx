@@ -32,6 +32,17 @@ export const CartComponent = () => {
     console.log("Order removed", orderId);
   };
 
+  const onEmpty = () => {
+    const updatedCart = {
+        ...cart,
+        OrderList: [],
+        TotalCost: 0, 
+    };
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    console.log("Order Emptied");
+};
+
   const handleClose = () => {
     setShowCart(false); // Close the cart component
   };
