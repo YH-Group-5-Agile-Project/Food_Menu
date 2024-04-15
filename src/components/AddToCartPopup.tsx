@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
-import { GetDishes } from "../services/DbService";
-import { SideRecommendation } from "../services/RecommendationService";
-// import { Link } from "react-router-dom";
+import { PostQuery } from "../services/DbService";
 import { Order } from "../Models/Order";
 import {
   CalculateCostOrder,
@@ -32,8 +30,10 @@ const sendToCart = (dish: Dish, sideDish: Dish) => {
 };
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
-  let sideDishes = GetDishes("sideDish");
-  let recomendation = SideRecommendation(dish._id)
+  const { data, isLoading, error } = PostQuery("sideDish");
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <>
       <a onClick={onClose}>
@@ -43,8 +43,8 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       <PopupContainer className="add-to-cart-popup">
         <h3>{dish.title}</h3>
         <h2>Choose side</h2>
-        {sideDishes?.map(
-          (sideDish) => (
+        {data?.map(
+          (sideDish:Dish) => (
             // <Link to="/order">
             <SideContainer
               key={sideDish._id}
@@ -53,11 +53,10 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
               }}
             >
               {sideDish.timeInMins === dish.price && (
-                  <RecommendedChoice>Recommended choice</RecommendedChoice>
-                )}
+                <RecommendedChoice>Recommended choice</RecommendedChoice>
+              )}
               <DishImage src={sideDish.imageUrl} alt="" />
               <DishTitle>{sideDish.title}</DishTitle>
-                
             </SideContainer>
           )
           // </Link>
