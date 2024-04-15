@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
-import { GetDishes } from "../services/DbService";
+import { PostQuery } from "../services/DbService";
 import { Order } from "../Models/Order";
 import {
   CalculateCostOrder,
   IncreamentId,
   SaveOrderToCart,
 } from "../services/CartService";
-
-//Hela komponenten måste konverteras till att använda PostQuery istället för GetDishes
 
 interface AddToCartPopupProps {
   dish: Dish;
@@ -32,7 +30,10 @@ const sendToCart = (dish: Dish, sideDish: Dish) => {
 };
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
-  let sideDishes = GetDishes("sideDish");
+  const { data, isLoading, error } = PostQuery("sideDish");
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
     <>
       <a onClick={onClose}>
@@ -42,8 +43,8 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       <PopupContainer className="add-to-cart-popup">
         <h3>{dish.title}</h3>
         <h2>Choose side</h2>
-        {sideDishes?.map(
-          (sideDish) => (
+        {data?.map(
+          (sideDish:Dish) => (
             // <Link to="/order">
             <SideContainer
               key={sideDish._id}

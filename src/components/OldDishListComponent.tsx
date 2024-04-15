@@ -1,25 +1,24 @@
-import DishComponent from "./DishComponent";
-import styled from "styled-components";
 import { useState } from "react";
-import { Dish } from "../Models/Dish";
-import { PostQuery } from "../services/DbService";
+import DishComponent from "./DishComponent";
+import { GetDishes } from "../services/DbService";
+import styled from "styled-components";
+
 interface dishInput {
   dishType: string;
 }
-export const DishListComponent2 = ({ dishType }: dishInput) => {
+
+export const OldDishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
-  const isSideDish = false;
+  const mainDish = GetDishes(dishType);
+  const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
+
   const HandleClick = (index: number) => {
     setSelectedDish(index === selectedDish ? null : index);
   };
-  const { data, isLoading, error } = PostQuery(dishType);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <DishesContainer>
-      {data?.map((dish: Dish, index: number) => (
+      {mainDish?.map((dish, index) => (
         <DishComponent
           key={index}
           dish={dish}

@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/NavbarComponent";
 import { ToCartButton } from "../components/CartButtonComponent";
-import { DishListComponent2 } from "../components/DishListComponent2";
+import { DishListComponent } from "../components/DishListComponent";
 
 const MainPage = () => {
   return (
     <>
       <Navbar currentPage="main" />
-      <DishListComponent2 dishType="mainDish" />
+      <DishListComponent dishType="mainDish" />
       <div>
         <Link to="/home">
           <button>Tillbaka</button>

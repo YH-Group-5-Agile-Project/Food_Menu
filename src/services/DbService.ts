@@ -17,7 +17,7 @@ export const PostQuery = (dishType: string) => {
   });
 };
 
-//GetDishes tas bort när AddToCartPopup.tsx är konverterad till PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER
+//GetDishes ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER ENDAST POSTQUERY
 export const GetDishes = (dishType: string) => {
   const [dish, setDish] = useState<Dish[]>();
   useEffect(() => {
@@ -32,6 +32,9 @@ export const GetDishes = (dishType: string) => {
   }, []);
   return dish;
 };
+
+
+//GetDrink ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDRINK FÖR NYA SAKER ENDAST POSTQUERY
 
 export const GetDrink = (id: string) => {
   const [drink, setDrink] = useState<Drink | null>(null);
