@@ -27,7 +27,7 @@ const DrinkPage = () => {
       {drinkList
         .filter((drink) => drink !== null)
         .map((drink) => (
-          <DrinkComponent key={drink.id} drink={drink} />
+          <DrinkComponent key={drink!.id} drink={drink!} />
         ))}
     </DrinksContainer>
   );

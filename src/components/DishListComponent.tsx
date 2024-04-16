@@ -1,6 +1,5 @@
 import DishComponent from "./DishComponent";
 import { useState } from "react";
-import { GetDishes } from "../services/DbService";
 import styled, { keyframes } from "styled-components";
 import { Dish } from "../Models/Dish";
 import { IncreamentId, SaveOrderToCart } from "../services/CartService";
@@ -8,7 +7,9 @@ import { Order } from "../Models/Order";
 import { AddToCartPopup } from "./AddToCartPopup";
 import { PostQuery } from "../services/DbService";
 
+
 const transitionTime = 800;
+let tempDish: Dish;
 
 interface dishInput {
   dishType: string;
@@ -42,15 +43,17 @@ const getIngredients = (dish: Dish) => {
   return ingredients;
 };
 
-let tempDish: Dish;
+
 
 export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
-  const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
   const [selectedInfo, setSelectedInfo] = useState<boolean>(false);
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
+  const { data, isLoading, error } = PostQuery(dishType);
+  
   const HandleClick = (index: number) => {
     if (index === selectedDish) {
       setIsOpenInfo(false);
@@ -75,7 +78,6 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       tempDish = dish;
     } else SendToCart(dish);
   };
-  const { data, isLoading, error } = PostQuery(dishType);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

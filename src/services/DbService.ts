@@ -17,6 +17,32 @@ export const PostQuery = (dishType: string) => {
   });
 };
 
+export const DrinkQuery = (drinkId: number) => {
+  return useQuery({
+    queryKey: ['drink', { drinkId }],
+    queryFn: async () => {
+      await axios.get(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+      ).then(res => {
+          let data = res.data;
+          let drink = mapDrink(data.drinks[0]);
+          return drink;
+      });
+      // console.log(response);
+      // return response.data;
+    },
+    staleTime: 300000,
+  });
+};
+
+export const GetDrinkNew = (id: number) => {
+  const newDrink = DrinkQuery(id);
+  console.log(newDrink);
+  
+  // let drinks = mapDrink(data[0]);
+  // return drinks;
+}
+
 //GetDishes ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER ENDAST POSTQUERY
 export const GetDishes = (dishType: string) => {
   const [dish, setDish] = useState<Dish[]>();
