@@ -17,6 +17,19 @@ export const PostQuery = (dishType: string) => {
   });
 };
 
+export const DrinkQuery = (drinkId: number) => {
+  return useQuery({
+    queryKey: [{ drinkId }],
+    queryFn: async () => {
+      const response = await axios.get(
+        `https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${drinkId}/recipes`
+      );
+      return response.data;
+    },
+    staleTime: 300000,
+  });
+};
+
 //GetDishes ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER ENDAST POSTQUERY
 export const GetDishes = (dishType: string) => {
   const [dish, setDish] = useState<Dish[]>();
@@ -32,7 +45,6 @@ export const GetDishes = (dishType: string) => {
   }, []);
   return dish;
 };
-
 
 //GetDrink ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDRINK FÖR NYA SAKER ENDAST POSTQUERY
 
@@ -69,15 +81,12 @@ const mapDrink = (oldDrink: any): Drink => {
     }
   }
 
-    return {
-        id: oldDrink.idDrink,
-        name: oldDrink.strDrink,
-        alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
-        imgUrl: oldDrink.strDrinkThumb,
-        ingredients: newIngredients,
-        price: oldDrink.price
-    };
-}
-
-
-
+  return {
+    id: oldDrink.idDrink,
+    name: oldDrink.strDrink,
+    alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
+    imgUrl: oldDrink.strDrinkThumb,
+    ingredients: newIngredients,
+    price: oldDrink.price,
+  };
+};
