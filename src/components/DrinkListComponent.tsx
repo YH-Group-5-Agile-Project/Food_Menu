@@ -1,24 +1,60 @@
-import { DrinkQuery } from "../services/DbService";
+import { DrinkQuery, GetDrink, mapDrink } from "../services/DbService";
 import DrinkComponent from "./DrinkComponent";
-
+import styled from "styled-components";
 
 export const DrinkListComponent = () => {
-  const drinkListIDs = [
-    12768, 12618, 15092, 12630, 12724, 12726, 11288, 178365, 11462, 11000, 11003,
-    12528,
+  let drinkListIDs = [
+    "12768", "12618", "15092", "12630", "12724", "12726", "11288", "178365", "11462", "11000",
+    "11003", "12528",
   ];
-  let i = 0;
 
-  const { data, isLoading, error } = DrinkQuery(drinkListIDs[i]);
-  
+
+  const { data, isLoading, error } = DrinkQuery(11007);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
 
+  console.log(data)
+  let test = mapDrink(data)
+  console.log(test)
+  /*let drinkList = drinkListIDs.map((drinkId) => {
+    return GetDrink(drinkId);
+  });*/
+  
   return (
-    <>{data?.map}
-      <DrinkComponent drink={data[0]}/>
-    </>
-  );
+    <h1/>
+    /*
+    
+  
+  
+  <DrinksContainer>
+      {drinkList
+        .filter((drink) => drink !== null)
+        .map((drink) => (
+          <DrinkComponent key={drink.id} drink={drink} />
+        ))}
+    </DrinksContainer>
+  */
+);
 };
+const DrinksContainer = styled.div`
+  width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin: auto;
+
+  @media (max-width: 949px) {
+    width: 560px;
+    gap: 20px;
+    margin: auto;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+    gap: 10px;
+    margin: auto;
+  }
+`;

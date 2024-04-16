@@ -22,8 +22,8 @@ export const DrinkQuery = (drinkId: number) => {
     queryKey: [{ drinkId }],
     queryFn: async () => {
       const response = await axios.get(
-        `https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${drinkId}/recipes`
-      );
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+      );a
       return response.data;
     },
     staleTime: 300000,
