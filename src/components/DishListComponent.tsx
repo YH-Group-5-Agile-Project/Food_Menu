@@ -83,7 +83,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   return (
     <>
       <DishesContainer>
-        {data?.map((dish, index) => (
+        {data?.map((dish: Dish, index: number) => (
           <>
             <DishComponent
               key={index}
