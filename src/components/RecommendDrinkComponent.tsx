@@ -10,7 +10,7 @@ interface DrinkProps {
 }
 export const RecommendDrink = (props: DrinkProps) => {
     let drinkId = DrinkRecommendation(props.dish._id);
-    const {data, isLoading, error} = DrinkQuery(parseInt(drinkId))
+    const {data, isLoading, error} = DrinkQuery(drinkId)
     let recommendedDrink = data;
 
     if (isLoading) return <div>Loading...</div>;
