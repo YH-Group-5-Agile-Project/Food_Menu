@@ -18,17 +18,37 @@ export const PostQuery = (dishType: string) => {
 };
 
 export const DrinkQuery = (drinkId: number) => {
-  return useQuery({
+  return useQuery<Drink>({
     queryKey: [{ drinkId }],
     queryFn: async () => {
-      const response = await axios.get(
-        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
-      );a
-      return response.data;
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      return NewMapDrink(data);
     },
     staleTime: 300000,
   });
 };
+
+const NewMapDrink = (data: any): Drink => {
+  const drinkData = data.drinks[0];
+  return {
+    id: drinkData.idDrink,
+    name: drinkData.strDrink,
+    alcoholic: drinkData.strAlcoholic === 'Alcoholic',
+    imgUrl: drinkData.strDrinkThumb,
+    ingredients: [
+      drinkData.strIngredient1,
+      drinkData.strIngredient2,
+      drinkData.strIngredient3,
+      drinkData.strIngredient4,
+    ].filter(Boolean),
+    price: 50,
+  };
+};
+
 
 //GetDishes ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER ENDAST POSTQUERY
 export const GetDishes = (dishType: string) => {
