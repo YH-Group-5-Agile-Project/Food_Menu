@@ -1,7 +1,5 @@
-import { DrinkQuery, GetDrink, mapDrink } from "../services/DbService";
 import DrinkComponent from "./DrinkComponent";
 import styled from "styled-components";
-import { Drinks } from "../Models/Drink";
 
 export const DrinkListComponent = () => {
   let drinkListIDs = [
@@ -9,22 +7,14 @@ export const DrinkListComponent = () => {
     "11003", "12528",
   ];
 
-
-  const { data, isLoading, error } = DrinkQuery(11007);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  console.log(data)
-
-  
-  
   return (
-
     <DrinksContainer>
-      <DrinkComponent drink={data}/>
+      {drinkListIDs
+        .map((drinkId) => (
+          <DrinkComponent key={drinkId} drinkId={drinkId} />
+        ))}
     </DrinksContainer>
-);
+  );
 };
 const DrinksContainer = styled.div`
   width: 900px;

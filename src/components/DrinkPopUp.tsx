@@ -16,7 +16,6 @@ interface DrinkPopUpProps {
 }
 
 const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
-  drink.price = 189;
 
   const handleAddToCartClick = () => {
     SendDrinkToCart(drink);
