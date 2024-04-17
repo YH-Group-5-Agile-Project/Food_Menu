@@ -11,13 +11,18 @@ export const CheckoutComponent = () => {
     TotalCost: 0,
   }); // Load
 
-  const [onClick, setOnClick] = useState(false);
+  const [customizeOrderId, setCustomizeOrderId] = useState <number[]>([]);
 
   useEffect(() => {
     setCart(GetCart());
   }, []); // render only first time
 
-  const onComment = (orderId: number) => {}
+  const toggleCustomizeOrder = (orderId: number) => {
+    if (customizeOrderId.includes(orderId))
+      setCustomizeOrderId(customizeOrderId.filter(id => id != orderId))
+    else
+      setCustomizeOrderId([...customizeOrderId, orderId])
+  }
 
   const onDelete = (orderId: number) => {
     const updatedOrderList = cart.OrderList.filter(
@@ -50,12 +55,16 @@ export const CheckoutComponent = () => {
                 {order.main?.title && order.sides?.title
                   ? `${order.main.title} and ${order.sides.title}`
                   : order.sides?.title || order.drink?.name || "-"}
-                  {"my comment" + " " + order.comment}
+                  {order?.comment && (
+                    <p>Comment: <br />
+                      {order.comment}
+                    </p>                    
+                  )}
               </td>
               <td>£{order.OrderCost}</td>
               <td>
-                <button onClick={() => setOnClick(true)}>Customize</button>
-                {onClick && <CheckoutCommentComponent cart={cart} setCart={setCart}/>}
+                <button onClick={() => toggleCustomizeOrder(order.id)}>Customize</button>
+                {customizeOrderId.includes(order.id) && <CheckoutCommentComponent cart={cart} setCart={setCart} orderId = {order.id}/>}
               </td>
               <td>                
                 <button onClick={() => onDelete(order.id)}>Remove</button>
@@ -91,6 +100,11 @@ const StyledTable = styled.table`
     padding: 8px;
     /* text-align: left; */
     border-bottom: 1px solid lightgray;
+    p{
+       word-wrap: break-word;
+       width: 300px;
+       white-space: pre-wrap;
+    }
   }
 
   th:nth-child(1),

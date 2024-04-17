@@ -5,18 +5,37 @@ type CommentFormType = {
     id: number;
     comment: string;
 }
-export const CheckoutCommentComponent = ( {cart, setCart} ) => {
+
+type Props = {
+    cart: Cart; 
+    setCart: React.Dispatch<React.SetStateAction<Cart>>;
+    orderId: number;
+}
+
+export const CheckoutCommentComponent = ( {cart, setCart, orderId}: Props ) => {
     const {register, handleSubmit, setError, formState: {errors} } = useForm<CommentFormType>();
     const onSubmit: SubmitHandler<CommentFormType> = (data) => {
-        console.log("Hello world!", data.comment)
-        setCart({...cart, comment: data.comment})
-        console.log(cart.OrderList[0].comment);
+        
+        const updatedOrderList = cart.OrderList.map(order => {
+            if (order.id === orderId)
+                return {...order, comment: data.comment}
+            else
+                return order;
+        })
+
+        setCart(prev => ({
+            ...prev, OrderList: updatedOrderList
+        }))
     };    
     
     //setItems({...item, name: event.target.value})
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("comment")}></input>
+            <textarea {...register("comment")}
+                defaultValue={cart.OrderList.find(order => order.id === orderId)?.comment || ""}
+                maxLength={100}
+                rows = {5}
+            />
             <input type="submit" value={"submit"}/>
         </form>
     );
