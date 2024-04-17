@@ -7,4 +7,5 @@ export type Order = {
   sides?: Dish;
   drink?: Drink;
   OrderCost: number;
+  comment?: string;
 };

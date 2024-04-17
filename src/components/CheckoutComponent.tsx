@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart } from "../services/CartService";
 import { styled } from "styled-components";
+import { CheckoutCommentComponent } from "./CheckoutCommentComponent";
 
 export const CheckoutComponent = () => {
   const [cart, setCart] = useState<Cart>({
@@ -10,9 +11,13 @@ export const CheckoutComponent = () => {
     TotalCost: 0,
   }); // Load
 
+  const [onClick, setOnClick] = useState(false);
+
   useEffect(() => {
     setCart(GetCart());
   }, []); // render only first time
+
+  const onComment = (orderId: number) => {}
 
   const onDelete = (orderId: number) => {
     const updatedOrderList = cart.OrderList.filter(
@@ -45,9 +50,14 @@ export const CheckoutComponent = () => {
                 {order.main?.title && order.sides?.title
                   ? `${order.main.title} and ${order.sides.title}`
                   : order.sides?.title || order.drink?.name || "-"}
+                  {"my comment" + " " + order.comment}
               </td>
               <td>£{order.OrderCost}</td>
               <td>
+                <button onClick={() => setOnClick(true)}>Customize</button>
+                {onClick && <CheckoutCommentComponent cart={cart} setCart={setCart}/>}
+              </td>
+              <td>                
                 <button onClick={() => onDelete(order.id)}>Remove</button>
               </td>
             </tr>
