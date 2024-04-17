@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
-import { DrinkQuery, GetDrinkNew, PostQuery } from "../services/DbService";
+import { PostQuery } from "../services/DbService";
 import { Order } from "../Models/Order";
 import {
   CalculateCostOrder,
@@ -8,10 +8,8 @@ import {
   SaveOrderToCart,
 } from "../services/CartService";
 import { Drink } from "../Models/Drink";
-
-import { DrinkRecommendation } from "../services/RecommendationService";
 import { useState } from "react";
-import { GetDrink } from "../services/Test";
+import { RecommendDrink } from "./RecommendDrinkComponent";
 
 let tempDish: Dish;
 let tempSide: Dish;
@@ -21,32 +19,15 @@ interface AddToCartPopupProps {
   onClose: () => void;
 }
 
-/* export function GetTheDrink(id: string): void {
-  const [drink, setDrink] = useState<Drink | null>();
-
-  setDrink(GetDrink(id));
-  
-  console.log(drink);
-}
- */
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const [sideOrDrink, setSideOrDrink] = useState<boolean>(false);
-  const [ recommendedDrink, setRecommendedDrink] = useState<Drink | undefined>();
   const { data, isLoading, error } = PostQuery("sideDish");
   
-  
-  // let drink = GetDrinkNew(parseInt("11288"));
   const loadRecommendedDrink = (dish: Dish, sideDish: Dish) => {
     tempDish = dish;
     tempSide = sideDish;
     setSideOrDrink(true);
-    let drinkId = DrinkRecommendation(dish._id);
-    let drink = DrinkQuery(parseInt("11288"));
-    console.log(drink);
-    if(drink !== null) {
-      // setRecommendedDrink(drink)
-    }
   }
   
   const sendToCart = (_drink?: Drink) => {
@@ -59,7 +40,6 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       OrderCost: 0,
     };
   
-    // Calculate price for Order
     newOrder.OrderCost = CalculateCostOrder(newOrder);
     SaveOrderToCart(newOrder);
     location.reload();
@@ -72,16 +52,14 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       <a onClick={onClose}>
         <Overlay />
       </a>
-      {/* <AntiLink onClick={(event) => event.stopPropagation()}> */}
       <PopupContainer className="add-to-cart-popup">
         <h3>{dish.title}</h3>
-        {!sideOrDrink && 
+        {!sideOrDrink ? 
           <div>
             <h2>Choose side</h2>
             {data?.map(
               (sideDish:Dish) => 
                   (
-                    // <Link to="/order">
                     <SideContainer
                     key={sideDish._id}
                     onClick={() => {
@@ -95,36 +73,16 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                     <DishTitle>{sideDish.title}</DishTitle>
                   </SideContainer>
               )
-              // </Link>
             )}
             <Button onClick={onClose}>Cancel</Button>
-          </div>
-        }
-        {sideOrDrink &&
-          <DrinkRecommendationParent>
-            <h4>We recommend this drink to go with your food</h4>
-            <DrinkImage src={recommendedDrink?.imgUrl} alt={'Loading'}></DrinkImage>
-            <div>
-              <Button onClick={() => {sendToCart(recommendedDrink), onClose}}>Yes, look delicious</Button>
-              <Button onClick={() => {sendToCart(), onClose}}>No thank you</Button>
-            </div>
-          </DrinkRecommendationParent>
+          </div> 
+          :
+          <RecommendDrink dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
         }
       </PopupContainer>
-      {/* </AntiLink> */}
     </>
   );
 }
-
-const DrinkRecommendationParent = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-const DrinkImage = styled.img`
-  width: 50%;
-  margin-right: 2rem;
-  border-radius: 20px;
-`;
 
 const Button = styled.button`
   border: solid 2px black;
@@ -176,15 +134,6 @@ const RecommendedChoice = styled.div`
   z-index: 1;
 `;
 
-
-/* const AntiLink = styled.a`
-  color: inherit;
-  &:hover,
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-  }
-` */
 
 const Overlay = styled.div`
   width: 100%;

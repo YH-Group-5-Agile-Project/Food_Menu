@@ -43,8 +43,6 @@ const getIngredients = (dish: Dish) => {
   return ingredients;
 };
 
-
-
 export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedDish, setSelectedDish] = useState<number | null>(null);
   const [selectedInfo, setSelectedInfo] = useState<boolean>(false);
@@ -58,9 +56,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     if (index === selectedDish) {
       setIsOpenInfo(false);
       setSelectedInfo(false);
-      setTimeout(() => {
-        setSelectedDish(null);
-      }, transitionTime - 100);
+
     } else if ((selectedDish || selectedDish === 0) && index !== selectedDish) {
       setIsOpenInfo(true);
       setSelectedInfo(false);
@@ -95,7 +91,11 @@ export const DishListComponent = ({ dishType }: dishInput) => {
               isSideDish={isSideDish}
             />
             {index === selectedDish && (
-              <ExpandedDish isOpen={isOpenInfo} selected={selectedInfo}>
+              <ExpandedDish isOpen={isOpenInfo} selected={selectedInfo} onAnimationEnd={() => {
+                if(!isOpenInfo) {
+                  setSelectedDish(null);
+                }
+              }}>
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
                   <DishDescription>
@@ -152,9 +152,6 @@ const CloseAnimation = keyframes`
 `;
 
 const StayOpenAnimation = keyframes`
-  100% {
-    opacity: 1;
-  }
   0% {
     opacity: 0;
   }
@@ -164,6 +161,8 @@ const StayOpenAnimation = keyframes`
 `;
 
 const ExpandedDish = styled.div<FoodProps>`
+  max-height: ${(props) => props.isOpen ? '100%' : '0'};
+  opacity: ${(props) => props.isOpen ? '1' : '0'};
   width: 100%;
   grid-column: 1 / -1;
   grid-row: auto;
