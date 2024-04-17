@@ -37,7 +37,7 @@ function App() {
     // navbar
     <>
       {location.pathname !== "/" && (
-          <NavigationWrapper scrolled={scrolled}>
+          <NavigationWrapper $scrolled={scrolled}>
             <Navbar currentPage={location.pathname} />
             <NavButtons />
           </NavigationWrapper>
@@ -55,13 +55,13 @@ function App() {
   );
 }
 
-const NavigationWrapper = styled.div<{scrolled: boolean}>`
+const NavigationWrapper = styled.div<{ $scrolled: boolean }>`
   position: sticky;
   top: 0;
   z-index: 1;
   padding: 5px;
   width: 100%;
-  background-color: ${(props) => (props.scrolled ? '#242424' : '')};
+  background-color: ${(props) => (props.$scrolled ? '#242424' : 'transparent')};
 
   @media (prefers-color-scheme: light) {
     color: #213547;

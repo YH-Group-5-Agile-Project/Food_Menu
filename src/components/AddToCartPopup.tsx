@@ -7,68 +7,84 @@ import {
   IncreamentId,
   SaveOrderToCart,
 } from "../services/CartService";
+import { Drink } from "../Models/Drink";
+import { useState } from "react";
+import { RecommendDrink } from "./RecommendDrinkComponent";
+
+let tempDish: Dish;
+let tempSide: Dish;
 
 interface AddToCartPopupProps {
   dish: Dish;
   onClose: () => void;
 }
 
-const sendToCart = (dish: Dish, sideDish: Dish) => {
-  // First SideDish is free
-  sideDish.price = 0;
-  // Create Order
-  let newOrder: Order = {
-    id: IncreamentId(),
-    main: dish,
-    sides: sideDish,
-    OrderCost: 0,
-  };
-  // Calculate price for Order
-  newOrder.OrderCost = CalculateCostOrder(newOrder);
-  SaveOrderToCart(newOrder);
-  location.reload();
-};
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
+  const [sideOrDrink, setSideOrDrink] = useState<boolean>(false);
   const { data, isLoading, error } = PostQuery("sideDish");
-
+  
+  const loadRecommendedDrink = (dish: Dish, sideDish: Dish) => {
+    tempDish = dish;
+    tempSide = sideDish;
+    setSideOrDrink(true);
+  }
+  
+  const sendToCart = (_drink?: Drink) => {
+    tempDish.price = 0;
+    let newOrder: Order = {
+      id: IncreamentId(),
+      main: tempDish,
+      sides: tempSide,
+      drink: _drink,
+      OrderCost: 0,
+    };
+  
+    newOrder.OrderCost = CalculateCostOrder(newOrder);
+    SaveOrderToCart(newOrder);
+    location.reload();
+  };
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
+
   return (
     <>
       <a onClick={onClose}>
         <Overlay />
       </a>
-      {/* <AntiLink onClick={(event) => event.stopPropagation()}> */}
       <PopupContainer className="add-to-cart-popup">
         <h3>{dish.title}</h3>
-        <h2>Choose side</h2>
-        {data?.map(
-          (sideDish:Dish) => (
-            // <Link to="/order">
-            <SideContainer
-              key={sideDish._id}
-              onClick={() => {
-                sendToCart(dish, sideDish), onClose();
-              }}
-            >
-              {sideDish.timeInMins === dish.price && (
-                <RecommendedChoice>Recommended choice</RecommendedChoice>
-              )}
-              <DishImage src={sideDish.imageUrl} alt="" />
-              <DishTitle>{sideDish.title}</DishTitle>
-            </SideContainer>
-          )
-          // </Link>
-        )}
-        <CancelButton onClick={onClose}>Cancel</CancelButton>
+        {!sideOrDrink ? 
+          <div>
+            <h2>Choose side</h2>
+            {data?.map(
+              (sideDish:Dish) => 
+                  (
+                    <SideContainer
+                    key={sideDish._id}
+                    onClick={() => {
+                      loadRecommendedDrink(dish, sideDish);
+                    }}
+                    >
+                    {sideDish.timeInMins === dish.price && (
+                      <RecommendedChoice>Recommended choice</RecommendedChoice>
+                    )}
+                    <DishImage src={sideDish.imageUrl} alt="" />
+                    <DishTitle>{sideDish.title}</DishTitle>
+                  </SideContainer>
+              )
+            )}
+            <Button onClick={onClose}>Cancel</Button>
+          </div> 
+          :
+          <RecommendDrink dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
+        }
       </PopupContainer>
-      {/* </AntiLink> */}
     </>
   );
 }
 
-const CancelButton = styled.button`
+const Button = styled.button`
   border: solid 2px black;
   border-radius: 30px;
   &:hover,
@@ -118,14 +134,6 @@ const RecommendedChoice = styled.div`
   z-index: 1;
 `;
 
-/* const AntiLink = styled.a`
-  color: inherit;
-  &:hover,
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-  }
-` */
 
 const Overlay = styled.div`
   width: 100%;
