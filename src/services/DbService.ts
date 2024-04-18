@@ -41,7 +41,7 @@ const NewMapDrink = (data: any): Drink => {
   return {
     id: drinkData.idDrink,
     name: drinkData.strDrink,
-    alcoholic: drinkData.strAlcoholic,
+    alcoholic: drinkData.strAlcoholic === "Alcoholic" ? true : false,
     imgUrl: drinkData.strDrinkThumb,
     ingredients: [
       drinkData.strIngredient1,
