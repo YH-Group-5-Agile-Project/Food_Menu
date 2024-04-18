@@ -54,6 +54,7 @@ const PopUpContainer = styled.div`
 
 const PopUpContent = styled.div`
   background-color: white;
+  color: black;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

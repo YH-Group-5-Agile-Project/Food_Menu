@@ -1,4 +1,4 @@
-import { useState } from "react";
+/* import { useState } from "react";
 import DishComponent from "./DishComponent";
 import { GetDishes } from "../services/DbService";
 import styled from "styled-components";
@@ -50,3 +50,4 @@ const DishesContainer = styled.div`
     margin: auto;
   }
 `;
+ */
