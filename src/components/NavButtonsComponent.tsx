@@ -118,12 +118,6 @@ const PageNavWrapper = styled.div`
         border-radius: 10px;
         cursor: pointer;
         font-size: 12px;
-        background-color: var(--fifthColor);
         transition: background-color 0.3s ease-in-out;
     }
-
-    button:hover {
-        color: #1a1a1a;
-        background-color: rgba(255, 255, 255, 0.87);
-    }
-`
+    `
