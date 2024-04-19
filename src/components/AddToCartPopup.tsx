@@ -10,7 +10,7 @@ import {
 import { Drink } from "../Models/Drink";
 import { useState } from "react";
 import { RecommendDrink } from "./RecommendDrinkComponent";
-import DecorationLineImage from '../assets/design-assets/DecorationLine.png';
+import DecorationLineImage from '../assets/images/DecorationLine.png';
 
 let tempDish: Dish;
 let tempSide: Dish;
@@ -175,7 +175,7 @@ const PopupContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 70%;
+  // height: 70%;
   min-height: 600px;
   max-width: 800px;
   width: 65%;
