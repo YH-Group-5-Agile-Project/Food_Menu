@@ -119,4 +119,14 @@ const StyledTable = styled.table`
   td:nth-child(3) {
     text-align: center;
   }
+
+  @media (max-width: 949px) {
+    width: 560px;
+    gap: 20px;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+    gap: 10px;
+  }
 `;

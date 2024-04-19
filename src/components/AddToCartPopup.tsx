@@ -153,7 +153,7 @@ const RecommendedChoice = styled.div`
   position: absolute;
   width: 60%;
   margin-bottom: 1rem;
-  // border: 1px solid white;
+  border: 1px solid var(--fourthColor);
   border-radius: 10px;
   padding: 5px;
   color: white;
