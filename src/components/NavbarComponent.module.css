@@ -54,7 +54,7 @@
 .navbarButtonDefault {
   padding: 8px 20px;
   border: none;
-  border-radius: 999px;
+  border-radius: 20px;
   cursor: pointer;
   font-size: 12px;
   transition: background-color 0.3s ease-in-out;
