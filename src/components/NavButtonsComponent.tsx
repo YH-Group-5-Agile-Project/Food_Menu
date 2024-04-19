@@ -114,20 +114,9 @@ const PageNavWrapper = styled.div`
 
     button {
         padding: 8px 20px;
-        border: none;
-        border-radius: 999px;
+        border-radius: 10px;
         cursor: pointer;
         font-size: 12px;
         transition: background-color 0.3s ease-in-out;
     }
-
-    button:hover {
-        color: #1a1a1a;
-        background-color: rgba(255, 255, 255, 0.87);
-
-        @media (prefers-color-scheme: light) {
-            color: rgba(255, 255, 255, 0.87);
-            background-color: #242424;
-        }
-    }
-`
+    `

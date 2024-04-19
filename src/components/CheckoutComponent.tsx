@@ -92,7 +92,7 @@ const PricePayContainer = styled.div`
 `;
 
 const StyledTable = styled.table`
-  width: 100%;
+  width: 880px;
   border-collapse: collapse;
 
   th,
@@ -118,5 +118,15 @@ const StyledTable = styled.table`
   th:nth-child(3),
   td:nth-child(3) {
     text-align: center;
+  }
+
+  @media (max-width: 949px) {
+    width: 560px;
+    gap: 20px;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+    gap: 10px;
   }
 `;

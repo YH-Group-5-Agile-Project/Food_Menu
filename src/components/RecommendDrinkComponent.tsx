@@ -55,7 +55,6 @@ const DrinkImage = styled.img`
 const Button = styled.button`
     margin: 20px;
   border: solid 2px black;
-  border-radius: 30px;
   &:hover,
   &:focus {
     color: grey;
