@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { SendDrinkToCart } from "../services/CartService";
+import { useState } from "react";
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 export type Drink = {
   id: string;
@@ -16,10 +18,18 @@ interface DrinkPopUpProps {
 }
 
 const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
-
-  const handleAddToCartClick = () => {
+  const [showItemAdded, setShowItemAdded] = useState(false);
+  
+  
+  const  handleAddToCartClick = () => {
     SendDrinkToCart(drink);
+    setShowItemAdded(true)
+    setTimeout(() => {
+      setShowItemAdded(false);
+    }, 1000);
+    setTimeout(() => {
     onClose();
+    }, 1000);
   };
 
   return (
@@ -30,9 +40,12 @@ const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
         <p>Ingredients: {drink.ingredients.join(", ")}</p>
         <p>{drink.alcoholic ? "" : "Non-alcholic"}</p>
         <p>Price: {drink.price} SEK</p>
-        <button onClick={handleAddToCartClick}>Add to Cart</button>
-        <button onClick={onClose}>Close</button>
+        <button disabled={showItemAdded} onClick={handleAddToCartClick}>Add to Cart</button>
+        <button disabled={showItemAdded} onClick={onClose}>Close</button>
       </PopUpContent>
+      {showItemAdded && (
+        <ItemAddedToCartPopup />
+      )}
     </PopUpContainer>
   );
 };

@@ -7,6 +7,7 @@ import { DrinkQuery } from "../services/DbService";
 interface DrinkProps {
     dish: Dish;
     sendToCart: (drink?: Drink) => void;
+    showItemAdded: boolean
 }
 export const RecommendDrink = (props: DrinkProps) => {
     let drinkId = DrinkRecommendation(props.dish._id);
@@ -24,8 +25,8 @@ export const RecommendDrink = (props: DrinkProps) => {
                 <DrinkImage src={recommendedDrink?.imgUrl} alt={'Loading'}></DrinkImage>
             </ImageContainer>
             <ButtonContainer>
-              <Button onClick={() => {props.sendToCart(recommendedDrink)}}>Yes, look delicious</Button>
-              <Button onClick={() => {props.sendToCart()}}>No thank you</Button>
+              <Button disabled={props.showItemAdded} onClick={() => {props.sendToCart(recommendedDrink)}}>Yes, look delicious</Button>
+              <Button disabled={props.showItemAdded} onClick={() => {props.sendToCart()}}>No thank you</Button>
             </ButtonContainer>
           </DrinkRecommendationParent>
     )

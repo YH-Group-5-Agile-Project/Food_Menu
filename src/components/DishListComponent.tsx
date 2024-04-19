@@ -6,6 +6,7 @@ import { IncreamentId, SaveOrderToCart } from "../services/CartService";
 import { Order } from "../Models/Order";
 import { AddToCartPopup } from "./AddToCartPopup";
 import { PostQuery } from "../services/DbService";
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 
 const transitionTime = 800;
@@ -27,6 +28,8 @@ const SendToCart = (dish: Dish) => {
     OrderCost: dish.price,
   };
   SaveOrderToCart(newOrder);
+  
+  console.log("Item sent to cart")
 };
 
 const getIngredients = (dish: Dish) => {
@@ -48,10 +51,11 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [selectedInfo, setSelectedInfo] = useState<boolean>(false);
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showItemAdded, setShowItemAdded] = useState(false);
 
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
   const { data, isLoading, error } = PostQuery(dishType);
-  
+
   const HandleClick = (index: number) => {
     if (index === selectedDish) {
       setIsOpenInfo(false);
@@ -72,12 +76,16 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     if (!isSideDish) {
       setIsPopupOpen(true);
       tempDish = dish;
-    } else SendToCart(dish);
+    } else {SendToCart(dish);
+      setShowItemAdded(true)
+      setTimeout(() => {
+        setShowItemAdded(false);
+      }, 1000);
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  console.log(data)
   return (
     <>
       <DishesContainer>
@@ -108,20 +116,27 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     {getIngredients(dish)}.
                   </DishIngredients>
                 </TextContainer>
-                <StyledButton onClick={() => handleAddToCartClick(dish)}>
-                  Add to order
+                <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>
+                  <ItemAddedPopup>Add to order</ItemAddedPopup>
                 </StyledButton>
               </ExpandedDish>
             )}
           </>
         ))}
       </DishesContainer>
+      {showItemAdded && (
+        <ItemAddedToCartPopup />
+      )}
       {isPopupOpen && (
         <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />
       )}
     </>
   );
 };
+
+const ItemAddedPopup = styled.div `
+
+`
 
 const ExpandAnimation = keyframes`
   0% {

@@ -10,6 +10,7 @@ import {
 import { Drink } from "../Models/Drink";
 import { useState } from "react";
 import { RecommendDrink } from "./RecommendDrinkComponent";
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 let tempDish: Dish;
 let tempSide: Dish;
@@ -23,6 +24,7 @@ interface AddToCartPopupProps {
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const [sideOrDrink, setSideOrDrink] = useState<boolean>(false);
   const { data, isLoading, error } = PostQuery("sideDish");
+  const [showItemAdded, setShowItemAdded] = useState(false);
   
   const loadRecommendedDrink = (dish: Dish, sideDish: Dish) => {
     tempDish = dish;
@@ -39,10 +41,13 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       drink: _drink,
       OrderCost: 0,
     };
-  
+    setShowItemAdded(true)
+      setTimeout(() => {
+        location.reload();
+        setShowItemAdded(false);
+      }, 1000);
     newOrder.OrderCost = CalculateCostOrder(newOrder);
     SaveOrderToCart(newOrder);
-    location.reload();
   };
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -53,6 +58,9 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
         <Overlay />
       </a>
       <PopupContainer className="add-to-cart-popup">
+      {showItemAdded && (
+        <ItemAddedToCartPopup />
+      )}
         <h3>{dish.title}</h3>
         {!sideOrDrink ? 
           <div>
@@ -77,7 +85,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
             <Button onClick={onClose}>Cancel</Button>
           </div> 
           :
-          <RecommendDrink dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
+          <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
         }
       </PopupContainer>
     </>
