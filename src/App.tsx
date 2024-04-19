@@ -72,8 +72,8 @@ const LayoutDiv = styled.div`
   height: 70vh;
   min-height: 60vh;
 
-  @media (max-height: 1399px) {
-    height: 100vh;
+  @media (max-height: 999px) {
+    height: 100%;
   }
 
 `
@@ -83,7 +83,6 @@ const NavigationWrapper = styled.div<{ $scrolled: boolean }>`
   z-index: 1;
   padding: 5px;
   width: 100%;
-  background-color: ${(props) => (props.$scrolled ? '#242424' : 'transparent')};
 
 `
 

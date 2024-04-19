@@ -56,6 +56,7 @@ background-image: url('assets\design-assets\BackgrundImg.png');
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
+background-attachment: fixed;
 }
 
 h1 {
