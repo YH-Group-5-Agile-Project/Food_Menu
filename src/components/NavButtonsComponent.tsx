@@ -114,7 +114,6 @@ const PageNavWrapper = styled.div`
 
     button {
         padding: 8px 20px;
-        border: none;
         border-radius: 10px;
         cursor: pointer;
         font-size: 12px;
