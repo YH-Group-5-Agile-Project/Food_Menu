@@ -61,6 +61,8 @@ const NavigationWrapper = styled.div<{ $scrolled: boolean }>`
   z-index: 1;
   padding: 5px;
   width: 100%;
+  background-color: ${(props) => (props.$scrolled ? '#242424' : 'transparent')};
+
 `
 
 export const ToggleCartOverlay = styled.a`
