@@ -22,10 +22,10 @@ const DrinkComponent = ( {drinkId}: DrinkComponentProps) => {
   return (
     <DrinkContainer onClick={togglePopUp}>
       <ImageContainer>
-        <DrinkImage src={data?.imgUrl} alt={data?.name} />
-        <TitleOverlay>{data?.name}</TitleOverlay>
+        <DrinkImage src={data.imgUrl} alt={data.name} />
+        <TitleOverlay>{data.name}</TitleOverlay>
       </ImageContainer>
-      {isPopUpOpen && <DrinkPopUp drink={drink!} onClose={togglePopUp} />}
+      {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
   );
 };
