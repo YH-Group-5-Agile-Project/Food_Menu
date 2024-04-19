@@ -51,7 +51,7 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
 background-image: url('assets\design-assets\BackgrundImg.png');
 background-size: cover;
 background-position: center;
