@@ -92,7 +92,7 @@ const PricePayContainer = styled.div`
 `;
 
 const StyledTable = styled.table`
-  width: 900px;
+  width: 880px;
   border-collapse: collapse;
 
   th,

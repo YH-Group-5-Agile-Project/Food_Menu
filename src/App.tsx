@@ -35,26 +35,48 @@ function App() {
 
   return (
     // navbar
+
     <>
+      <LayoutDiv>
       {location.pathname !== "/" && (
           <NavigationWrapper $scrolled={scrolled}>
             <Navbar currentPage={location.pathname} />
             <NavButtons />
           </NavigationWrapper>
         )}
-      
-
-      <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/main" element={<MenuPage />} />
-          <Route path="/sides" element={<SidePage />} />
-          <Route path="/drink" element={<DrinkPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-      </Routes>
+          <ContentDiv>
+              <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/main" element={<MenuPage />} />
+                  <Route path="/sides" element={<SidePage />} />
+                  <Route path="/drink" element={<DrinkPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+              </Routes>
+          </ContentDiv>
+      </LayoutDiv>
     </>
   );
 }
 
+const ContentDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-width: 880px;
+  overflow: scroll;
+`
+
+const LayoutDiv = styled.div`
+  width: 100%;
+  height: 70vh;
+  min-height: 60vh;
+
+  @media (max-height: 1399px) {
+    height: 100vh;
+  }
+
+`
 const NavigationWrapper = styled.div<{ $scrolled: boolean }>`
   position: sticky;
   top: 0;
