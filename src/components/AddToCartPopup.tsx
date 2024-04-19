@@ -10,6 +10,7 @@ import {
 import { Drink } from "../Models/Drink";
 import { useState } from "react";
 import { RecommendDrink } from "./RecommendDrinkComponent";
+import DecorationLineImage from '../assets/images/DecorationLine.png';
 
 let tempDish: Dish;
 let tempSide: Dish;
@@ -54,9 +55,10 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       </a>
       <PopupContainer className="add-to-cart-popup">
         <h3>{dish.title}</h3>
+        <BreakLine src={DecorationLineImage} />
         {!sideOrDrink ? 
           <div>
-            <h2>Choose side</h2>
+            <h2>Select your complimentary side</h2>
             {data?.map(
               (sideDish:Dish) => 
                   (
@@ -83,6 +85,12 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
     </>
   );
 }
+
+const BreakLine = styled.img`
+  width: 95%;
+  object-fit: cover;
+  height: 50px;
+`
 
 const Button = styled.button`
   border: solid 2px black;
@@ -150,12 +158,21 @@ const PopupContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40rem;
-  height: 40rem;
+  height: 70%;
+  min-height: 600px;
+  max-width: 800px;
+  width: 65%;
   z-index: 3;
-  background-color: grey;
+  background-color: var(--firstColor);
   border-radius: 30px;
   overflow: scroll;
   overflow-x: hidden;
-  padding: 10px;
+
+  @media (max-width: 949px) {
+    width: 80%;
+  }
+  @media (max-width: 609px) {
+    width: 95%;
+  }
+
 `;
