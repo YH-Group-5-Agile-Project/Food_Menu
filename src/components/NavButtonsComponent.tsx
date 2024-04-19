@@ -115,7 +115,7 @@ const PageNavWrapper = styled.div`
     button {
         padding: 8px 20px;
         border: none;
-        border-radius: 999px;
+        border-radius: 10px;
         cursor: pointer;
         font-size: 12px;
         transition: background-color 0.3s ease-in-out;
