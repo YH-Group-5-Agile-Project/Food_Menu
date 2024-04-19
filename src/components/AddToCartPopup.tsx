@@ -108,7 +108,6 @@ const BreakLine = styled.img`
 `
 
 const Button = styled.button`
-  border: solid 2px black;
   &:hover,
   &:focus {
     color: grey;
