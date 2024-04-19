@@ -146,6 +146,10 @@ const DishImage = styled.img`
 const DishTitle = styled.div`
   width: 50%;
   font-size: 1rem;
+
+  @media (max-width: 949px) {
+    font-size: 0.7rem;
+  }
 `;
 const RecommendedChoice = styled.div`
   position: absolute;

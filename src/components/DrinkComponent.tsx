@@ -17,14 +17,15 @@ const DrinkComponent = ( {drinkId}: DrinkComponentProps) => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  let drink = data
+  let drink = data;
+  
   return (
     <DrinkContainer onClick={togglePopUp}>
       <ImageContainer>
-        <DrinkImage src={data.imgUrl} alt={data.name} />
-        <TitleOverlay>{data.name}</TitleOverlay>
+        <DrinkImage src={data?.imgUrl} alt={data?.name} />
+        <TitleOverlay>{data?.name}</TitleOverlay>
       </ImageContainer>
-      {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
+      {isPopUpOpen && <DrinkPopUp drink={drink!} onClose={togglePopUp} />}
     </DrinkContainer>
   );
 };
