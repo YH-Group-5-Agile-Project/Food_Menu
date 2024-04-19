@@ -56,40 +56,54 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       <PopupContainer className="add-to-cart-popup">
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
-        {!sideOrDrink ? 
-          <div>
-            <h2>Select your complimentary side</h2>
-            {data?.map(
-              (sideDish:Dish) => 
-                  (
-                    <SideContainer
-                    key={sideDish._id}
-                    onClick={() => {
-                      loadRecommendedDrink(dish, sideDish);
-                    }}
-                    >
-                    {sideDish.timeInMins === dish.price && (
-                      <RecommendedChoice>Recommended choice</RecommendedChoice>
-                    )}
-                    <DishImage src={sideDish.imageUrl} alt="" />
-                    <DishTitle>{sideDish.title}</DishTitle>
-                  </SideContainer>
-              )
-            )}
-            <Button onClick={onClose}>Cancel</Button>
-          </div> 
-          :
-          <RecommendDrink dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
-        }
+        <h2>Select your complimentary side</h2>
+          {!sideOrDrink ? 
+            <ItemContainer>
+              {data?.map(
+                (sideDish:Dish) => 
+                    (
+                      <SideContainer
+                      key={sideDish._id}
+                      onClick={() => {
+                        loadRecommendedDrink(dish, sideDish);
+                      }}
+                      >
+                      {sideDish.timeInMins === dish.price && (
+                        <RecommendedChoice>Recommended choice</RecommendedChoice>
+                      )}
+                      <InnerContainer>
+                        <DishImage src={sideDish.imageUrl} alt="" />
+                        <DishTitle>{sideDish.title}</DishTitle>
+                      </InnerContainer>
+                    </SideContainer>
+                )
+              )}
+            </ItemContainer>
+            :
+            <RecommendDrink dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
+          }
+        <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
     </>
   );
 }
 
+const InnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const ItemContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  padding-left: 20px;
+  padding-right: 20px;
+`
+
 const BreakLine = styled.img`
   width: 95%;
   object-fit: cover;
-  height: 50px;
+  height: 55px;
 `
 
 const Button = styled.button`
@@ -103,19 +117,20 @@ const Button = styled.button`
 `;
 
 const SideContainer = styled.button`
-  border: solid 2px black;
+  position: relative;
+  margin: 10px;
   border-radius: 30px;
+  // margin-left: 1rem;
+  // margin-right: 1rem;
+  // margin-bottom: 4px;
+  padding: 6px;
+  align-items: center;
+  transition: color 0.3s, border-color 0.3s;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 4px;
-  padding: 0.5rem;
-  align-items: center;
-  font-size: 20px;
-  transition: color 0.3s, border-color 0.3s;
-
+  justify-content: center;
+  background-color: var(--fifthColor);
+  
   &:hover,
   &:focus {
     color: grey;
@@ -124,21 +139,23 @@ const SideContainer = styled.button`
 `;
 const DishImage = styled.img`
   width: 50%;
-  margin-right: 2rem;
   border-radius: 20px;
+  margin-right: 10px;
 `;
 const DishTitle = styled.div`
-  margin-right: 2rem;
-  border-radius: 20px;
+  width: 50%;
+  font-size: 1rem;
 `;
 const RecommendedChoice = styled.div`
-  margin-right: 2rem;
+  position: absolute;
+  width: 60%;
   margin-bottom: 1rem;
-  border: 1px solid white;
+  // border: 1px solid white;
   border-radius: 10px;
   padding: 5px;
   color: white;
-  background-color: olivedrab;
+  background-color: var(--secondColor);
+  top: -10px;
   z-index: 1;
 `;
 
@@ -167,6 +184,9 @@ const PopupContainer = styled.div`
   border-radius: 30px;
   overflow: scroll;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media (max-width: 949px) {
     width: 80%;
