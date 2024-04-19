@@ -10,7 +10,7 @@ import {
 import { Drink } from "../Models/Drink";
 import { useState } from "react";
 import { RecommendDrink } from "./RecommendDrinkComponent";
-import DecorationLineImage from '../assets/images/DecorationLine.png';
+import DecorationLineImage from '../assets/design-assets/DecorationLine.png';
 
 let tempDish: Dish;
 let tempSide: Dish;
