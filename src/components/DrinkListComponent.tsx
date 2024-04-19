@@ -17,11 +17,12 @@ export const DrinkListComponent = () => {
   );
 };
 const DrinksContainer = styled.div`
-  width: 900px;
+  width: 880px;
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
+  
   margin: auto;
 
   @media (max-width: 949px) {
