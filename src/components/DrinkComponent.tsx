@@ -1,21 +1,28 @@
 import { useState } from "react";
 import styled from "styled-components";
 import DrinkPopUp from "./DrinkPopUp";
-import { Drink } from "../Models/Drink";
+import { DrinkQuery } from "../services/DbService";
+
+
 interface DrinkComponentProps {
-  drink: Drink;
+  drinkId: string;
 }
 
-const DrinkComponent = ({ drink }: DrinkComponentProps) => {
+const DrinkComponent = ( {drinkId}: DrinkComponentProps) => {
   const [isPopUpOpen, setPopUpOpen] = useState(false);
 
   const togglePopUp = () => setPopUpOpen(!isPopUpOpen);
+  const { data, isLoading, error } = DrinkQuery(drinkId);
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  let drink = data
   return (
     <DrinkContainer onClick={togglePopUp}>
       <ImageContainer>
-        <DrinkImage src={drink.imgUrl} alt={drink.name} />
-        <TitleOverlay>{drink.name}</TitleOverlay>
+        <DrinkImage src={data.imgUrl} alt={data.name} />
+        <TitleOverlay>{data.name}</TitleOverlay>
       </ImageContainer>
       {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>

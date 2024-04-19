@@ -2,28 +2,32 @@ import { useEffect, useState } from "react";
 import { Dish } from "../Models/Dish";
 import { Drink } from "../Models/Drink";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export const PostQuery = (dishType: string) => {
   return useQuery({
     queryKey: [{ dishType }],
-    queryFn: async () => {
-      const response = await axios.get(
-        `https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`
-      );
-      return response.data;
+    queryFn: () => {
+      return fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        });
     },
     staleTime: 300000,
   });
 };
 
-export const DrinkQuery = (drinkId: number) => {
+export const DrinkQuery = (drinkId: string) => {
   return useQuery<Drink>({
     queryKey: [{ drinkId }],
     queryFn: async () => {
-      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`);
+      const response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+      );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
       return NewMapDrink(data);
@@ -37,7 +41,7 @@ const NewMapDrink = (data: any): Drink => {
   return {
     id: drinkData.idDrink,
     name: drinkData.strDrink,
-    alcoholic: drinkData.strAlcoholic === 'Alcoholic',
+    alcoholic: drinkData.strAlcoholic === "Alcoholic" ? true : false,
     imgUrl: drinkData.strDrinkThumb,
     ingredients: [
       drinkData.strIngredient1,
@@ -45,10 +49,9 @@ const NewMapDrink = (data: any): Drink => {
       drinkData.strIngredient3,
       drinkData.strIngredient4,
     ].filter(Boolean),
-    price: 50,
+    price: 94,
   };
 };
-
 
 //GetDishes ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDISHES FÖR NYA SAKER ENDAST POSTQUERY
 export const GetDishes = (dishType: string) => {
@@ -65,7 +68,6 @@ export const GetDishes = (dishType: string) => {
   }, []);
   return dish;
 };
-
 
 //GetDrink ska tas bort när allt är konverterat och funkar med PostQuery, ANVÄND INTE GETDRINK FÖR NYA SAKER ENDAST POSTQUERY
 
@@ -102,15 +104,12 @@ const mapDrink = (oldDrink: any): Drink => {
     }
   }
 
-    return {
-        id: oldDrink.idDrink,
-        name: oldDrink.strDrink,
-        alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
-        imgUrl: oldDrink.strDrinkThumb,
-        ingredients: newIngredients,
-        price: oldDrink.price
-    };
-}
-
-
-
+  return {
+    id: oldDrink.idDrink,
+    name: oldDrink.strDrink,
+    alcoholic: oldDrink.strAlcoholic === "Alcoholic" ? true : false,
+    imgUrl: oldDrink.strDrinkThumb,
+    ingredients: newIngredients,
+    price: oldDrink.price,
+  };
+};
