@@ -10,7 +10,8 @@ import {
 import { Drink } from "../Models/Drink";
 import { useState } from "react";
 import { RecommendDrink } from "./RecommendDrinkComponent";
-import DecorationLineImage from '../assets/images/DecorationLine.png';
+import DecorationLineImage from '../assets/design-assets/DecorationLine.png';
+import Texture from '../assets/design-assets/climpek.png'
 
 let tempDish: Dish;
 let tempSide: Dish;
@@ -181,12 +182,14 @@ const PopupContainer = styled.div`
   width: 65%;
   z-index: 3;
   background-color: var(--firstColor);
+  background-image: url(${Texture});
   border-radius: 30px;
   overflow: scroll;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 20px;
 
   @media (max-width: 949px) {
     width: 80%;
