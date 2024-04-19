@@ -5,6 +5,7 @@ import SidePage from "./pages/SidePage";
 import DrinkPage from "./pages/DrinkPage";
 import CheckoutPage from "./pages/CheckoutPage";
 // import CartComponent from "./components/CartComponent";
+import BackgroundImg from '../assets/design-assets/BackgrundImg.png'
 
 import "./App.css";
 import { styled } from "styled-components";
@@ -35,11 +36,9 @@ function App() {
 
   return (
     // navbar
-
-    <>
       <LayoutDiv>
       {location.pathname !== "/" && (
-          <NavigationWrapper $scrolled={scrolled}>
+        <NavigationWrapper>
             <Navbar currentPage={location.pathname} />
             <NavButtons />
           </NavigationWrapper>
@@ -54,9 +53,15 @@ function App() {
               </Routes>
           </ContentDiv>
       </LayoutDiv>
-    </>
   );
 }
+
+const BackgroundImage = styled.img`
+  position: fixed;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+`
 
 const ContentDiv = styled.div`
   display: flex;
@@ -65,9 +70,15 @@ const ContentDiv = styled.div`
   height: 100%;
   max-width: 880px;
   overflow: scroll;
+
+  @media (max-height: 999px) {
+    min-height: 70vh;
+    max-height: 100vh;
+  }
 `
 
 const LayoutDiv = styled.div`
+  position: relative;
   width: 100%;
   height: 70vh;
   min-height: 60vh;
@@ -77,7 +88,7 @@ const LayoutDiv = styled.div`
   }
 
 `
-const NavigationWrapper = styled.div<{ $scrolled: boolean }>`
+const NavigationWrapper = styled.div`
   position: sticky;
   top: 0;
   z-index: 1;
