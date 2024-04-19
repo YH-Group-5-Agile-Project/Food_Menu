@@ -9,7 +9,7 @@
   border: 1px solid black;
   border-radius: 50px;
   color: black;
-  background: linear-gradient(rgb(195, 255, 146), #27f927);
+  background: linear-gradient(rgb(188, 255, 134), var(--secondColor));
  
 
   &:hover {
@@ -36,11 +36,11 @@
   border: 1px solid black;
   border-radius: 50px;
   color: black;
-  background: linear-gradient(rgb(255, 178, 178), rgb(255, 79, 79));
+  background: linear-gradient(rgb(253, 143, 143), var(--thirdColor));
   
 
   &:hover {
-    background: linear-gradient(rgb(224, 255, 188), rgb(255, 243, 81));
+    background: linear-gradient(rgb(244, 255, 174),var(--fourthColor));
     color: #000000;
   }
 
