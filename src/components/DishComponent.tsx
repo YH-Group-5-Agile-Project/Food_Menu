@@ -39,7 +39,6 @@ const DishContainer = styled.div<FoodProps>`
 
 
   @media (max-width: 949px) {
-    width: calc(50% - 10px);
     margin-bottom: 20px;
 
     }

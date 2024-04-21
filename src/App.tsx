@@ -64,6 +64,7 @@ const BackgroundImage = styled.img`
 `
 
 const ContentDiv = styled.div`
+  padding-top: 30px;
   display: flex;
   justify-content: center;
   align-items: start;
