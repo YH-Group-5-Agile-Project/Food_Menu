@@ -52,11 +52,11 @@ body {
   place-items: center;
   min-width: 320px;
   height: 100vh;
-background-image: url('assets\design-assets\BackgroundImg.png');
-background-size: cover;
-background-position:center;
-background-repeat: no-repeat;
-background-attachment: fixed;
+  background-image: url('assets\design-assets\BackgroundImg.png');
+  background-size: cover;
+  background-position:center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1 {

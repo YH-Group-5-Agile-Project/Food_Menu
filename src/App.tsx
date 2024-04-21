@@ -66,25 +66,29 @@ const BackgroundImage = styled.img`
 const ContentDiv = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-items: start;
+  height: 70vh;
   max-width: 880px;
   overflow: scroll;
 
   @media (max-height: 999px) {
-    min-height: 70vh;
-    max-height: 100vh;
+    height: 100vh;
+  }
+
+  @media (max-height: 1200px) {
+    height: 89vh;
   }
 `
 
 const LayoutDiv = styled.div`
   position: relative;
+  top: 10vh;
   width: 100%;
-  height: 70vh;
+  height: 100vh;
   min-height: 60vh;
 
-  @media (max-height: 999px) {
-    height: 100%;
+  @media (max-height: 1200px) {
+    top: 0;
   }
 
 `

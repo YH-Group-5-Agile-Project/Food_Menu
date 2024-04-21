@@ -65,11 +65,12 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       )}
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
-        <h2>Select your complimentary side</h2>
           {!sideOrDrink ? 
-            <ItemContainer>
-              {data?.map(
-                (sideDish:Dish) => 
+            <>
+              <TitleBox>Select your complimentary side</TitleBox>
+              <ItemContainer>
+                {data?.map(
+                  (sideDish:Dish) => 
                     (
                       <SideContainer
                       key={sideDish._id}
@@ -77,17 +78,18 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                         loadRecommendedDrink(dish, sideDish);
                       }}
                       >
-                      {sideDish.timeInMins === dish.price && (
-                        <RecommendedChoice>Recommended choice</RecommendedChoice>
-                      )}
-                      <InnerContainer>
-                        <DishImage src={sideDish.imageUrl} alt="" />
-                        <DishTitle>{sideDish.title}</DishTitle>
-                      </InnerContainer>
-                    </SideContainer>
-                )
-              )}
-            </ItemContainer>
+                        {sideDish.timeInMins === dish.price && (
+                          <RecommendedChoice>Recommended choice</RecommendedChoice>
+                        )}
+                        <InnerContainer>
+                          <DishImage src={sideDish.imageUrl} alt="" />
+                          <DishTitle>{sideDish.title}</DishTitle>
+                        </InnerContainer>
+                      </SideContainer>
+                  )
+                )}
+              </ItemContainer>
+            </>
             :
             <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
           }
@@ -96,6 +98,10 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
     </>
   );
 }
+
+const TitleBox = styled.h2`
+  width: 100%;
+`
 
 const InnerContainer = styled.div`
   display: flex;

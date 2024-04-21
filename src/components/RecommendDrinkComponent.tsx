@@ -19,14 +19,14 @@ export const RecommendDrink = (props: DrinkProps) => {
     
     return (
         <DrinkRecommendationParent>
-            <p>We recommend this drink to go with your food</p>
+            <h3>We recommend this drink to go with your food</h3>
             <h2>{recommendedDrink?.name}</h2>
             <ImageContainer>
                 <DrinkImage src={recommendedDrink?.imgUrl} alt={'Loading'}></DrinkImage>
             </ImageContainer>
             <ButtonContainer>
               <Button disabled={props.showItemAdded} onClick={() => {props.sendToCart(recommendedDrink)}}>Yes, look delicious</Button>
-              <Button disabled={props.showItemAdded} onClick={() => {props.sendToCart()}}>No thank you</Button>
+              <Button disabled={props.showItemAdded} onClick={() => {props.sendToCart()}}>No, just the food for now</Button>
             </ButtonContainer>
           </DrinkRecommendationParent>
     )
@@ -34,7 +34,9 @@ export const RecommendDrink = (props: DrinkProps) => {
 }
 
 const ButtonContainer = styled.div`
-
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
 `
 
 const ImageContainer = styled.div`

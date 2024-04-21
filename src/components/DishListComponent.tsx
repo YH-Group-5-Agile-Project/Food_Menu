@@ -147,14 +147,14 @@ const ExpandAnimation = keyframes`
     opacity: 0;
   }
   100% {
-    max-height: 300px;
+    max-height: 330px;
     opacity: 1;
   }
 `;
 
 const CloseAnimation = keyframes`
   0% {
-    max-height: 300px;
+    max-height: 330px;
     opacity: 1;
   }
   25% {
@@ -176,9 +176,10 @@ const StayOpenAnimation = keyframes`
 `;
 
 const ExpandedDish = styled.div<FoodProps>`
-  max-height: ${(props) => props.isOpen ? '100%' : '0'};
+  max-height: ${(props) => props.isOpen ? '330px' : '0'};
   opacity: ${(props) => props.isOpen ? '1' : '0'};
-  width: 100%;
+  height: 330px;
+  width: 90%;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
