@@ -37,12 +37,9 @@ const DrinksContainer = styled.div`
   @media (max-width: 949px) {
     width: 500px;
     gap: 23px;
-    //margin: auto;
   }
 
   @media (max-width: 549px) {
     width: 360px;
-    //gap: 20px;
-    //margin: auto;
   }
 `;

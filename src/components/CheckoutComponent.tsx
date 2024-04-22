@@ -39,8 +39,8 @@ const CheckoutComponent = () => {
   };
 
   return (
-    <>
-      <StyledTable>
+    <CheckoutContainer>
+      <table>
         <tbody>
           {cart.OrderList.map((order) => (
             <OrderRow key={order.id}>
@@ -51,9 +51,9 @@ const CheckoutComponent = () => {
               </ProductCell>
               <PriceCell>{`£${order.OrderCost}`}</PriceCell>
               <ActionCell>
-                <button onClick={() => toggleCustomizeOrder(order.id)}>
+                <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>
                   Customize
-                </button>
+                </StyledButton>
                 {customizeOrderId.includes(order.id) && (
                   <CheckoutCommentComponent
                     cart={cart}
@@ -61,56 +61,61 @@ const CheckoutComponent = () => {
                     orderId={order.id}
                   />
                 )}
-                <button onClick={() => onDelete(order.id)}>Remove</button>
+                <StyledButton onClick={() => onDelete(order.id)}>
+                  Remove
+                </StyledButton>
               </ActionCell>
             </OrderRow>
           ))}
         </tbody>
-      </StyledTable>
+      </table>
       <PricePayContainer>
         <h3>Total price: £{CalculateCostCart(cart)}</h3>
         <button>Place order</button>
       </PricePayContainer>
-    </>
+    </CheckoutContainer>
   );
 };
 
 export default CheckoutComponent;
 
-const StyledTable = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
+const CheckoutContainer = styled.div`
+  width: 900px;
+
+  @media (max-width: 949px) {
+    width: 500px;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+  }
 `;
 
 const ActionCell = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: right;
+`;
 
-  /* @media (max-width: 670px) {
-    order: 2;
-  } */
+const StyledButton = styled.button`
+  margin: 0px 10px;
 `;
 
 const OrderRow = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 2fr;
+  grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  text-align: left;
 
   &:last-child {
     border-bottom: none;
   }
 
-  @media (max-width: 670px) {
+  @media (max-width: 949px) {
     grid-template-columns: 1fr;
     text-align: left;
-
-    /* & > div {
-      margin-bottom: 5px;
-    } */
 
     ${ActionCell} {
       justify-content: center;
@@ -119,15 +124,14 @@ const OrderRow = styled.div`
 `;
 
 const ProductCell = styled.div`
+  display: flex;
+  justify-content: left;
   font-weight: bold;
-  /* @media (max-width: 670px) {
-    order: -1;
-  } */
 `;
 
 const PriceCell = styled.div`
   text-align: right;
-  @media (max-width: 670px) {
+  @media (max-width: 949px) {
     text-align: left;
   }
 `;
@@ -137,7 +141,7 @@ const PricePayContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #b9b9b9;
-  border-radius: 8px;
+  padding: 8px 20px;
+  background-color: lightgray;
+  border-radius: 20px;
 `;
