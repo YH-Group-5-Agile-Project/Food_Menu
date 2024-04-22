@@ -84,13 +84,20 @@ const ContentDiv = styled.div`
 `
 
 const LayoutDiv = styled.div`
-  position: relative;
-  top: 10vh;
-  width: 100%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  width: 100vw;
   height: 100vh;
   min-height: 60vh;
+  padding-top: 10vh;
+  top: 0;
 
   @media (max-height: 1200px) {
+    padding-top: 0;
     top: 0;
   }
 
@@ -101,7 +108,7 @@ const NavigationWrapper = styled.div`
   z-index: 1;
   padding: 5px;
   width: 100%;
-
+  max-width: 1100px;
 `
 
 export const ToggleCartOverlay = styled.a`

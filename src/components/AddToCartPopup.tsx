@@ -34,14 +34,15 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   }
 
   const sendToCart = (_drink?: Drink) => {
-    if (tempSide != undefined) tempSide.price = 0;
+    if (tempSide != null) tempSide.price = 0;
     let newOrder: Order = {
       id: IncreamentId(),
       main: tempDish,
       sides: tempSide,
       drink: _drink,
-      OrderCost: 0,
+      OrderCost: 0
     };
+
     setShowItemAdded(true)
       setTimeout(() => {
         location.reload();
@@ -87,8 +88,8 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                       </SideContainer>
                   )
                 )}
-                <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
               </ItemContainer>
+              <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
             </>
             :
             <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
@@ -123,6 +124,7 @@ const BreakLine = styled.img`
 `
 
 const Button = styled.button`
+  justify-self: center;
   &:hover,
   &:focus {
     color: grey;
@@ -165,8 +167,9 @@ const RecommendedChoice = styled.div`
   border: 1px solid var(--fourthColor);
   border-radius: 10px;
   padding: 5px;
+  color: var(--sixthColor);
   background-color: var(--secondColor);
-  top: -10px;
+  top: -15px;
   z-index: 1;
 `;
 

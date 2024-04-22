@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart } from "../services/CartService";
-import { styled } from "styled-components";
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent";
 import { NavLink } from "react-router-dom";
 
 
-export const CheckoutComponent = () => {
+const CheckoutComponent = () => {
   const [cart, setCart] = useState<Cart>({
     id: 0,
     OrderList: [],
     TotalCost: 0,
-  }); // Load
+  });
 
-  const [customizeOrderId, setCustomizeOrderId] = useState <number[]>([]);
+  const [customizeOrderId, setCustomizeOrderId] = useState<number[]>([]);
 
   useEffect(() => {
     setCart(GetCart());
@@ -21,11 +21,12 @@ export const CheckoutComponent = () => {
   }, []); 
 
   const toggleCustomizeOrder = (orderId: number) => {
-    if (customizeOrderId.includes(orderId))
-      setCustomizeOrderId(customizeOrderId.filter(id => id != orderId))
-    else
-      setCustomizeOrderId([...customizeOrderId, orderId])
-  }
+    if (customizeOrderId.includes(orderId)) {
+      setCustomizeOrderId(customizeOrderId.filter((id) => id !== orderId));
+    } else {
+      setCustomizeOrderId([...customizeOrderId, orderId]);
+    }
+  };
 
   const onDelete = (orderId: number) => {
     const updatedOrderList = cart.OrderList.filter(
@@ -53,48 +54,48 @@ export const CheckoutComponent = () => {
   }
 
   return (
-    <>
-      <StyledTable>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+    <CheckoutContainer>
+      <table>
         <tbody>
           {cart.OrderList.map((order) => (
-            <tr key={order.id}>
-              <td>
-                {order.main?.title && order.sides?.title
-                  ? `${order.main.title} and ${order.sides.title}`
-                  : order.sides?.title || order.drink?.name || "-"}
-                  {order?.comment && (
-                    <p>Comment: <br />
-                      {order.comment}
-                    </p>                    
-                  )}
-              </td>
-              <td>£{order.OrderCost}</td>
-              <td>
-                <button onClick={() => toggleCustomizeOrder(order.id)}>Customize</button>
-                {customizeOrderId.includes(order.id) && <CheckoutCommentComponent cart={cart} setCart={setCart} orderId = {order.id}/>}
-              </td>
-              <td>                
-                <button onClick={() => onDelete(order.id)}>Remove</button>
-              </td>
-            </tr>
+            <OrderRow key={order.id}>
+              <ProductCell>
+              {(order.main && order.sides && !order.drink)
+                    ? `${order.main.title} with ${order.sides.title}`
+                    : (order.main && order.drink && !order.sides) 
+                    ? `${order.main.title} with no side order and a ${order.drink.name} to drink`
+                    : (order.main?.title && order.sides?.title && order.drink) 
+                    ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
+                    : order.sides?.title || order.drink?.name || "-"}
+              </ProductCell>
+              <PriceCell>{`£${order.OrderCost}`}</PriceCell>
+              <ActionCell>
+                <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>
+                  Customize
+                </StyledButton>
+                {customizeOrderId.includes(order.id) && (
+                  <CheckoutCommentComponent
+                    cart={cart}
+                    setCart={setCart}
+                    orderId={order.id}
+                  />
+                )}
+                <StyledButton onClick={() => onDelete(order.id)}>
+                  Remove
+                </StyledButton>
+              </ActionCell>
+            </OrderRow>
           ))}
         </tbody>
-      </StyledTable>
+      </table>
       
       {cart.OrderList.length > 0 &&
         <PricePayContainer>
-          <h2>Total price: £{CalculateCostCart(cart)}</h2>
+          <h1>Total price: £{CalculateCostCart(cart)}</h1>
           <StyledNavLink to="/orderconfirmation" onClick={(e) => placeOrder(e)} >Place order</StyledNavLink>
         </PricePayContainer>
       }
-    </>
+    </CheckoutContainer>
   );
 };
 
@@ -122,50 +123,69 @@ const StyledNavLink = styled(NavLink)`
     }
 `;
 
+const CheckoutContainer = styled.div`
+  width: 900px;
+
+  @media (max-width: 949px) {
+    width: 500px;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+  }
+`;
+
+const ActionCell = styled.div`
+  display: flex;
+  justify-content: right;
+`;
+
+const StyledButton = styled.button`
+  margin: 0px 10px;
+`;
+
+const OrderRow = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 949px) {
+    grid-template-columns: 1fr;
+    text-align: left;
+
+    ${ActionCell} {
+      justify-content: center;
+    }
+  }
+`;
+
+const ProductCell = styled.div`
+  display: flex;
+  justify-content: left;
+  font-weight: bold;
+`;
+
+const PriceCell = styled.div`
+  text-align: right;
+  @media (max-width: 949px) {
+    text-align: left;
+  }
+`;
+
 const PricePayContainer = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px;
-`;
-
-const StyledTable = styled.table`
-  width: 880px;
-  border-collapse: collapse;
-
-  th,
-  td {
-    padding: 8px;
-    /* text-align: left; */
-    border-bottom: 1px solid lightgray;
-    p{
-       word-wrap: break-word;
-       width: 300px;
-       white-space: pre-wrap;
-    }
-  }
-
-  th:nth-child(1),
-  td:nth-child(1) {
-    text-align: left;
-    width: 80%;
-  }
-
-  th:nth-child(2),
-  td:nth-child(2),
-  th:nth-child(3),
-  td:nth-child(3) {
-    text-align: center;
-  }
-
-  @media (max-width: 949px) {
-    width: 560px;
-    gap: 20px;
-  }
-
-  @media (max-width: 549px) {
-    width: 360px;
-    gap: 10px;
-  }
+  padding: 8px 20px;
+  // background-color: var(--fifthColor);
+  border-radius: 20px;
 `;

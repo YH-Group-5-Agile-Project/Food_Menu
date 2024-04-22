@@ -63,7 +63,7 @@ useEffect(() => {
         </tbody>
       </StyledTable>
       <PricePayContainer>
-          <h2>Total price: £{CalculateCostCart(cart)}</h2>
+          <h1>Total price: £{CalculateCostCart(cart)}</h1>
     </PricePayContainer>
 
     </Container>
