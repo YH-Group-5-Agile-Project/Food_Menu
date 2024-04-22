@@ -77,11 +77,16 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  background: linear-gradient(rgb(244, 255, 174),var(--fifthColor));
+  background: 
+    url('assets/design-assets/black-linen.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fifthColor));
   /* background-image: url('assets/design-assets/black-linen.png'); */
 }
+
 button:hover {
-  background: linear-gradient(rgb(200, 200, 220),var(--fifthColor));
+  background: 
+    url('assets/design-assets/black-linen.png'),
+    linear-gradient(rgb(200, 200, 220),var(--fifthColor));
 }
 
 /*button:focus,
