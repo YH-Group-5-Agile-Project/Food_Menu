@@ -34,14 +34,15 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   }
 
   const sendToCart = (_drink?: Drink) => {
-    tempDish.price = 0;
+    tempSide.price = 0;
     let newOrder: Order = {
       id: IncreamentId(),
       main: tempDish,
       sides: tempSide,
       drink: _drink,
-      OrderCost: 0,
+      OrderCost: 0
     };
+
     setShowItemAdded(true)
       setTimeout(() => {
         location.reload();

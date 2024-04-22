@@ -52,8 +52,10 @@ export const CheckoutComponent = () => {
           {cart.OrderList.map((order) => (
             <tr key={order.id}>
               <td>
-                {order.main?.title && order.sides?.title
+                {order.main?.title && order.sides?.title && !order.drink
                   ? `${order.main.title} and ${order.sides.title}`
+                  : order.main?.title && order.sides?.title && order.drink 
+                  ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
                   : order.sides?.title || order.drink?.name || "-"}
                   {order?.comment && (
                     <p>Comment: <br />

@@ -51,11 +51,11 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
+  /* margin: 0; */
+  /* display: flex;
   place-items: center;
   min-width: 320px;
-  height: 100vh;
+  height: 100vh; */
   background-image: url('assets/design-assets/BackgroundImg.png');
   background-size: cover;
   background-position:center;
