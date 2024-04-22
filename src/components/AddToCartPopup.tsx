@@ -88,8 +88,8 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                       </SideContainer>
                   )
                 )}
-                <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
               </ItemContainer>
+              <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
             </>
             :
             <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
@@ -124,6 +124,7 @@ const BreakLine = styled.img`
 `
 
 const Button = styled.button`
+  justify-self: center;
   &:hover,
   &:focus {
     color: grey;
