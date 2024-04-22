@@ -89,10 +89,10 @@ const LayoutDiv = styled.div`
   transform: translateX(-50%);
   align-items: center;
   width: 100vw;
-  max-width: 1100px;
   height: 100vh;
   min-height: 60vh;
   padding-top: 10vh;
+  top: 0;
 
   @media (max-height: 1200px) {
     padding-top: 0;
@@ -106,7 +106,7 @@ const NavigationWrapper = styled.div`
   z-index: 1;
   padding: 5px;
   width: 100%;
-
+  max-width: 1100px;
 `
 
 export const ToggleCartOverlay = styled.a`
