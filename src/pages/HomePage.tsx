@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Cart } from "../Models/Cart";
 import { SaveCart } from "../services/CartService";
+import { styled } from "styled-components";
 
 const HomePage = () => {
   // Initialize a Cart
@@ -17,15 +18,19 @@ const HomePage = () => {
   console.log(location.pathname)
   
   return (
-    <div>
+    <HomeDiv>
       <h1>
         COCKTAILS<br></br>AND FOOD
       </h1>
       <Link to="/main">
         <button>New order</button>
       </Link>
-    </div>
+    </HomeDiv>
   );
 };
 
 export default HomePage;
+
+const HomeDiv = styled.div`
+  align-self: center;
+`
