@@ -13,12 +13,7 @@ interface FoodProps {
   selected: boolean;
 }
 
-const DishComponent = ({
-  dish,
-  isSelected,
-  onClick,
-}: DishComponentProps) => {
-
+const DishComponent = ({ dish, isSelected, onClick }: DishComponentProps) => {
   return (
     <DishContainer selected={isSelected} onClick={onClick}>
       <ImageContainer selected={isSelected}>
@@ -32,37 +27,40 @@ const DishComponent = ({
 export default DishComponent;
 
 const DishContainer = styled.div<FoodProps>`
+  position: relative;
+  display: flex;
   justify-content: center;
   cursor: pointer;
- 
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  /* justify-content: center;
+  cursor: pointer;
 
+  margin-bottom: 20px;
 
   @media (max-width: 949px) {
     width: calc(50% - 10px);
     margin-bottom: 20px;
-
-    }
+  } */
 `;
-    
+
 const ImageContainer = styled.div<FoodProps>`
   position: relative;
   width: 250px;
   height: 250px;
-  transition: all 0.3s ease;
-  
-  @media (max-width: 609px) {
+  //transition: all 0.3s ease;
+
+  @media (max-width: 949px) {
     width: 150px;
     height: 150px;
-    ${(props) =>
+    /* ${(props) =>
       props.selected &&
       `
       width: 100px;
       height: 100px;
-      `}
-    }
-    `;
-    
+      `} */
+  }
+`;
+
 const DishImage = styled.img`
   width: 100%;
   height: 100%;
@@ -87,7 +85,7 @@ const TitleOverlay = styled.div`
   line-height: 1.2em;
   font-size: 16px;
 
-  @media (max-width: 609px) {
+  @media (max-width: 949px) {
     font-size: 9px;
   }
 `;
