@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-export const ItemAddedToCartPopup = () => {
+interface PopUpProps {
+  Item: string;
+}
+export const ItemAddedToCartPopup = ({Item}: PopUpProps) => {
 
     return(
       
-        <AddedToCartPopup><h2>Item was added to cart</h2></AddedToCartPopup>
+        <AddedToCartPopup><h2>{Item} was added to cart</h2></AddedToCartPopup>
     )
 
 }
