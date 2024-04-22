@@ -15,7 +15,7 @@ import Texture from '../assets/design-assets/climpek.png'
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 let tempDish: Dish;
-let tempSide: Dish;
+let tempSide: Dish | undefined;
 
 interface AddToCartPopupProps {
   dish: Dish;
@@ -27,7 +27,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const { data, isLoading, error } = PostQuery("sideDish");
   const [showItemAdded, setShowItemAdded] = useState(false);
   
-  const loadRecommendedDrink = (dish: Dish, sideDish: Dish) => {
+  const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
     tempDish = dish;
     tempSide = sideDish;
     setSideOrDrink(true);
@@ -92,6 +92,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
             :
             <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
           }
+          <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
         <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
     </>
