@@ -10,8 +10,16 @@
   max-height: 35rem;
   border: 1px solid black;
   border-radius: 20px;
-  background-color: white;
+  background-image: url('../assets/design-assets/climpek.png');
+  background-color: var(--firstColor);
   z-index: 999;
-  color: black;
+  color: var(--sixthColor);
   overflow: scroll;
+
+  @media (max-width: 949px) {
+    width: 80%;
+  }
+  @media (max-width: 609px) {
+    width: 95%;
+  }
 }
