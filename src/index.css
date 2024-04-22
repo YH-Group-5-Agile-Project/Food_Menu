@@ -5,6 +5,7 @@
   --fourthColor: #D9A441; 
   --fifthColor: #A65F21;
   --sixthColor: #ffecc8;
+  --seventhColor: #d1fffb;
   
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   font-family: 'Bad script';
@@ -68,7 +69,7 @@ h1 {
 }
 
 button {
-  color: var(--thirdColor);
+  color: var(--firstColor);
   border-radius: 10px;
   border: solid 2px var(--firstColor);
   padding: 0.6em 1.2em;
@@ -78,14 +79,14 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   background: 
-    url('assets/design-assets/black-linen.png'),
+    url('assets/design-assets/diamonds-are-forever.png'),
     linear-gradient(rgb(244, 255, 174),var(--fifthColor));
   /* background-image: url('assets/design-assets/black-linen.png'); */
 }
 
 button:hover {
   background: 
-    url('assets/design-assets/black-linen.png'),
+    url('assets/design-assets/diamonds-are-forever.png'),
     linear-gradient(rgb(200, 200, 220),var(--fifthColor));
 }
 

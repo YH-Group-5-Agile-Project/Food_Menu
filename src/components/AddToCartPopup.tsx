@@ -164,7 +164,6 @@ const RecommendedChoice = styled.div`
   border: 1px solid var(--fourthColor);
   border-radius: 10px;
   padding: 5px;
-  color: white;
   background-color: var(--secondColor);
   top: -10px;
   z-index: 1;
