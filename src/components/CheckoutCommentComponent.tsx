@@ -36,7 +36,7 @@ export const CheckoutCommentComponent = ( {cart, setCart, orderId}: Props ) => {
                 maxLength={100}
                 rows = {5}
             />
-            <input type="submit" value={"submit"}/>
+            <input type="submit" value={"Submit"}/>
         </form>
     );
 }

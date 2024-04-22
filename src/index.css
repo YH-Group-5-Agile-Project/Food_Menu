@@ -56,7 +56,7 @@ body {
   place-items: center;
   min-width: 320px;
   height: 100vh;
-  background-image: url('assets\design-assets\BackgroundImg.png');
+  background-image: url('assets/design-assets/BackgroundImg.png');
   background-size: cover;
   background-position:center;
   background-repeat: no-repeat;
@@ -83,7 +83,20 @@ button {
     linear-gradient(rgb(244, 255, 174),var(--fifthColor));
   /* background-image: url('assets/design-assets/black-linen.png'); */
 }
-
+form input{
+  color: var(--thirdColor);
+  border-radius: 10px;
+  border: solid 2px var(--firstColor);
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  background: 
+    url('assets/design-assets/black-linen.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fifthColor));
+  /* background-image: url('assets/design-assets/black-linen.png'); */
+}
 button:hover {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
