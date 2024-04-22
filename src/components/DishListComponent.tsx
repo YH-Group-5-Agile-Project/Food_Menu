@@ -60,7 +60,6 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     if (index === selectedDish) {
       setIsOpenInfo(false);
       setSelectedInfo(false);
-
     } else if ((selectedDish || selectedDish === 0) && index !== selectedDish) {
       setIsOpenInfo(true);
       setSelectedInfo(false);
@@ -100,11 +99,15 @@ export const DishListComponent = ({ dishType }: dishInput) => {
               isSideDish={isSideDish}
             />
             {index === selectedDish && (
-              <ExpandedDish isOpen={isOpenInfo} selected={selectedInfo} onAnimationEnd={() => {
-                if(!isOpenInfo) {
-                  setSelectedDish(null);
-                }
-              }}>
+              <ExpandedDish
+                isOpen={isOpenInfo}
+                selected={selectedInfo}
+                onAnimationEnd={() => {
+                  if (!isOpenInfo) {
+                    setSelectedDish(null);
+                  }
+                }}
+              >
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
                   <DishDescription>
@@ -194,22 +197,28 @@ const ExpandedDish = styled.div<FoodProps>`
 `;
 
 const DishesContainer = styled.div`
+  width: 900px;
+  gap: 32px;
+  justify-content: center;
+
   position: relative;
   place-items: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
-  width: 880px;
   overflow: hidden;
 
+  /* 220px -------- minmax(250px, 1fr) */
+
   @media (max-width: 949px) {
-    width: 560px;
-    gap: 20px;
+    width: 500px;
+    gap: 23px;
+    grid-template-columns: repeat(auto-fill, 150px);
   }
 
   @media (max-width: 549px) {
     width: 360px;
-    gap: 10px;
+    //gap: 10px;
   }
 `;
 

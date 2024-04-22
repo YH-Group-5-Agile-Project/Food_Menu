@@ -3,12 +3,11 @@ import styled from "styled-components";
 import DrinkPopUp from "./DrinkPopUp";
 import { DrinkQuery } from "../services/DbService";
 
-
 interface DrinkComponentProps {
   drinkId: string;
 }
 
-const DrinkComponent = ( {drinkId}: DrinkComponentProps) => {
+const DrinkComponent = ({ drinkId }: DrinkComponentProps) => {
   const [isPopUpOpen, setPopUpOpen] = useState(false);
 
   const togglePopUp = () => setPopUpOpen(!isPopUpOpen);
@@ -34,7 +33,7 @@ const DrinkContainer = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `;
 
 const ImageContainer = styled.div`
@@ -42,7 +41,7 @@ const ImageContainer = styled.div`
   width: 250px;
   height: 250px;
 
-  @media (max-width: 549px) {
+  @media (max-width: 949px) {
     width: 150px;
     height: 150px;
   }
@@ -72,8 +71,8 @@ const TitleOverlay = styled.div`
   line-height: 1.2em;
   font-size: 16px;
 
-  @media (max-width: 549px) {
-    font-size: 9px;
+  @media (max-width: 949px) {
+    font-size: 14px;
   }
 `;
 
