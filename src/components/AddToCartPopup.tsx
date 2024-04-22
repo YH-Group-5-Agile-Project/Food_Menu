@@ -87,12 +87,13 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                       </SideContainer>
                   )
                 )}
+                <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
               </ItemContainer>
             </>
             :
             <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
           }
-          <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
+
         <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
     </>
