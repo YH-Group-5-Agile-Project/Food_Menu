@@ -143,12 +143,6 @@ const SideContainer = styled.button`
   flex-wrap: wrap;
   justify-content: center;
   background-color: var(--fifthColor);
-  
-  &:hover,
-  &:focus {
-    color: grey;
-    border-color: grey;
-  }
 `;
 const DishImage = styled.img`
   width: 50%;
