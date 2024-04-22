@@ -70,7 +70,7 @@ h1 {
 button {
   color: var(--thirdColor);
   border-radius: 10px;
-  border: solid 2px black;
+  border: solid 2px var(--firstColor);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
