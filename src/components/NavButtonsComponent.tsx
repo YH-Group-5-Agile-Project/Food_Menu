@@ -98,7 +98,7 @@ export const NavButtons = () => {
 
             {state.cartVisible && <>
             <ToggleCartOverlay onClick={toggleCart} />
-                <CartComponent />
+                <CartComponent CloseClick={toggleCart} />
             </>
             }
         </PageNavWrapper>

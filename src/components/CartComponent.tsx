@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart } from "../services/CartService";;
 import styles from "./CartComponent.module.css";
+import { styled } from "styled-components";
+import { NavLink } from "react-router-dom";
 
-export const CartComponent = () => {
+interface CloseProp {
+  CloseClick: () => void;
+}
+
+export const CartComponent = (props: CloseProp) => {
   const [cart, setCart] = useState<Cart>({
     id: 0,
     OrderList: [],
@@ -50,13 +56,10 @@ export const CartComponent = () => {
   return (
     <>
       <div className={styles.PopUpOrder}>
-        <h1>Your Order</h1>
-        <table>
+        <StyledTable>
           <thead>
             <tr>
-              <th>Dish</th>
-              <th>Side</th>
-              <th>Drink</th>
+              <th>Product</th>
               <th>Price</th>
               <th>Action</th>
             </tr>
@@ -64,27 +67,93 @@ export const CartComponent = () => {
           <tbody>
             {cart.OrderList.map((order) => (
               <tr key={order.id}>
-                <td>{order.main?.title || "-"}</td>
-                <td>{order.sides?.title || "-"}</td>
-                <td>{order.drink?.name || "-"}</td>
-                <td>£{order.OrderCost}</td>
                 <td>
+                  {order.main?.title && order.sides?.title && !order.drink
+                    ? `${order.main.title} and ${order.sides.title}`
+                    : order.main?.title && order.sides?.title && order.drink 
+                    ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
+                    : order.sides?.title || order.drink?.name || "-"}
+                    {order?.comment && (
+                      <p>Comment: <br />
+                        {order.comment}
+                      </p>                    
+                    )}
+                </td>
+                <td>{order.OrderCost} SEK</td>
+                
+                <td>                
                   <button onClick={() => onDelete(order.id)}>Remove</button>
                 </td>
               </tr>
             ))}
-            <tr>
-              <td>
-                <h2>Total price: £{CalculateCostCart(cart)}</h2>
-              </td>
-            </tr>
-
           </tbody>
-        </table>
-        <button onClick={() => onEmpty()}>Empty Order</button>
+        </StyledTable>
+        <ButtonContainer>
+          <button onClick={() => onEmpty()}>Empty Order</button> 
+          <button onClick={props.CloseClick}>Close</button>
+          <button><StyledNavLink to={'/checkout'} onClick={props.CloseClick}>Go to checkout</StyledNavLink></button>
+        </ButtonContainer>
       </div>
     </>
   );
 };
 
 export default CartComponent;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+`
+
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+`
+
+
+const StyledTable = styled.div`
+  padding: 20px;
+  width: 880px;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--sixthColor);
+    p{
+       word-wrap: break-word;
+       width: 300px;
+       white-space: pre-wrap;
+    }
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    text-align: left;
+    width: 100vw;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2),
+  th:nth-child(3),
+  td:nth-child(3) {
+    text-align: center;
+  }
+
+  @media (max-width: 949px) {
+    width: 80vw;
+    gap: 20px;
+  }
+
+  @media (max-width: 549px) {
+    width: 90vw;
+    gap: 10px;
+  }
+`

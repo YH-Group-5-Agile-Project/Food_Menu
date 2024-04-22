@@ -101,7 +101,7 @@ const StyledTable = styled.table`
   td {
     padding: 8px;
     /* text-align: left; */
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid var(--sixthColor);
     p{
        word-wrap: break-word;
        width: 300px;

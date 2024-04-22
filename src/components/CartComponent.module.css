@@ -1,4 +1,8 @@
 .PopUpOrder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   position: fixed;
   top: 20%;
   left: 50%;
@@ -15,7 +19,9 @@
   z-index: 999;
   color: var(--sixthColor);
   overflow: scroll;
+  padding: 20px;
 
+  
   @media (max-width: 949px) {
     width: 80%;
   }
