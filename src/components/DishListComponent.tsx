@@ -52,9 +52,9 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [showItemAdded, setShowItemAdded] = useState(false);
-
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
   const { data, isLoading, error } = PostQuery(dishType);
+  let itemName: string = "item";
 
   const HandleClick = (index: number) => {
     if (index === selectedDish) {
@@ -77,6 +77,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       setIsPopupOpen(true);
       tempDish = dish;
     } else {SendToCart(dish);
+      itemName = dish.title;
       setShowItemAdded(true)
       setTimeout(() => {
         setShowItemAdded(false);
@@ -119,14 +120,15 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                 <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>
                   <ItemAddedPopup>Add to order</ItemAddedPopup>
                 </StyledButton>
+                
+                {showItemAdded && (
+                    <ItemAddedToCartPopup Item={dish.title}/>
+                  )}
               </ExpandedDish>
             )}
           </>
         ))}
       </DishesContainer>
-      {showItemAdded && (
-        <ItemAddedToCartPopup />
-      )}
       {isPopupOpen && (
         <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />
       )}

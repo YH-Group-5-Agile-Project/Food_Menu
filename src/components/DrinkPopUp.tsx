@@ -44,7 +44,7 @@ const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
         <button disabled={showItemAdded} onClick={onClose}>Close</button>
       </PopUpContent>
       {showItemAdded && (
-        <ItemAddedToCartPopup />
+        <ItemAddedToCartPopup Item={drink.name}/>
       )}
     </PopUpContainer>
   );
