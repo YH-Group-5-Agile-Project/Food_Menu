@@ -26,10 +26,10 @@ const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
     setShowItemAdded(true)
     setTimeout(() => {
       setShowItemAdded(false);
-    }, 1000);
+    }, 2000);
     setTimeout(() => {
     onClose();
-    }, 1000);
+    }, 2000);
   };
 
   return (

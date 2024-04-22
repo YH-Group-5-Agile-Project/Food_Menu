@@ -46,7 +46,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       setTimeout(() => {
         location.reload();
         setShowItemAdded(false);
-      }, 1000);
+      }, 2000);
     newOrder.OrderCost = CalculateCostOrder(newOrder);
     SaveOrderToCart(newOrder);
   };
@@ -60,7 +60,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       </a>
       <PopupContainer className="add-to-cart-popup">
       {showItemAdded && (
-        <ItemAddedToCartPopup Item={tempDish.title}/>
+        <ItemAddedToCartPopup Item="Menu "/>
       )}
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />

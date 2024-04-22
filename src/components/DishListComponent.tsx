@@ -81,7 +81,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       setShowItemAdded(true)
       setTimeout(() => {
         setShowItemAdded(false);
-      }, 1000);
+      }, 2000);
     }
   };
 
