@@ -45,11 +45,13 @@ const CheckoutComponent = () => {
           {cart.OrderList.map((order) => (
             <OrderRow key={order.id}>
               <ProductCell>
-                {order.main?.title && order.sides?.title
-                  ? `${order.main.title} and ${order.sides.title}`
-                  : order.main?.title && order.sides?.title && order.drink 
-                  ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
-                  : order.sides?.title || order.drink?.name || "-"}
+              {(order.main && order.sides && !order.drink)
+                    ? `${order.main.title} with ${order.sides.title}`
+                    : (order.main && order.drink && !order.sides) 
+                    ? `${order.main.title} with no side order and a ${order.drink.name} to drink`
+                    : (order.main?.title && order.sides?.title && order.drink) 
+                    ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
+                    : order.sides?.title || order.drink?.name || "-"}
               </ProductCell>
               <PriceCell>{`£${order.OrderCost}`}</PriceCell>
               <ActionCell>

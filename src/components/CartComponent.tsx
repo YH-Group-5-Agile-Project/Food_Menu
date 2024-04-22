@@ -68,16 +68,13 @@ export const CartComponent = (props: CloseProp) => {
             {cart.OrderList.map((order) => (
               <tr key={order.id}>
                 <td>
-                  {order.main?.title && order.sides?.title && !order.drink
+                  {(order.main && order.sides && !order.drink)
                     ? `${order.main.title} and ${order.sides.title}`
-                    : order.main?.title && order.sides?.title && order.drink 
+                    : (order.main && order.drink && !order.sides) 
+                    ? `${order.main.title} with no side order and a ${order.drink.name} to drink`
+                    : (order.main?.title && order.sides?.title && order.drink) 
                     ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
                     : order.sides?.title || order.drink?.name || "-"}
-                    {order?.comment && (
-                      <p>Comment: <br />
-                        {order.comment}
-                      </p>                    
-                    )}
                 </td>
                 <td>{order.OrderCost} SEK</td>
                 
