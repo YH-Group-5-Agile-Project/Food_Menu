@@ -34,7 +34,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   }
 
   const sendToCart = (_drink?: Drink) => {
-    tempDish.price = 0;
+    if (tempSide != undefined) tempSide.price = 0;
     let newOrder: Order = {
       id: IncreamentId(),
       main: tempDish,
