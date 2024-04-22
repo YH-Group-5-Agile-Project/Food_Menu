@@ -194,6 +194,8 @@ const ExpandedDish = styled.div<FoodProps>`
       ? StayOpenAnimation
       : CloseAnimation};
   animation-duration: ${transitionTime}ms;
+  display: flex;
+  align-items: start;
 `;
 
 const DishesContainer = styled.div`
@@ -232,6 +234,7 @@ const DishTitle = styled.h2`
 `;
 
 const TextContainer = styled.div`
+width: 80%;
   @media (max-width: 768px) {
     font-size: 2.5vw;
   }
@@ -244,5 +247,8 @@ const DishIngredients = styled.div`
 `;
 
 const StyledButton = styled.button`
+  align-self: center;
   margin: 20px;
+  width: 20%;
+  height: 140px;
 `;
