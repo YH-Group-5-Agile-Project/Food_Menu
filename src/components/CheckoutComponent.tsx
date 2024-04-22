@@ -3,6 +3,8 @@ import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart } from "../services/CartService";
 import { styled } from "styled-components";
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent";
+import { NavLink } from "react-router-dom";
+
 
 export const CheckoutComponent = () => {
   const [cart, setCart] = useState<Cart>({
@@ -15,7 +17,8 @@ export const CheckoutComponent = () => {
 
   useEffect(() => {
     setCart(GetCart());
-  }, []); // render only first time
+
+  }, []); 
 
   const toggleCustomizeOrder = (orderId: number) => {
     if (customizeOrderId.includes(orderId))
@@ -37,6 +40,17 @@ export const CheckoutComponent = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     console.log("Order removed", orderId);
   };
+
+  const placeOrder = (e:  React.MouseEvent) => {
+    // check if cart exists
+    if (cart.OrderList.length < 1 || CalculateCostCart(cart) < 1){
+      console.log(cart);
+      console.log(cart.OrderList.length)
+      console.log(CalculateCostCart(cart))
+      console.log("No Items in cart");
+      e.preventDefault();
+    }
+  }
 
   return (
     <>
@@ -73,15 +87,40 @@ export const CheckoutComponent = () => {
           ))}
         </tbody>
       </StyledTable>
-      <PricePayContainer>
-        <h2>Total price: £{CalculateCostCart(cart)}</h2>
-        <button>Place order</button>
-      </PricePayContainer>
+      
+      {cart.OrderList.length > 0 &&
+        <PricePayContainer>
+          <h2>Total price: £{CalculateCostCart(cart)}</h2>
+          <StyledNavLink to="/orderconfirmation" onClick={(e) => placeOrder(e)} >Place order</StyledNavLink>
+        </PricePayContainer>
+      }
     </>
   );
 };
 
 export default CheckoutComponent;
+
+const StyledNavLink = styled(NavLink)`
+  color: var(--firstColor);
+  border-radius: 10px;
+  border: solid 2px var(--firstColor);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fifthColor));
+
+    &:hover {
+      background: 
+        url('assets/design-assets/diamonds-are-forever.png'),
+        linear-gradient(rgb(200, 200, 220),var(--fifthColor));
+        color: var(--firstColor)
+    }
+`;
 
 const PricePayContainer = styled.div`
   display: flex;

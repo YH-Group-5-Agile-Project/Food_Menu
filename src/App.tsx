@@ -12,6 +12,7 @@ import { styled } from "styled-components";
 import { Navbar } from "./components/NavbarComponent";
 import { NavButtons } from "./components/NavButtonsComponent";
 import { useEffect, useState } from "react";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
   return (
     // navbar
       <LayoutDiv>
-      {location.pathname !== "/" && (
+      {location.pathname !== "/" && location.pathname !== "/orderconfirmation" && (
         <NavigationWrapper>
             <Navbar currentPage={location.pathname} />
             <NavButtons />
@@ -50,6 +51,7 @@ function App() {
                   <Route path="/sides" element={<SidePage />} />
                   <Route path="/drink" element={<DrinkPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
+                  <Route path="/orderconfirmation" element={<OrderConfirmationPage />} />
               </Routes>
           </ContentDiv>
       </LayoutDiv>
