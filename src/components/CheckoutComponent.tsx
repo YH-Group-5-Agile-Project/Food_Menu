@@ -47,7 +47,7 @@ const CheckoutComponent = () => {
               <ProductCell>
                 {order.main?.title && order.sides?.title
                   ? `${order.main.title} and ${order.sides.title}`
-                  : order.main?.title && order.sides?.title && order.drink 
+                  : order.main?.title && order.sides?.title && order.drink
                   ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
                   : order.sides?.title || order.drink?.name || "-"}
               </ProductCell>
@@ -72,7 +72,7 @@ const CheckoutComponent = () => {
         </tbody>
       </table>
       <PricePayContainer>
-        <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+        <h1>Total price: £{CalculateCostCart(cart)}</h1>
         <button>Place order</button>
       </PricePayContainer>
     </CheckoutContainer>
