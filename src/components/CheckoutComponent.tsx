@@ -74,7 +74,7 @@ const CheckoutComponent = () => {
         </tbody>
       </table>
       <PricePayContainer>
-        <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+        <h1>Total price: £{CalculateCostCart(cart)}</h1>
         <button>Place order</button>
       </PricePayContainer>
     </CheckoutContainer>
