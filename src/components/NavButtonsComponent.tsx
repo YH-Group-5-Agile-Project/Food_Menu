@@ -116,7 +116,6 @@ const PageNavWrapper = styled.div`
         padding: 8px 20px;
         border-radius: 10px;
         cursor: pointer;
-        font-size: 12px;
         transition: background-color 0.3s ease-in-out;
     }
     `
