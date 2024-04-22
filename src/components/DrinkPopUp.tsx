@@ -19,9 +19,9 @@ interface DrinkPopUpProps {
 
 const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
   const [showItemAdded, setShowItemAdded] = useState(false);
-  
-  
-  const  handleAddToCartClick = () => {
+
+
+  const handleAddToCartClick = () => {
     SendDrinkToCart(drink);
     setShowItemAdded(true)
     setTimeout(() => {
@@ -66,8 +66,9 @@ const PopUpContainer = styled.div`
 `;
 
 const PopUpContent = styled.div`
-  background-color: white;
-  color: black;
+  background-image: url('../assets/design-assets/climpek.png');
+  background-color: var(--firstColor);
+  color: var(--sixthCollor);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
