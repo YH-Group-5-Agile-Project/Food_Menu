@@ -5,6 +5,7 @@
   --fourthColor: #D9A441; 
   --fifthColor: #A65F21;
   --sixthColor: #ffecc8;
+  --seventhColor: #d1fffb;
   
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   font-family: 'Bad script';
@@ -55,7 +56,7 @@ body {
   place-items: center;
   min-width: 320px;
   height: 100vh;
-  background-image: url('assets\design-assets\BackgroundImg.png');
+  background-image: url('assets/design-assets/BackgroundImg.png');
   background-size: cover;
   background-position:center;
   background-repeat: no-repeat;
@@ -68,19 +69,48 @@ h1 {
 }
 
 button {
-  color: var(--thirdColor);
+  color: var(--firstColor);
   border-radius: 10px;
-  border: solid 2px black;
+  border: solid 2px var(--firstColor);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  background: linear-gradient(rgb(244, 255, 174),var(--fifthColor));
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fifthColor));
 }
+form input{
+  color: var(--thirdColor);
+  border-radius: 10px;
+  border: solid 2px var(--firstColor);
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  background: 
+    url('assets/design-assets/black-linen.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fifthColor));
+}
+
+form textarea{
+  color: var(--firstColor);
+  border-radius: 10px;
+  height: 5rem;
+  width: 7rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background: var(--sixthColor);
+}
+
 button:hover {
-  background: linear-gradient(rgb(200, 200, 220),var(--fifthColor));
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(rgb(200, 200, 220),var(--fifthColor));
 }
 
 /*button:focus,

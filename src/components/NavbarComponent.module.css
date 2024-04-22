@@ -12,7 +12,9 @@
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 5%;
   color: black;
-  background: linear-gradient(rgb(188, 255, 134), var(--secondColor));
+  background: 
+  url('../assets/design-assets/Leather1.png'), 
+  linear-gradient(rgb(188, 255, 134), var(--secondColor));
  
 
   &:hover {
@@ -43,11 +45,13 @@
   border-bottom-left-radius: 5%;
   border-bottom-right-radius: 50px;
   color: black;
-  background: linear-gradient(rgb(253, 143, 143), var(--thirdColor));
+  background: url('../assets/design-assets/Leather1.png'), 
+  linear-gradient(rgb(253, 143, 143), var(--thirdColor));
   
 
   &:hover {
-    background: linear-gradient(rgb(244, 255, 174),var(--fourthColor));
+    background: url('../assets/design-assets/Leather1.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fourthColor));
     color: #000000;
   }
 
@@ -64,6 +68,7 @@
   border-radius: 20px;
   cursor: pointer;
   font-size: 12px;
+  background: url('../assets/design-assets/Leather1.png');
   transition: background-color 0.3s ease-in-out;
 
 }

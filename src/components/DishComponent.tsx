@@ -75,7 +75,6 @@ const TitleOverlay = styled.div`
   width: 100%;
   height: 20%;
   background-color: rgba(0, 0, 0, 0.5);
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
