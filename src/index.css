@@ -81,7 +81,6 @@ button {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
     linear-gradient(rgb(244, 255, 174),var(--fifthColor));
-  /* background-image: url('assets/design-assets/black-linen.png'); */
 }
 form input{
   color: var(--thirdColor);
@@ -95,8 +94,19 @@ form input{
   background: 
     url('assets/design-assets/black-linen.png'),
     linear-gradient(rgb(244, 255, 174),var(--fifthColor));
-  /* background-image: url('assets/design-assets/black-linen.png'); */
 }
+
+form textarea{
+  color: var(--firstColor);
+  border-radius: 10px;
+  height: 5rem;
+  width: 7rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  background: var(--sixthColor);
+}
+
 button:hover {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
