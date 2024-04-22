@@ -23,9 +23,12 @@
   }
 
   @media (max-width: 949px) {
-    font-size: 12px;
-    padding: 5px;
+    
     min-width: 5rem;
+  }
+
+  @media(max-width: 549px) {
+    font-size: 12px;
   }
   
 }
@@ -56,9 +59,11 @@
   }
 
   @media (max-width: 949px) {
-    font-size: 12px;
-    padding: 5px;
+    
     min-width: 5rem;
+  }
+  @media(max-width: 549px) {
+    font-size: 12px;
   }
 }
 
@@ -67,7 +72,7 @@
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 12px;
+  
   background: url('../assets/design-assets/Leather1.png');
   transition: background-color 0.3s ease-in-out;
 

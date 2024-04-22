@@ -33,7 +33,7 @@ const DrinksContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   
-  margin: auto;
+  // margin: auto;
 
   @media (max-width: 949px) {
     width: 500px;

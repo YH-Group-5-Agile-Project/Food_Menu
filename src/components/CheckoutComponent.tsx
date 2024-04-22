@@ -72,7 +72,7 @@ const CheckoutComponent = () => {
         </tbody>
       </table>
       <PricePayContainer>
-        <h3>Total price: £{CalculateCostCart(cart)}</h3>
+        <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
         <button>Place order</button>
       </PricePayContainer>
     </CheckoutContainer>
@@ -144,6 +144,6 @@ const PricePayContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 8px 20px;
-  background-color: lightgray;
+  // background-color: var(--fifthColor);
   border-radius: 20px;
 `;
