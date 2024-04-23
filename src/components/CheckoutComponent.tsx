@@ -65,7 +65,6 @@ const CheckoutComponent = () => {
                   {order.sides?.title && <li>{order.sides.title}</li>}
                   {order.drink?.name && <li>{order.drink.name}</li>}
                   {order?.comment && (<p>Comment: {order.comment}</p> )}    
-                  <p>Comment: text ...</p>    
                 </StyledList>
               </ProductCell>
               <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
