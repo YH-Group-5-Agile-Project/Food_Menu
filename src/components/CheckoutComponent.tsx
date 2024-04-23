@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart } from "../services/CartService";
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent";
+import { NavLink } from "react-router-dom";
+
 
 const CheckoutComponent = () => {
   const [cart, setCart] = useState<Cart>({
@@ -15,7 +17,8 @@ const CheckoutComponent = () => {
 
   useEffect(() => {
     setCart(GetCart());
-  }, []);
+
+  }, []); 
 
   const toggleCustomizeOrder = (orderId: number) => {
     if (customizeOrderId.includes(orderId)) {
@@ -36,7 +39,19 @@ const CheckoutComponent = () => {
     };
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    console.log("Order removed", orderId);
   };
+
+  const placeOrder = (e:  React.MouseEvent) => {
+    // check if cart exists
+    if (cart.OrderList.length < 1 || CalculateCostCart(cart) < 1){
+      console.log(cart);
+      console.log(cart.OrderList.length)
+      console.log(CalculateCostCart(cart))
+      console.log("No Items in cart");
+      e.preventDefault();
+    }
+  }
 
   return (
     <CheckoutContainer>
@@ -53,7 +68,7 @@ const CheckoutComponent = () => {
                     ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
                     : order.sides?.title || order.drink?.name || "-"}
               </ProductCell>
-              <PriceCell>{`£${order.OrderCost}`}</PriceCell>
+              <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
               <ActionCell>
                 <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>
                   Customize
@@ -73,15 +88,40 @@ const CheckoutComponent = () => {
           ))}
         </tbody>
       </table>
-      <PricePayContainer>
-        <h1>Total price: £{CalculateCostCart(cart)}</h1>
-        <button>Place order</button>
-      </PricePayContainer>
+      
+      {cart.OrderList.length > 0 &&
+        <PricePayContainer>
+          <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+          <StyledNavLink to="/orderconfirmation" onClick={(e) => placeOrder(e)} >Place order</StyledNavLink>
+        </PricePayContainer>
+      }
     </CheckoutContainer>
   );
 };
 
 export default CheckoutComponent;
+
+const StyledNavLink = styled(NavLink)`
+  color: var(--firstColor);
+  border-radius: 10px;
+  border: solid 2px var(--firstColor);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fifthColor));
+
+    &:hover {
+      background: 
+        url('assets/design-assets/diamonds-are-forever.png'),
+        linear-gradient(rgb(200, 200, 220),var(--fifthColor));
+        color: var(--firstColor)
+    }
+`;
 
 const CheckoutContainer = styled.div`
   width: 900px;

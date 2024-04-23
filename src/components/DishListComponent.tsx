@@ -111,7 +111,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
                   <DishDescription>
-                    <DishPrice>£{dish.price}</DishPrice>
+                    <DishPrice>{dish.price} SEK</DishPrice>
                     <strong>Description: </strong>
                     {dish.description}
                   </DishDescription>
