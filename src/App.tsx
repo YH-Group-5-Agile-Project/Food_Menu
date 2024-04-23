@@ -12,6 +12,7 @@ import { styled } from "styled-components";
 import { Navbar } from "./components/NavbarComponent";
 import { NavButtons } from "./components/NavButtonsComponent";
 import { useEffect, useState } from "react";
+import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
   return (
     // navbar
       <LayoutDiv>
-      {location.pathname !== "/" && (
+      {location.pathname !== "/" && location.pathname !== "/orderconfirmation" && (
         <NavigationWrapper>
             <Navbar currentPage={location.pathname} />
             <NavButtons />
@@ -50,6 +51,7 @@ function App() {
                   <Route path="/sides" element={<SidePage />} />
                   <Route path="/drink" element={<DrinkPage />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
+                  <Route path="/orderconfirmation" element={<OrderConfirmationPage />} />
               </Routes>
           </ContentDiv>
       </LayoutDiv>
@@ -82,13 +84,20 @@ const ContentDiv = styled.div`
 `
 
 const LayoutDiv = styled.div`
-  position: relative;
-  top: 10vh;
-  width: 100%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  transform: translateX(-50%);
+  align-items: center;
+  width: 100vw;
   height: 100vh;
   min-height: 60vh;
+  padding-top: 10vh;
+  top: 0;
 
   @media (max-height: 1200px) {
+    padding-top: 0;
     top: 0;
   }
 
@@ -99,7 +108,7 @@ const NavigationWrapper = styled.div`
   z-index: 1;
   padding: 5px;
   width: 100%;
-
+  max-width: 1100px;
 `
 
 export const ToggleCartOverlay = styled.a`

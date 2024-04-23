@@ -89,16 +89,18 @@ export const NavButtons = () => {
                 </Link>
             }
 
-            <ToCartButton onClick={toggleCart}/>
             {!!state.nextPage && 
-                <Link to={state.nextPage}>
-                    <button>{state.nextButtonText}</button>
-                </Link> 
+                <>
+                    <ToCartButton onClick={toggleCart}/>
+                    <Link to={state.nextPage}>
+                        <button>{state.nextButtonText}</button>
+                    </Link> 
+                </>
             }
 
             {state.cartVisible && <>
             <ToggleCartOverlay onClick={toggleCart} />
-                <CartComponent />
+                <CartComponent CloseClick={toggleCart} />
             </>
             }
         </PageNavWrapper>
