@@ -68,7 +68,7 @@ const CheckoutComponent = () => {
                     ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
                     : order.sides?.title || order.drink?.name || "-"}
               </ProductCell>
-              <PriceCell>{`£${order.OrderCost}`}</PriceCell>
+              <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
               <ActionCell>
                 <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>
                   Customize
@@ -91,7 +91,7 @@ const CheckoutComponent = () => {
       
       {cart.OrderList.length > 0 &&
         <PricePayContainer>
-          <h1>Total price: £{CalculateCostCart(cart)}</h1>
+          <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
           <StyledNavLink to="/orderconfirmation" onClick={(e) => placeOrder(e)} >Place order</StyledNavLink>
         </PricePayContainer>
       }

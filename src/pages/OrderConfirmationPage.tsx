@@ -57,13 +57,13 @@ useEffect(() => {
                     </p>                    
                   )}
               </td>
-              <td>£{order.OrderCost}</td>
+              <td>{order.OrderCost} SEK</td>
             </tr>
           ))}
         </tbody>
       </StyledTable>
       <PricePayContainer>
-          <h1>Total price: £{CalculateCostCart(cart)}</h1>
+          <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
     </PricePayContainer>
 
     </Container>
