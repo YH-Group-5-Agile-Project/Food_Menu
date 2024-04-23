@@ -200,7 +200,7 @@ const ExpandedDish = styled.div<FoodProps>`
 
 const DishesContainer = styled.div`
   width: 900px;
-  gap: 32px;
+  column-gap: 32px;
   justify-content: center;
 
   position: relative;

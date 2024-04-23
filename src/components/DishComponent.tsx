@@ -31,7 +31,8 @@ const DishContainer = styled.div<FoodProps>`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 32px;
+
   /* justify-content: center;
   cursor: pointer;
 
