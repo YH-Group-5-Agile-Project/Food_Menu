@@ -60,13 +60,13 @@ const CheckoutComponent = () => {
           {cart.OrderList.map((order) => (
             <OrderRow key={order.id}>
               <ProductCell>
-              {order.main?.title && <StyledList>{order.main.title}</StyledList>}
-                {order.sides?.title && <StyledList>{order.sides.title}</StyledList>}
-                {order.drink?.name && <StyledList>{order.drink.name}</StyledList>}
-                {order?.comment && (
-                    <p>Comment: {order.comment}
-                    </p>                    
-                  )}
+                <StyledList>
+                  {order.main?.title && <li>{order.main.title}</li>}
+                  {order.sides?.title && <li>{order.sides.title}</li>}
+                  {order.drink?.name && <li>{order.drink.name}</li>}
+                  {order?.comment && (<p>Comment: {order.comment}</p> )}    
+                  <p>Comment: text ...</p>    
+                </StyledList>
               </ProductCell>
               <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
               <ActionCell>
@@ -171,6 +171,7 @@ const OrderRow = styled.div`
 const ProductCell = styled.div`
   display: flex;
   justify-content: left;
+  flex-direction: column;
   font-weight: bold;
 `;
 
@@ -178,6 +179,7 @@ const PriceCell = styled.div`
   text-align: right;
   @media (max-width: 949px) {
     text-align: left;
+    margin-left: 30px;
   }
 `;
 
@@ -191,6 +193,12 @@ const PricePayContainer = styled.div`
   border-radius: 20px;
 `;
 
-const StyledList = styled.li`  
-  margin: 5px;
+const StyledList = styled.ul`
+  margin-bottom: 0px;
+  li {
+    margin: 5px;
+  }
+  p{
+    margin: 0px;
+  }
 `;
