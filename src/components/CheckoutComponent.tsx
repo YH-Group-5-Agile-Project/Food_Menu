@@ -60,13 +60,13 @@ const CheckoutComponent = () => {
           {cart.OrderList.map((order) => (
             <OrderRow key={order.id}>
               <ProductCell>
-              {(order.main && order.sides && !order.drink)
-                    ? `${order.main.title} with ${order.sides.title}`
-                    : (order.main && order.drink && !order.sides) 
-                    ? `${order.main.title} with no side order and a ${order.drink.name} to drink`
-                    : (order.main?.title && order.sides?.title && order.drink) 
-                    ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
-                    : order.sides?.title || order.drink?.name || "-"}
+                <StyledList>
+                  {order.main?.title && <li>{order.main.title}</li>}
+                  {order.sides?.title && <li>{order.sides.title}</li>}
+                  {order.drink?.name && <li>{order.drink.name}</li>}
+                  {order?.comment && (<p>Comment: {order.comment}</p> )}    
+                  <p>Comment: text ...</p>    
+                </StyledList>
               </ProductCell>
               <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
               <ActionCell>
@@ -144,6 +144,7 @@ const StyledButton = styled.button`
   margin: 0px 10px;
 `;
 
+
 const OrderRow = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
@@ -170,6 +171,7 @@ const OrderRow = styled.div`
 const ProductCell = styled.div`
   display: flex;
   justify-content: left;
+  flex-direction: column;
   font-weight: bold;
 `;
 
@@ -177,6 +179,7 @@ const PriceCell = styled.div`
   text-align: right;
   @media (max-width: 949px) {
     text-align: left;
+    margin-left: 30px;
   }
 `;
 
@@ -188,4 +191,14 @@ const PricePayContainer = styled.div`
   padding: 8px 20px;
   // background-color: var(--fifthColor);
   border-radius: 20px;
+`;
+
+const StyledList = styled.ul`
+  margin-bottom: 0px;
+  li {
+    margin: 5px;
+  }
+  p{
+    margin: 0px;
+  }
 `;
