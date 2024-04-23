@@ -54,7 +54,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [showItemAdded, setShowItemAdded] = useState(false);
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
   const { data, isLoading, error } = PostQuery(dishType);
-  let itemName: string = "item";
+  let itemName: string = "item";      
 
   const HandleClick = (index: number) => {
     if (index === selectedDish) {

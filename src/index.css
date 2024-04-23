@@ -83,6 +83,16 @@ button {
     url('assets/design-assets/diamonds-are-forever.png'),
     linear-gradient(rgb(244, 255, 174),var(--fifthColor));
 }
+button:disabled {
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(rgb(0, 0, 0),var(--fifthColor));
+}
+button:disabled:hover {
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(rgb(0, 0, 0),var(--fifthColor));
+}
 form input{
   color: var(--thirdColor);
   border-radius: 10px;

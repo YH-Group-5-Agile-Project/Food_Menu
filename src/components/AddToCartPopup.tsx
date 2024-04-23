@@ -45,7 +45,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
 
     setShowItemAdded(true)
       setTimeout(() => {
-        location.reload();
+        onClose();
         setShowItemAdded(false);
       }, 2000);
     newOrder.OrderCost = CalculateCostOrder(newOrder);

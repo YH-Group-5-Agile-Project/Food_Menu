@@ -45,7 +45,7 @@ const CheckoutComponent = () => {
   const placeOrder = (e:  React.MouseEvent) => {
     // check if cart exists
     if (cart.OrderList.length < 1 || CalculateCostCart(cart) < 1){
-      console.log(cart);
+      console.log(cart);                        //Mycket log, behövs det fortfarande?
       console.log(cart.OrderList.length)
       console.log(CalculateCostCart(cart))
       console.log("No Items in cart");
