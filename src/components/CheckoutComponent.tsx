@@ -51,13 +51,12 @@ export const CheckoutComponent = () => {
         <tbody>
           {cart.OrderList.map((order) => (
             <tr key={order.id}>
-              <td>
-                {order.main?.title && order.sides?.title
-                  ? `${order.main.title} and ${order.sides.title}`
-                  : order.sides?.title || order.drink?.name || "-"}
+              <td>                
+                {order.main?.title && <StyledList>{order.main.title}</StyledList>}
+                {order.sides?.title && <StyledList>{order.sides.title}</StyledList>}
+                {order.drink?.name && <StyledList>{order.drink.name}</StyledList>}
                   {order?.comment && (
-                    <p>Comment: <br />
-                      {order.comment}
+                    <p>Comment: {order.comment}
                     </p>                    
                   )}
               </td>
@@ -89,6 +88,10 @@ const PricePayContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px;
+`;
+
+const StyledList = styled.li`  
+  margin: 5px;
 `;
 
 const StyledTable = styled.table`
