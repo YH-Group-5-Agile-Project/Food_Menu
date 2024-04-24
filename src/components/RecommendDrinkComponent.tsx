@@ -63,10 +63,6 @@ export const RecommendDrink = (props: DrinkProps) => {
 }
 
 const ListContainer = styled.div`
-display: flex;
-flex-wrap: wrap;
-flex-direction: row;
-margin: 10px;
 `
 
 const ButtonContainer = styled.div`

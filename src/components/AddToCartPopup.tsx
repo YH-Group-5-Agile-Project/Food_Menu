@@ -62,7 +62,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       <PopupContainer className="add-to-cart-popup">
       {showItemAdded && (
         <ItemAddedToCartPopup Item="Menu "/>
-      )}
+      )}<>
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
           {!sideOrDrink ? 
@@ -94,7 +94,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
             :
             <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
           }
-
+          </>
         <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
     </>

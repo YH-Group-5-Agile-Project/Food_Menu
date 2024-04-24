@@ -18,23 +18,34 @@ const DrinkComponentAlt = ({ drinkId, sendToCart }: DrinkComponentProps) => {
         <DrinkImage src={data?.imgUrl} alt={data?.name} />
         <TitleOverlay>{data?.name}</TitleOverlay> 
       </ImageContainer>
-      <DrinkDescription>{data?.ingredients.join(", ")}. {data?.alcoholic ? "" : "Non-alcholic"}.</DrinkDescription>
-      <button onClick={() => sendToCart(data)}> Add {data?.name} to menu</button>
+      <TextContainer>
+        <DrinkDescription>{data?.ingredients.join(", ")}. {data?.alcoholic ? "" : "Non-alcholic"}.</DrinkDescription>
+        <button onClick={() => sendToCart(data)}> Add {data?.name} to your menu</button>
+      </TextContainer>
+      
     </DrinkContainer>
   );
 };
 
+const TextContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: baseline;
+`
+
 const DrinkDescription = styled.div`
 margin-top: 5px;
 padding: 10px;
+margin-bottom: 40px;
 `
 const DrinkContainer = styled.div`
-  position: relative;
+  top: 0;
+  left: 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  cursor: pointer;
-  margin-bottom: 6rem;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  z-index: 2;
 `;
 
 const ImageContainer = styled.div`
