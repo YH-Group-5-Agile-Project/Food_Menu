@@ -102,7 +102,7 @@ const CheckoutComponent = () => {
 export default CheckoutComponent;
 
 
-const CheckoutContainer = styled.div`
+export const CheckoutContainer = styled.div`
   width: 900px;
 
   @media (max-width: 949px) {
@@ -124,7 +124,7 @@ const StyledButton = styled.button`
 `;
 
 
-const OrderRow = styled.div`
+export const OrderRow = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
@@ -147,14 +147,14 @@ const OrderRow = styled.div`
   }
 `;
 
-const ProductCell = styled.div`
+export const ProductCell = styled.div`
   display: flex;
   justify-content: left;
   flex-direction: column;
   font-weight: bold;
 `;
 
-const PriceCell = styled.div`
+export const PriceCell = styled.div`
   text-align: right;
   @media (max-width: 949px) {
     text-align: left;
@@ -162,7 +162,7 @@ const PriceCell = styled.div`
   }
 `;
 
-const PricePayContainer = styled.div`
+export const PricePayContainer = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -172,7 +172,7 @@ const PricePayContainer = styled.div`
   border-radius: 20px;
 `;
 
-const StyledList = styled.ul`
+export const StyledList = styled.ul`
   margin-bottom: 0px;
   li {
     margin: 5px;

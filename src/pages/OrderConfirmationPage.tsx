@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { Cart } from "../Models/Cart";
 import { ResetCart } from "../services/CartService";
+import { CheckoutContainer, OrderRow, PriceCell, PricePayContainer, ProductCell, StyledList } from "../components/CheckoutComponent";
 
 
 
@@ -28,27 +29,23 @@ const OrderConfirmationPage = () => {
             <h2>Thank you for your order</h2>
             <StyledNavLink to="/">Home</StyledNavLink>
         </Nav>
-      <StyledTable>
-        <thead>
-        </thead>
+      <table>
         <tbody>
           {OrderList.map((order) => (
-              <tr key={order.id}>
-              <td>
-                {order.main?.title && order.sides?.title
-                  ? `${order.main.title} and ${order.sides.title}`
-                  : order.sides?.title || order.drink?.name || "-"}
-                  {order?.comment && (
-                      <p>Comment: <br />
-                      {order.comment}
-                    </p>                    
-                  )}
-              </td>
-              <td>{order.OrderCost} SEK</td>
-            </tr>
+            <OrderRow key={order.id}>
+              <ProductCell>
+                <StyledList>
+                  {order.main?.title && <li>{order.main.title}</li>}
+                  {order.sides?.title && <li>{order.sides.title}</li>}
+                  {order.drink?.name && <li>{order.drink.name}</li>}
+                  {order?.comment && (<p>Comment: {order.comment}</p> )}    
+                </StyledList>
+              </ProductCell>
+              <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+            </OrderRow>
           ))}
         </tbody>
-      </StyledTable>
+      </table>
       <PricePayContainer>
           <h1>Total price: {TotalCost} SEK</h1>
     </PricePayContainer>
@@ -64,7 +61,7 @@ const Nav = styled.div`
     gap: 10px;
     margin: 30px 0;
 `;
-const Container = styled.div`
+const Container = styled(CheckoutContainer)`
     display: flex;
     flex-direction: column;
 `;
@@ -91,55 +88,6 @@ const StyledNavLink = styled(NavLink)`
             linear-gradient(rgb(200, 200, 220),var(--fifthColor));
             color: var(--firstColor)
         }
-`;
-
-const PricePayContainer = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  /* flex-wrap: wrap; */
-  justify-content: flex-end;
-  padding: 20px;
-`;
-
-const StyledTable = styled.table`
-  width: 880px;
-  border-collapse: collapse;
-
-  th,
-  td {
-    padding: 8px;
-    /* text-align: left; */
-    border-bottom: 1px solid lightgray;
-    p{
-       word-wrap: break-word;
-       width: 300px;
-       white-space: pre-wrap;
-    }
-  }
-
-  th:nth-child(1),
-  td:nth-child(1) {
-    text-align: left;
-    width: 80%;
-  }
-
-  th:nth-child(2),
-  td:nth-child(2),
-  th:nth-child(3),
-  td:nth-child(3) {
-    text-align: center;
-  }
-
-  @media (max-width: 949px) {
-    width: 560px;
-    gap: 20px;
-  }
-
-  @media (max-width: 549px) {
-    width: 360px;
-    gap: 10px;
-  }
 `;
 
 
