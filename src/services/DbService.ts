@@ -18,21 +18,8 @@ export const PostQuery = (dishType: string) => {
   });
 };
 
-/* export const DrinkQueries = (ids: string[]) => {
-  const queries = useQueries(
-    ids.map((id) => {
-      return {
-        queryKey: [id],
-        queryFn: async () => {
-          
-        },
-        staleTime: 30000;
-      }
-    })
-  )
-} */
 
-export const DrinkQuerys = async (drinkIds: string[]) => {
+export const DrinkQueries = async (drinkIds: string[]) => {
   const queries = await Promise.all(
     drinkIds.map(async (drinkId) => {
       const response = await fetch(

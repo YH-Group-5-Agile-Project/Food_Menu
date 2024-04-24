@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import DrinkComponent from "./DrinkComponent";
 import styled, { keyframes } from "styled-components";
-import { DrinkQuerys } from "../services/DbService";
+import { DrinkQueries } from "../services/DbService";
 import { Drink } from "../Models/Drink";
 
 const transitionTime = 800;
@@ -31,7 +31,7 @@ export const DrinkListComponent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await DrinkQuerys(drinkListIDs);
+      const data = await DrinkQueries(drinkListIDs);
       setDrinkList(data)
     }
     fetchData();
