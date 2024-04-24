@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Cart } from "../Models/Cart";
-import { CalculateCostCart, GetCart, ResetCart } from "../services/CartService";
+import { CalculateCostCart, GetCart } from "../services/CartService";
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent";
 import { useNavigate, } from "react-router-dom";
 
@@ -18,7 +18,6 @@ const CheckoutComponent = () => {
 
   useEffect(() => {
     setCart(GetCart());
-
   }, []); 
 
   const toggleCustomizeOrder = (orderId: number) => {
