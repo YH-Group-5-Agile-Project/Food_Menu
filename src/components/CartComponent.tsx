@@ -56,57 +56,28 @@ export const CartComponent = (props: CloseProp) => {
   return (
     <>
       <div className={styles.PopUpOrder}>
-        {/* <StyledTable>
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+        <StyledTable>
           <tbody>
             {cart.OrderList.map((order) => (
-              <tr key={order.id}>
-                <td>
-                  {(order.main && order.sides && !order.drink)
-                    ? `${order.main.title} and ${order.sides.title}`
-                    : (order.main && order.drink && !order.sides) 
-                    ? `${order.main.title} with no side order and a ${order.drink.name} to drink`
-                    : (order.main?.title && order.sides?.title && order.drink) 
-                    ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
-                    : order.sides?.title || order.drink?.name || "-"}
-                </td>
-                <td>{order.OrderCost} SEK</td>
-                
-                <td>                
-                  <button onClick={() => onDelete(order.id)}>Remove</button>
-                </td>
-              </tr>
+              <OrderRow key={order.id}>
+                <ProductCell>
+                  <StyledList>
+                    {order.main?.title && <li>{order.main.title}</li>}
+                    {order.sides?.title && <li>{order.sides.title}</li>}
+                    {order.drink?.name && <li>{order.drink.name}</li>}
+                    {order?.comment && (<p>Comment: {order.comment}</p> )}    
+                  </StyledList>
+                </ProductCell>
+                <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+                <ActionCell>
+                  <StyledButton onClick={() => onDelete(order.id)}>
+                    Remove
+                  </StyledButton>
+                </ActionCell>
+              </OrderRow>
             ))}
           </tbody>
-        </StyledTable> */}
-        <table>
-        <tbody>
-          {cart.OrderList.map((order) => (
-            <OrderRow key={order.id}>
-              <ProductCell>
-                <StyledList>
-                  {order.main?.title && <li>{order.main.title}</li>}
-                  {order.sides?.title && <li>{order.sides.title}</li>}
-                  {order.drink?.name && <li>{order.drink.name}</li>}
-                  {order?.comment && (<p>Comment: {order.comment}</p> )}    
-                </StyledList>
-              </ProductCell>
-              <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
-              <ActionCell>
-                <StyledButton onClick={() => onDelete(order.id)}>
-                  Remove
-                </StyledButton>
-              </ActionCell>
-            </OrderRow>
-          ))}
-        </tbody>
-      </table>
+        </StyledTable>
       {cart.OrderList.length > 0 &&
         <PricePayContainer>
           <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
@@ -124,6 +95,10 @@ export const CartComponent = (props: CloseProp) => {
 
 export default CartComponent;
 
+const StyledTable = styled.table`
+  width: 100%;
+`
+
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
@@ -140,50 +115,9 @@ const StyledNavLink = styled(NavLink)`
   }
 `
 
-
-const StyledTable = styled.div`
-  padding: 20px;
-  width: 880px;
-  border-collapse: collapse;
-
-  th,
-  td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid var(--sixthColor);
-    p{
-       word-wrap: break-word;
-       width: 300px;
-       white-space: pre-wrap;
-    }
-  }
-
-  th:nth-child(1),
-  td:nth-child(1) {
-    text-align: left;
-    width: 100vw;
-  }
-
-  th:nth-child(2),
-  td:nth-child(2),
-  th:nth-child(3),
-  td:nth-child(3) {
-    text-align: center;
-  }
-
-  @media (max-width: 949px) {
-    width: 80vw;
-    gap: 20px;
-  }
-
-  @media (max-width: 549px) {
-    width: 90vw;
-    gap: 10px;
-  }
-`
-
 const OrderRow = styled.div`
   display: grid;
+  
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
