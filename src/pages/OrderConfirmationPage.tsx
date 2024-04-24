@@ -1,39 +1,26 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { CalculateCostCart, GetCart, ResetCart } from "../services/CartService";
-import { Cart } from "../Models/Cart";
+import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
+import { Cart } from "../Models/Cart";
+import { ResetCart } from "../services/CartService";
 
 
 
 const OrderConfirmationPage = () => {
-
-  const [cart, setCart] = useState<Cart>({
-    id: 0,
-    OrderList: [],
-    TotalCost: 0,
-  }); // Load
   
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // reset localstorage cart when cart is loaded
+  const {OrderList = [], TotalCost = 0}: Omit<Cart, 'id'> = location.state ?? {};
+
+  
   useEffect(() => {
-    if(cart.OrderList.length > 0){
-        ResetCart();
-    }
-
-}, [cart]);
-
-// check if cart is empty, if so navigate to homepage, else set cart for page
-useEffect(() => {
-    const loadedCart = GetCart();
-    if(loadedCart.OrderList.length < 1)
-        navigate("/");
-
-    setCart(loadedCart);
+    if(location.state === null)
+      navigate("/");
+    ResetCart();
   }, []);
-
+  
 
   return (
     <Container>
@@ -45,7 +32,7 @@ useEffect(() => {
         <thead>
         </thead>
         <tbody>
-          {cart.OrderList.map((order) => (
+          {OrderList.map((order) => (
               <tr key={order.id}>
               <td>
                 {order.main?.title && order.sides?.title
@@ -63,7 +50,7 @@ useEffect(() => {
         </tbody>
       </StyledTable>
       <PricePayContainer>
-          <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+          <h1>Total price: {TotalCost} SEK</h1>
     </PricePayContainer>
 
     </Container>
