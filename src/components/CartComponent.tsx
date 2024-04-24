@@ -4,6 +4,7 @@ import { CalculateCostCart, GetCart } from "../services/CartService";;
 import styles from "./CartComponent.module.css";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
+import { ActionCell, OrderRow, PriceCell, PricePayContainer, ProductCell, StyledButton, StyledList } from "./CheckoutComponent";
 
 interface CloseProp {
   CloseClick: () => void;
@@ -14,13 +15,11 @@ export const CartComponent = (props: CloseProp) => {
     id: 0,
     OrderList: [],
     TotalCost: 0,
-  }); // Load
-
-  const [showCart, setShowCart] = useState(true); // State to control cart visibility
+  }); 
 
   useEffect(() => {
     setCart(GetCart());
-  }, []); // render only first time
+  }, []); 
 
   const onDelete = (orderId: number) => {
     const updatedOrderList = cart.OrderList.filter(
@@ -48,10 +47,6 @@ export const CartComponent = (props: CloseProp) => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     console.log("Order Emptied");
 };
-
-  const handleClose = () => {
-    setShowCart(false); // Close the cart component
-  };
 
   return (
     <>
@@ -105,7 +100,7 @@ const ButtonContainer = styled.div`
   justify-content: space-evenly;
 `
 
-const StyledNavLink = styled(NavLink)`
+ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: inherit;
 
@@ -114,69 +109,3 @@ const StyledNavLink = styled(NavLink)`
     color: inherit;
   }
 `
-
-const OrderRow = styled.div`
-  display: grid;
-  
-  grid-template-columns: 4fr 1fr 1fr;
-  gap: 10px;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  text-align: left;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  @media (max-width: 949px) {
-    grid-template-columns: 1fr;
-    text-align: left;
-
-  }
-`;
-
-const ProductCell = styled.div`
-  display: flex;
-  justify-content: left;
-  flex-direction: column;
-  font-weight: bold;
-`;
-
-const PriceCell = styled.div`
-  text-align: right;
-  @media (max-width: 949px) {
-    text-align: left;
-    margin-left: 30px;
-  }
-`;
-
-const ActionCell = styled.div`
-  display: flex;
-  justify-content: right;
-`;
-
-const StyledButton = styled.button`
-  margin: 0px 10px;
-`;
-
-
-const StyledList = styled.ul`
-  margin-bottom: 0px;
-  li {
-    margin: 5px;
-  }
-  p{
-    margin: 0px;
-  }
-`;
-
-const PricePayContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 8px 20px;
-  // background-color: var(--fifthColor);
-  border-radius: 20px;
-`;
