@@ -7,6 +7,7 @@ import { Order } from "../Models/Order";
 import { AddToCartPopup } from "./AddToCartPopup";
 import { PostQuery } from "../services/DbService";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
+import React from "react";
 
 
 const transitionTime = 800;
@@ -18,7 +19,7 @@ interface dishInput {
 
 interface FoodProps {
   selected: boolean;
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 const SendToCart = (dish: Dish) => {
@@ -90,7 +91,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     <>
       <DishesContainer>
         {data?.map((dish: Dish, index: number) => (
-          <>
+          <React.Fragment key={index}>
             <DishComponent
               key={index}
               dish={dish}
@@ -100,7 +101,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
             />
             {index === selectedDish && (
               <ExpandedDish
-                isOpen={isOpenInfo}
+                $isOpen={isOpenInfo}
                 selected={selectedInfo}
                 onAnimationEnd={() => {
                   if (!isOpenInfo) {
@@ -129,7 +130,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                   )}
               </ExpandedDish>
             )}
-          </>
+          </React.Fragment>
         ))}
       </DishesContainer>
       {isPopupOpen && (
@@ -181,16 +182,16 @@ const StayOpenAnimation = keyframes`
 `;
 
 const ExpandedDish = styled.div<FoodProps>`
-  max-height: ${(props) => props.isOpen ? '330px' : '0'};
-  opacity: ${(props) => props.isOpen ? '1' : '0'};
+  max-height: ${(props) => props.$isOpen ? '330px' : '0'};
+  opacity: ${(props) => props.$isOpen ? '1' : '0'};
   height: 330px;
   width: 90%;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
-    props.selected && props.isOpen
+    props.selected && props.$isOpen
       ? ExpandAnimation
-      : !props.selected && props.isOpen
+      : !props.selected && props.$isOpen
       ? StayOpenAnimation
       : CloseAnimation};
   animation-duration: ${transitionTime}ms;
@@ -224,7 +225,7 @@ const DishesContainer = styled.div`
   }
 `;
 
-const DishDescription = styled.p`
+const DishDescription = styled.div`
   margin: 10px 0;
   text-align: left;
 `;
