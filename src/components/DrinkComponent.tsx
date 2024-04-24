@@ -19,8 +19,6 @@ const DrinkComponent = ({ drink, isSelected, expandDrink }: DrinkComponentProps)
       <ImageContainer>
         <DrinkImage src={drink.imgUrl} alt={drink.name} />
         <TitleOverlay>{drink.name}</TitleOverlay>
-        <DrinkImage src={drink.imgUrl} alt={drink.name} />
-        <TitleOverlay>{drink.name}</TitleOverlay>
       </ImageContainer>
       {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
