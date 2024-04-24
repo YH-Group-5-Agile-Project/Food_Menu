@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SendDrinkToCart } from "../services/CartService";
 import { useState } from "react";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
+import Texture from '../assets/design-assets/climpek.png'
 
 export type Drink = {
   id: string;
@@ -66,8 +67,8 @@ const PopUpContainer = styled.div`
 `;
 
 const PopUpContent = styled.div`
-  background-image: url('../assets/design-assets/climpek.png');
   background-color: var(--firstColor);
+  background-image: url(${Texture});
   color: var(--sixthCollor);
   padding: 20px;
   border-radius: 15px;
