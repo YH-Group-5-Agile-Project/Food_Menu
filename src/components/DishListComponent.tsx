@@ -9,12 +9,12 @@ import { PostQuery } from "../services/DbService";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 
-const transitionTime = 800;
 let tempDish: Dish;
 
 interface dishInput {
   dishType: string;
 }
+const transitionTime = 800;
 
 interface FoodProps {
   selected: boolean;

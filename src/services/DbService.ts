@@ -1,5 +1,5 @@
 import { Drink } from "../Models/Drink";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 
 export const PostQuery = (dishType: string) => {
   return useQuery({
@@ -17,7 +17,40 @@ export const PostQuery = (dishType: string) => {
   });
 };
 
+/* export const DrinkQueries = (ids: string[]) => {
+  const queries = useQueries(
+    ids.map((id) => {
+      return {
+        queryKey: [id],
+        queryFn: async () => {
+          
+        },
+        staleTime: 30000;
+      }
+    })
+  )
+} */
+
+export const DrinkQuerys = async (drinkIds: string[]) => {
+  const queries = await Promise.all(
+    drinkIds.map(async (drinkId) => {
+      const response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+      );
+      if (!response.ok) {
+        throw new Error(`Failed to fetch drink with ID ${drinkId}`);
+      }
+      const data = await response.json();
+      return NewMapDrink(data);
+    })
+  );
+
+  return queries;
+};
+
 export const DrinkQuery = (drinkId: string) => {
+
+
   return useQuery<Drink>({
     queryKey: [{ drinkId }],
     queryFn: async () => {

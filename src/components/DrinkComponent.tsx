@@ -1,27 +1,24 @@
 import { useState } from "react";
 import styled from "styled-components";
 import DrinkPopUp from "./DrinkPopUp";
-import { DrinkQuery } from "../services/DbService";
+import { Drink } from "../Models/Drink";
 
 interface DrinkComponentProps {
-  drinkId: string;
+  expandDrink: () => void;
+  drink: Drink;
+  isSelected: boolean;
 }
 
-const DrinkComponent = ({ drinkId }: DrinkComponentProps) => {
+const DrinkComponent = ({ drink, isSelected, expandDrink }: DrinkComponentProps) => {
   const [isPopUpOpen, setPopUpOpen] = useState(false);
 
   const togglePopUp = () => setPopUpOpen(!isPopUpOpen);
-  const { data, isLoading, error } = DrinkQuery(drinkId);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  let drink = data;
   return (
-    <DrinkContainer onClick={togglePopUp}>
+    <DrinkContainer onClick={expandDrink}>
       <ImageContainer>
-        <DrinkImage src={data.imgUrl} alt={data.name} />
-        <TitleOverlay>{data.name}</TitleOverlay>
+        <DrinkImage src={drink.imgUrl} alt={drink.name} />
+        <TitleOverlay>{drink.name}</TitleOverlay>
       </ImageContainer>
       {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
@@ -33,7 +30,11 @@ const DrinkContainer = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 32px;
+
+  @media (max-width: 949px) {
+    margin-bottom: 23px;
+  }
 `;
 
 const ImageContainer = styled.div`
