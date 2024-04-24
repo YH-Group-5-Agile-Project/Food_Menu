@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import DrinkPopUp from "./DrinkPopUp";
+import DrinkPopUp, { Drink } from "./DrinkPopUp";
 import { DrinkQuery } from "../services/DbService";
 
 interface DrinkComponentProps {
@@ -16,12 +16,13 @@ const DrinkComponent = ({ drinkId }: DrinkComponentProps) => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  let drink = data;
+  let drink = data as Drink;
+  
   return (
     <DrinkContainer onClick={togglePopUp}>
       <ImageContainer>
-        <DrinkImage src={data.imgUrl} alt={data.name} />
-        <TitleOverlay>{data.name}</TitleOverlay>
+        <DrinkImage src={drink.imgUrl} alt={drink.name} />
+        <TitleOverlay>{drink.name}</TitleOverlay>
       </ImageContainer>
       {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
