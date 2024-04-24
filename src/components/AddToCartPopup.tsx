@@ -28,8 +28,8 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const [showItemAdded, setShowItemAdded] = useState(false);
   
   const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
-    tempDish = dish;
-    tempSide = sideDish;
+    tempDish = {...dish};
+    tempSide = sideDish ? {...sideDish} : undefined;
     setSideOrDrink(true);
   }
 

@@ -214,7 +214,7 @@ const DishesContainer = styled.div`
 
   @media (max-width: 949px) {
     width: 500px;
-    gap: 23px;
+    column-gap: 23px;
     grid-template-columns: repeat(auto-fill, 150px);
   }
 
