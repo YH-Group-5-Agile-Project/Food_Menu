@@ -18,7 +18,7 @@ const CheckoutComponent = () => {
 
   useEffect(() => {
     setCart(GetCart());
-  }, []); 
+  }, []);
 
   const toggleCustomizeOrder = (orderId: number) => {
     if (customizeOrderId.includes(orderId)) {
@@ -55,8 +55,6 @@ const CheckoutComponent = () => {
 
   return (
     <CheckoutContainer>
-      <table>
-        <tbody>
           {cart.OrderList.map((order) => (
             <OrderRow key={order.id}>
               <ProductCell>
@@ -64,7 +62,7 @@ const CheckoutComponent = () => {
                   {order.main?.title && <li>{order.main.title}</li>}
                   {order.sides?.title && <li>{order.sides.title}</li>}
                   {order.drink?.name && <li>{order.drink.name}</li>}
-                  {order?.comment && (<p>Comment: {order.comment}</p> )}    
+                  {order?.comment && (<p>Comment: {order.comment}</p> )}
                 </StyledList>
               </ProductCell>
               <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
@@ -85,9 +83,7 @@ const CheckoutComponent = () => {
               </ActionCell>
             </OrderRow>
           ))}
-        </tbody>
-      </table>
-      
+
       {cart.OrderList.length > 0 &&
         <PricePayContainer>
           <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
@@ -103,6 +99,9 @@ export default CheckoutComponent;
 
 export const CheckoutContainer = styled.div`
   width: 900px;
+  overflow-x: auto;
+  padding-right: 20px;
+
 
   @media (max-width: 949px) {
     width: 500px;
@@ -130,6 +129,7 @@ export const OrderRow = styled.div`
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  border-width: 90%;
   text-align: left;
 
   &:last-child {
