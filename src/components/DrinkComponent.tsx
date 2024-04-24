@@ -17,7 +17,7 @@ const DrinkComponent = ({ drinkId }: DrinkComponentProps) => {
   if (error) return <div>Error: {error.message}</div>;
 
   let drink = data as Drink;
-  
+
   return (
     <DrinkContainer onClick={togglePopUp}>
       <ImageContainer>

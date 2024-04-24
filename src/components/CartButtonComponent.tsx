@@ -5,9 +5,5 @@ interface ToCartButtonProps {
 }
 
 export const ToCartButton: React.FC<ToCartButtonProps> = ({ onClick }) => {
-  return (
-    <button onClick={onClick}>
-      My order
-    </button>
-  );
+  return <button onClick={onClick}>My order</button>;
 };

@@ -9,7 +9,6 @@ import { PostQuery } from "../services/DbService";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 import React from "react";
 
-
 const transitionTime = 800;
 let tempDish: Dish;
 
@@ -29,8 +28,8 @@ const SendToCart = (dish: Dish) => {
     OrderCost: dish.price,
   };
   SaveOrderToCart(newOrder);
-  
-  console.log("Item sent to cart")
+
+  console.log("Item sent to cart");
 };
 
 const getIngredients = (dish: Dish) => {
@@ -55,7 +54,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [showItemAdded, setShowItemAdded] = useState(false);
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false;
   const { data, isLoading, error } = PostQuery(dishType);
-  let itemName: string = "item";      
+  let itemName: string = "item";
 
   const HandleClick = (index: number) => {
     if (index === selectedDish) {
@@ -76,9 +75,10 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     if (!isSideDish) {
       setIsPopupOpen(true);
       tempDish = dish;
-    } else {SendToCart(dish);
+    } else {
+      SendToCart(dish);
       itemName = dish.title;
-      setShowItemAdded(true)
+      setShowItemAdded(true);
       setTimeout(() => {
         setShowItemAdded(false);
       }, 2000);
@@ -121,13 +121,14 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     {getIngredients(dish)}.
                   </DishIngredients>
                 </TextContainer>
-                <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>
+                <StyledButton
+                  disabled={showItemAdded}
+                  onClick={() => handleAddToCartClick(dish)}
+                >
                   <ItemAddedPopup>Add to order</ItemAddedPopup>
                 </StyledButton>
-                
-                {showItemAdded && (
-                    <ItemAddedToCartPopup Item={dish.title}/>
-                  )}
+
+                {showItemAdded && <ItemAddedToCartPopup Item={dish.title} />}
               </ExpandedDish>
             )}
           </React.Fragment>
@@ -140,9 +141,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   );
 };
 
-const ItemAddedPopup = styled.div `
-
-`
+const ItemAddedPopup = styled.div``;
 
 const ExpandAnimation = keyframes`
   0% {
@@ -182,8 +181,8 @@ const StayOpenAnimation = keyframes`
 `;
 
 const ExpandedDish = styled.div<FoodProps>`
-  max-height: ${(props) => props.$isOpen ? '330px' : '0'};
-  opacity: ${(props) => props.$isOpen ? '1' : '0'};
+  max-height: ${(props) => (props.$isOpen ? "330px" : "0")};
+  opacity: ${(props) => (props.$isOpen ? "1" : "0")};
   height: 330px;
   width: 90%;
   grid-column: 1 / -1;
@@ -192,8 +191,8 @@ const ExpandedDish = styled.div<FoodProps>`
     props.selected && props.$isOpen
       ? ExpandAnimation
       : !props.selected && props.$isOpen
-      ? StayOpenAnimation
-      : CloseAnimation};
+        ? StayOpenAnimation
+        : CloseAnimation};
   animation-duration: ${transitionTime}ms;
   display: flex;
   align-items: start;
@@ -235,7 +234,7 @@ const DishTitle = styled.h2`
 `;
 
 const TextContainer = styled.div`
-width: 80%;
+  width: 80%;
   @media (max-width: 768px) {
     font-size: 2.5vw;
   }

@@ -15,8 +15,8 @@ const HomePage = () => {
     };
     SaveCart(cart);
   }
-  console.log(location.pathname)
-  
+  console.log(location.pathname);
+
   return (
     <HomeDiv>
       <h1>
@@ -33,4 +33,4 @@ export default HomePage;
 
 const HomeDiv = styled.div`
   align-self: center;
-`
+`;
