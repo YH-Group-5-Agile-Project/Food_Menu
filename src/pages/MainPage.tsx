@@ -1,7 +1,6 @@
 import { DishListComponent } from "../components/DishListComponent";
 
 const MainPage = () => {
-
   return (
     <>
       <div>

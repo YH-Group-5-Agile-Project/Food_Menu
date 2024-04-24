@@ -5,13 +5,14 @@ export const PostQuery = (dishType: string) => {
   return useQuery({
     queryKey: [{ dishType }],
     queryFn: () => {
-      return fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        });
+      return fetch(
+        `https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`,
+      ).then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      });
     },
     staleTime: 300000,
   });
@@ -55,7 +56,7 @@ export const DrinkQuery = (drinkId: string) => {
     queryKey: [{ drinkId }],
     queryFn: async () => {
       const response = await fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`
+        `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`,
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");

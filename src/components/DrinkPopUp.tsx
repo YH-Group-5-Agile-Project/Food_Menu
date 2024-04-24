@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { SendDrinkToCart } from "../services/CartService";
 import { useState } from "react";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
-import Texture from '../assets/design-assets/climpek.png'
+import Texture from "../assets/design-assets/climpek.png";
 
 export type Drink = {
   id: string;
@@ -21,15 +21,14 @@ interface DrinkPopUpProps {
 const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
   const [showItemAdded, setShowItemAdded] = useState(false);
 
-
   const handleAddToCartClick = () => {
     SendDrinkToCart(drink);
-    setShowItemAdded(true)
+    setShowItemAdded(true);
     setTimeout(() => {
       setShowItemAdded(false);
     }, 2000);
     setTimeout(() => {
-    onClose();
+      onClose();
     }, 2000);
   };
 
@@ -41,12 +40,14 @@ const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
         <p>Ingredients: {drink.ingredients.join(", ")}</p>
         <p>{drink.alcoholic ? "" : "Non-alcholic"}</p>
         <p>Price: {drink.price} SEK</p>
-        <button disabled={showItemAdded} onClick={handleAddToCartClick}>Add to Cart</button>
-        <button disabled={showItemAdded} onClick={onClose}>Close</button>
+        <button disabled={showItemAdded} onClick={handleAddToCartClick}>
+          Add to Cart
+        </button>
+        <button disabled={showItemAdded} onClick={onClose}>
+          Close
+        </button>
       </PopUpContent>
-      {showItemAdded && (
-        <ItemAddedToCartPopup Item={drink.name}/>
-      )}
+      {showItemAdded && <ItemAddedToCartPopup Item={drink.name} />}
     </PopUpContainer>
   );
 };
