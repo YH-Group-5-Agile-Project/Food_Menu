@@ -5,34 +5,16 @@ import SidePage from "./pages/SidePage";
 import DrinkPage from "./pages/DrinkPage";
 import CheckoutPage from "./pages/CheckoutPage";
 // import CartComponent from "./components/CartComponent";
-import BackgroundImg from "../assets/design-assets/BackgrundImg.png";
+// import BackgroundImg from "../assets/design-assets/BackgrundImg.png";
 
 import "./App.css";
 import { styled } from "styled-components";
 import { Navbar } from "./components/NavbarComponent";
 import { NavButtons } from "./components/NavButtonsComponent";
-import { useEffect, useState } from "react";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 
 function App() {
-  const [scrolled, setScrolled] = useState<boolean>(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     // navbar
@@ -60,13 +42,6 @@ function App() {
     </LayoutDiv>
   );
 }
-
-const BackgroundImage = styled.img`
-  position: fixed;
-  object-fit: cover;
-  top: 0;
-  left: 0;
-`;
 
 const ContentDiv = styled.div`
   padding-top: 30px;
@@ -124,3 +99,5 @@ export const ToggleCartOverlay = styled.a`
 `;
 
 export default App;
+
+//s
