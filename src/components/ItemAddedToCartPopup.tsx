@@ -5,6 +5,7 @@ import Texture from "../assets/design-assets/climpek.png";
 interface PopUpProps {
   Item: string;
 }
+
 export const ItemAddedToCartPopup = ({ Item }: PopUpProps) => {
   return (
     <>
@@ -24,11 +25,12 @@ const BreakLine = styled.img`
   object-fit: cover;
   height: 55px;
 `;
+
 const PopupContainer = styled.div`
-  //position: absolute;
   position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 6;
   background-color: var(--fifthColor);
   background-image: url(${Texture});
@@ -36,4 +38,5 @@ const PopupContainer = styled.div`
   padding: 10px;
   border: solid 2px goldenrod;
 `;
+
 const AddedToCartPopup = styled.div``;
