@@ -2,7 +2,7 @@ import { Drink } from "../Models/Drink";
 import { useQuery } from "@tanstack/react-query";
 
 export const PostQuery = (dishType: string) => {
-  return useQuery<Drink>({
+  return useQuery({
     queryKey: [{ dishType }],
     queryFn: () => {
       return fetch(`https://iths-2024-recept-grupp5-o9n268.reky.se/categories/${dishType}/recipes`)
