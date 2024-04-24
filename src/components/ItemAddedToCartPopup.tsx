@@ -25,7 +25,8 @@ const BreakLine = styled.img`
   height: 55px;
 `;
 const PopupContainer = styled.div`
-  position: absolute;
+  //position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   z-index: 6;

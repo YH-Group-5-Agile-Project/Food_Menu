@@ -3,6 +3,8 @@ import DrinkComponent from "./DrinkComponent";
 import styled, { keyframes } from "styled-components";
 import { DrinkQueries } from "../services/DbService";
 import { Drink } from "../Models/Drink";
+import { SendDrinkToCart } from "../services/CartService";
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 const transitionTime = 800;
 
@@ -11,7 +13,11 @@ interface FoodProps {
   isOpen: boolean;
 }
 
-export const DrinkListComponent = () => {
+interface DrinkProps {
+  drink: Drink;
+  onClose: () => void;
+}
+export const DrinkListComponent = ({ onClose }: DrinkProps) => {
   let drinkListIDs = [
     "12768",
     "12618",
@@ -28,6 +34,7 @@ export const DrinkListComponent = () => {
   ];
 
   const [drinkList, setDrinkList] = useState<Drink[]>([])
+  const [showItemAdded, setShowItemAdded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,7 +72,18 @@ export const DrinkListComponent = () => {
       }, 300)
     }
   };
-  
+
+  const handleAddToCartClick = (drink: Drink) => {
+    SendDrinkToCart(drink);
+    setShowItemAdded(true);
+    setTimeout(() => {
+      setShowItemAdded(false);
+    }, 2000);
+    setTimeout(() => {
+      onClose();
+    }, 2000);
+  };
+
   return (
     <DrinksContainer>
       {drinkList.map((drink, index) => {
@@ -103,14 +121,15 @@ export const DrinkListComponent = () => {
                     {drink.ingredients.join(', ')}.
                   </DishIngredients>
                 </TextContainer>
-                {/* <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(drink)}>
+                <StyledButton
+                  disabled={showItemAdded}
+                  onClick={() => handleAddToCartClick(drink)}
+                >
                   <ItemAddedPopup>Add to order</ItemAddedPopup>
-                </StyledButton> */}
-                
-                {/* {showItemAdded && (
-                    <ItemAddedToCartPopup Item={drink.title}/>
-                  )} */}
-                
+                </StyledButton>
+                {showItemAdded && (
+                    <ItemAddedToCartPopup Item={drink.name}/>
+                  )}
               </ExpandedDrink>
             )}
         </>
@@ -119,6 +138,8 @@ export const DrinkListComponent = () => {
       </DrinksContainer>
   );
 };
+
+const ItemAddedPopup = styled.div``;
 
 const ExpandAnimation = keyframes`
   0% {
