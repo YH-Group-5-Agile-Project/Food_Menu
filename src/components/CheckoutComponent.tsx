@@ -114,12 +114,12 @@ export const CheckoutContainer = styled.div`
   }
 `;
 
-const ActionCell = styled.div`
+export const ActionCell = styled.div`
   display: flex;
   justify-content: right;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   margin: 0px 10px;
 `;
 
