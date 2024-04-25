@@ -5,7 +5,9 @@ import { NavLink } from "react-router-dom";
 import { Cart } from "../Models/Cart";
 import { ResetCart } from "../services/CartService";
 import {
+  BottomContainer,
   CheckoutContainer,
+  ContentContainer,
   OrderRow,
   PriceCell,
   PricePayContainer,
@@ -27,30 +29,34 @@ const OrderConfirmationPage = () => {
 
   return (
     <Container>
-      <Nav>
-        <h2>Thank you for your order</h2>
-        <StyledNavLink to="/">Home</StyledNavLink>
-      </Nav>
-      <table>
-        <tbody>
-          {OrderList.map((order) => (
-            <OrderRow key={order.id}>
-              <ProductCell>
-                <StyledList>
-                  {order.main?.title && <li>{order.main.title}</li>}
-                  {order.sides?.title && <li>{order.sides.title}</li>}
-                  {order.drink?.name && <li>{order.drink.name}</li>}
-                  {order?.comment && <p>Comment: {order.comment}</p>}
-                </StyledList>
-              </ProductCell>
-              <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
-            </OrderRow>
-          ))}
-        </tbody>
-      </table>
-      <PricePayContainer>
-        <h1>Total price: {TotalCost} SEK</h1>
-      </PricePayContainer>
+      <ContentContainer>
+        <Nav>
+          <h2>Thank you for your order</h2>
+          <StyledNavLink to="/">Home</StyledNavLink>
+        </Nav>
+        <table>
+          <tbody>
+            {OrderList.map((order) => (
+              <OrderRow key={order.id}>
+                <ProductCell>
+                  <StyledList>
+                    {order.main?.title && <li>{order.main.title}</li>}
+                    {order.sides?.title && <li>{order.sides.title}</li>}
+                    {order.drink?.name && <li>{order.drink.name}</li>}
+                    {order?.comment && <p>Comment: {order.comment}</p>}
+                  </StyledList>
+                </ProductCell>
+                <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+              </OrderRow>
+            ))}
+          </tbody>
+        </table>
+      </ContentContainer>
+      <BottomContainer>
+        <PricePayContainer>
+          <h1>Total price: {TotalCost} SEK</h1>
+        </PricePayContainer>
+      </BottomContainer>
     </Container>
   );
 };
@@ -65,6 +71,7 @@ const Nav = styled.div`
 const Container = styled(CheckoutContainer)`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const StyledNavLink = styled(NavLink)`

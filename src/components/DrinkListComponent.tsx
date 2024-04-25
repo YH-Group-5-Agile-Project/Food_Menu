@@ -198,6 +198,7 @@ const DrinksContainer = styled.div`
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
   overflow: hidden;
+  
 
   /* 220px -------- minmax(250px, 1fr) */
 

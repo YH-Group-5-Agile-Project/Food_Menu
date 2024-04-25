@@ -110,7 +110,7 @@ export const ContentContainer = styled.div`
   overflow: scroll;
 `
 export const BottomContainer = styled.div`
-
+  width: 100%;
 `
 
 export const CheckoutContainer = styled.div`
@@ -146,7 +146,7 @@ export const OrderRow = styled.div`
   gap: 10px;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--sixthColor);
   border-width: 90%;
   text-align: left;
 
@@ -190,6 +190,7 @@ export const PricePayContainer = styled.div`
 `;
 
 export const StyledList = styled.ul`
+  
   margin-bottom: 0px;
   li {
     margin: 5px;

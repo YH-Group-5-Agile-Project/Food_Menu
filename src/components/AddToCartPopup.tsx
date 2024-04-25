@@ -91,6 +91,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
             >
               I don't want a side
             </Button>
+            <Button onClick={onClose}>Cancel</Button>
           </>
         ) : (
           <RecommendDrink
@@ -100,7 +101,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
           ></RecommendDrink>
         )}
 
-        <Button onClick={onClose}>Cancel</Button>
+        
       </PopupContainer>
     </>
   );
@@ -130,11 +131,6 @@ const BreakLine = styled.img`
 
 const Button = styled.button`
   justify-self: center;
-  &:hover,
-  &:focus {
-    color: grey;
-    border-color: grey;
-  }
 `;
 
 const SideContainer = styled.button`
