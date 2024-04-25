@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import DrinkPopUp from "./DrinkPopUp";
-import { DrinkQuery } from "../services/DbService";
+import { Drink } from "../Models/Drink";
 
 interface DrinkComponentProps {
   expandDrink: () => void;
@@ -29,8 +29,8 @@ const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => 
   return (
     <DrinkContainer ref={ExpandedRef} onClick={(clickedEvents)}>
       <ImageContainer>
-        <DrinkImage src={data.imgUrl} alt={data.name} />
-        <TitleOverlay>{data.name}</TitleOverlay>
+        <DrinkImage src={drink.imgUrl} alt={drink.name} />
+        <TitleOverlay>{drink.name}</TitleOverlay>
       </ImageContainer>
       {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
@@ -42,7 +42,11 @@ const DrinkContainer = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;
-  margin-bottom: 5px;
+  margin-bottom: 32px;
+
+  @media (max-width: 949px) {
+    margin-bottom: 23px;
+  }
 `;
 
 const ImageContainer = styled.div`

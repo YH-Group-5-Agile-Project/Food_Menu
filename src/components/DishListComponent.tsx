@@ -7,18 +7,18 @@ import { Order } from "../Models/Order";
 import { AddToCartPopup } from "./AddToCartPopup";
 import { PostQuery } from "../services/DbService";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
+import React from "react";
 
-
-const transitionTime = 800;
 let tempDish: Dish;
 
 interface dishInput {
   dishType: string;
 }
+const transitionTime = 800;
 
 interface FoodProps {
   selected: boolean;
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 
 const SendToCart = (dish: Dish) => {
@@ -28,8 +28,8 @@ const SendToCart = (dish: Dish) => {
     OrderCost: dish.price,
   };
   SaveOrderToCart(newOrder);
-  
-  console.log("Item sent to cart")
+
+  console.log("Item sent to cart");
 };
 
 const getIngredients = (dish: Dish) => {
@@ -75,9 +75,10 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     if (!isSideDish) {
       setIsPopupOpen(true);
       tempDish = dish;
-    } else {SendToCart(dish);
+    } else {
+      SendToCart(dish);
       itemName = dish.title;
-      setShowItemAdded(true)
+      setShowItemAdded(true);
       setTimeout(() => {
         setShowItemAdded(false);
       }, 2000);
@@ -90,7 +91,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
     <>
       <DishesContainer>
         {data?.map((dish: Dish, index: number) => (
-          <>
+          <React.Fragment key={index}>
             <DishComponent
               key={index}
               dish={dish}
@@ -100,7 +101,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
             />
             {index === selectedDish && (
               <ExpandedDish
-                isOpen={isOpenInfo}
+                $isOpen={isOpenInfo}
                 selected={selectedInfo}
                 onAnimationEnd={() => {
                   if (!isOpenInfo) {
@@ -111,7 +112,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
                   <DishDescription>
-                    <DishPrice>£{dish.price}</DishPrice>
+                    <DishPrice>{dish.price} SEK</DishPrice>
                     <strong>Description: </strong>
                     {dish.description}
                   </DishDescription>
@@ -120,16 +121,17 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     {getIngredients(dish)}.
                   </DishIngredients>
                 </TextContainer>
-                <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>
+                <StyledButton
+                  disabled={showItemAdded}
+                  onClick={() => handleAddToCartClick(dish)}
+                >
                   <ItemAddedPopup>Add to order</ItemAddedPopup>
                 </StyledButton>
-                
-                {showItemAdded && (
-                    <ItemAddedToCartPopup Item={dish.title}/>
-                  )}
+
+                {showItemAdded && <ItemAddedToCartPopup Item={dish.title} />}
               </ExpandedDish>
             )}
-          </>
+          </React.Fragment>
         ))}
       </DishesContainer>
       {isPopupOpen && (
@@ -139,9 +141,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   );
 };
 
-const ItemAddedPopup = styled.div `
-
-`
+const ItemAddedPopup = styled.div``;
 
 const ExpandAnimation = keyframes`
   0% {
@@ -181,18 +181,18 @@ const StayOpenAnimation = keyframes`
 `;
 
 const ExpandedDish = styled.div<FoodProps>`
-  max-height: ${(props) => props.isOpen ? '330px' : '0'};
-  opacity: ${(props) => props.isOpen ? '1' : '0'};
+  max-height: ${(props) => (props.$isOpen ? "330px" : "0")};
+  opacity: ${(props) => (props.$isOpen ? "1" : "0")};
   height: 330px;
   width: 90%;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
-    props.selected && props.isOpen
+    props.selected && props.$isOpen
       ? ExpandAnimation
-      : !props.selected && props.isOpen
-      ? StayOpenAnimation
-      : CloseAnimation};
+      : !props.selected && props.$isOpen
+        ? StayOpenAnimation
+        : CloseAnimation};
   animation-duration: ${transitionTime}ms;
   display: flex;
   align-items: start;
@@ -200,7 +200,7 @@ const ExpandedDish = styled.div<FoodProps>`
 
 const DishesContainer = styled.div`
   width: 900px;
-  gap: 32px;
+  column-gap: 32px;
   justify-content: center;
 
   position: relative;
@@ -214,7 +214,7 @@ const DishesContainer = styled.div`
 
   @media (max-width: 949px) {
     width: 500px;
-    gap: 23px;
+    column-gap: 23px;
     grid-template-columns: repeat(auto-fill, 150px);
   }
 
@@ -224,7 +224,7 @@ const DishesContainer = styled.div`
   }
 `;
 
-const DishDescription = styled.p`
+const DishDescription = styled.div`
   margin: 10px 0;
   text-align: left;
 `;
@@ -234,7 +234,7 @@ const DishTitle = styled.h2`
 `;
 
 const TextContainer = styled.div`
-width: 80%;
+  width: 80%;
   @media (max-width: 768px) {
     font-size: 2.5vw;
   }

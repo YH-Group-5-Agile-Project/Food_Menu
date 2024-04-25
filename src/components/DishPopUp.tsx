@@ -1,58 +1,58 @@
 import styled from "styled-components";
-import { SendDrinkToCart } from "../services/CartService";
+import { SendDishToCart } from "../services/CartService";
 import { useState } from "react";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
-import Texture from "../assets/design-assets/climpek.png";
 
-export type Drink = {
+export type Dish = {
   id: string;
-  name: string;
-  alcoholic: boolean;
+  title: string;
+  description: string;
   imgUrl: string;
-  ingredients: string[];
+  ingredients: { name: string }[];
   price: number;
+  timeInMins: number;
 };
 
-interface DrinkPopUpProps {
-  drink: Drink;
+interface DishPopUpProps {
+  dish: Dish;
   onClose: () => void;
 }
 
-const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
+const DishPopUp = ({ dish, onClose }: DishPopUpProps) => {
   const [showItemAdded, setShowItemAdded] = useState(false);
 
   const handleAddToCartClick = () => {
-    SendDrinkToCart(drink);
+    SendDishToCart(dish);
     setShowItemAdded(true);
     setTimeout(() => {
       setShowItemAdded(false);
-    }, 2000);
-    setTimeout(() => {
-      onClose();
+      onClose(); // Stäng popupen efter att objektet lagts till i kundvagnen
     }, 2000);
   };
 
   return (
     <PopUpContainer>
       <PopUpContent onClick={(e) => e.stopPropagation()}>
-        <h2>{drink.name}</h2>
-        <img src={drink.imgUrl} alt={drink.name} style={{ width: "70%" }} />
-        <p>Ingredients: {drink.ingredients.join(", ")}</p>
-        <p>{drink.alcoholic ? "" : "Non-alcholic"}</p>
-        <p>Price: {drink.price} SEK</p>
+        <h2>{dish.title}</h2>
+        <img src={dish.imgUrl} alt={dish.title} style={{ width: "70%" }} />
+        <p>{dish.description}</p>
+        <p>
+          Ingredients:{" "}
+          {dish.ingredients.map((ingredient) => ingredient.name).join(", ")}
+        </p>
+        <p>Time to prepare: {dish.timeInMins} mins</p>
+        <p>Price: {dish.price} SEK</p>
         <button disabled={showItemAdded} onClick={handleAddToCartClick}>
           Add to Cart
         </button>
-        <button disabled={showItemAdded} onClick={onClose}>
-          Close
-        </button>
+        <button onClick={onClose}>Close</button>
       </PopUpContent>
-      {showItemAdded && <ItemAddedToCartPopup Item={drink.name} />}
+      {showItemAdded && <ItemAddedToCartPopup Item={dish.title} />}
     </PopUpContainer>
   );
 };
 
-export default DrinkPopUp;
+export default DishPopUp;
 
 const PopUpContainer = styled.div`
   position: fixed;
@@ -68,9 +68,9 @@ const PopUpContainer = styled.div`
 `;
 
 const PopUpContent = styled.div`
+  background-image: url("../assets/design-assets/climpek.png");
   background-color: var(--firstColor);
-  background-image: url(${Texture});
-  color: var(--sixthCollor);
+  color: var(--sixthColor);
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

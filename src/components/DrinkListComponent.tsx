@@ -1,7 +1,23 @@
+import { useEffect, useRef, useState } from "react";
 import DrinkComponent from "./DrinkComponent";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import { DrinkQueries } from "../services/DbService";
+import { Drink } from "../Models/Drink";
+import { SendDrinkToCart } from "../services/CartService";
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
-export const DrinkListComponent = () => {
+const transitionTime = 800;
+
+interface FoodProps {
+  selected: boolean;
+  isOpen: boolean;
+}
+
+interface DrinkProps {
+  drink: Drink;
+  onClose: () => void;
+}
+export const DrinkListComponent = ({ onClose }: DrinkProps) => {
   let drinkListIDs = [
     "12768",
     "12618",
@@ -122,12 +138,67 @@ export const DrinkListComponent = () => {
       </DrinksContainer>
   );
 };
+
+const ItemAddedPopup = styled.div``;
+
+const ExpandAnimation = keyframes`
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    max-height: 280px;
+    opacity: 1;
+  }
+`;
+
+const CloseAnimation = keyframes`
+  0% {
+    max-height: 280px;
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    max-height: 0px;
+    opacity: 0;
+  }
+`;
+
+const StayOpenAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const ExpandedDrink = styled.div<FoodProps>`
+  max-height: ${(props) => props.isOpen ? '280px' : '0'};
+  opacity: ${(props) => props.isOpen ? '1' : '0'};
+  height: 280px;
+  width: 90%;
+  grid-column: 1 / -1;
+  grid-row: auto;
+  animation-name: ${(props) =>
+    props.selected && props.isOpen
+      ? ExpandAnimation
+      : !props.selected && props.isOpen
+      ? StayOpenAnimation
+      : CloseAnimation};
+  animation-duration: ${transitionTime}ms;
+  display: flex;
+  align-items: start;
+`;
+
 const DrinksContainer = styled.div`
   width: 900px;
-  gap: 32px;
-
-  display: flex;
-  flex-wrap: wrap;
+  column-gap: 32px;
   justify-content: center;
   height: auto + 300px;
 
@@ -142,10 +213,41 @@ const DrinksContainer = styled.div`
 
   @media (max-width: 949px) {
     width: 500px;
-    gap: 23px;
+    column-gap: 23px;
+    grid-template-columns: repeat(auto-fill, 150px);
   }
 
   @media (max-width: 549px) {
     width: 360px;
+    //gap: 10px;
   }
+`;
+
+const DishDescription = styled.p`
+  margin: 10px 0;
+  text-align: left;
+`;
+
+const DishTitle = styled.h2`
+  margin: 10px;
+`;
+
+const TextContainer = styled.div`
+width: 80%;
+  @media (max-width: 768px) {
+    font-size: 2.5vw;
+  }
+`;
+
+const DishPrice = styled.h2``;
+
+const DishIngredients = styled.div`
+  text-align: left;
+`;
+
+const StyledButton = styled.button`
+  align-self: center;
+  margin: 20px;
+  width: 20%;
+  height: 140px;
 `;

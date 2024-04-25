@@ -10,8 +10,8 @@ import {
 import { Drink } from "../Models/Drink";
 import { useState } from "react";
 import { RecommendDrink } from "./RecommendDrinkComponent";
-import DecorationLineImage from '../assets/design-assets/DecorationLine.png';
-import Texture from '../assets/design-assets/climpek.png'
+import DecorationLineImage from "../assets/design-assets/DecorationLine.png";
+import Texture from "../assets/design-assets/climpek.png";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
 let tempDish: Dish;
@@ -26,12 +26,12 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const [sideOrDrink, setSideOrDrink] = useState<boolean>(false);
   const { data, isLoading, error } = PostQuery("sideDish");
   const [showItemAdded, setShowItemAdded] = useState(false);
-  
+
   const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
-    tempDish = dish;
-    tempSide = sideDish;
+    tempDish = { ...dish };
+    tempSide = sideDish ? { ...sideDish } : undefined;
     setSideOrDrink(true);
-  }
+  };
 
   const sendToCart = (_drink?: Drink) => {
     if (tempSide != null) tempSide.price = 0;
@@ -40,14 +40,14 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       main: tempDish,
       sides: tempSide,
       drink: _drink,
-      OrderCost: 0
+      OrderCost: 0,
     };
 
-    setShowItemAdded(true)
-      setTimeout(() => {
-        location.reload();
-        setShowItemAdded(false);
-      }, 2000);
+    setShowItemAdded(true);
+    setTimeout(() => {
+      onClose();
+      setShowItemAdded(false);
+    }, 2000);
     newOrder.OrderCost = CalculateCostOrder(newOrder);
     SaveOrderToCart(newOrder);
   };
@@ -60,40 +60,45 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
         <Overlay />
       </a>
       <PopupContainer className="add-to-cart-popup">
-      {showItemAdded && (
-        <ItemAddedToCartPopup Item="Menu "/>
-      )}
+        {showItemAdded && <ItemAddedToCartPopup Item="Menu " />}
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
-          {!sideOrDrink ? 
-            <>
-              <TitleBox>Select your complimentary side</TitleBox>
-              <ItemContainer>
-                {data?.map(
-                  (sideDish:Dish) => 
-                    (
-                      <SideContainer
-                      key={sideDish._id}
-                      onClick={() => {
-                        loadRecommendedDrink(dish, sideDish);
-                      }}
-                      >
-                        {sideDish.timeInMins === dish.price && (
-                          <RecommendedChoice>Recommended choice</RecommendedChoice>
-                        )}
-                        <InnerContainer>
-                          <DishImage src={sideDish.imageUrl} alt="" />
-                          <DishTitle>{sideDish.title}</DishTitle>
-                        </InnerContainer>
-                      </SideContainer>
-                  )
-                )}
-              </ItemContainer>
-              <Button onClick={() => {loadRecommendedDrink(dish);}}>I don't want a side</Button>
-            </>
-            :
-            <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
-          }
+        {!sideOrDrink ? (
+          <>
+            <TitleBox>Select your complimentary side</TitleBox>
+            <ItemContainer>
+              {data?.map((sideDish: Dish) => (
+                <SideContainer
+                  key={sideDish._id}
+                  onClick={() => {
+                    loadRecommendedDrink(dish, sideDish);
+                  }}
+                >
+                  {sideDish.timeInMins === dish.price && (
+                    <RecommendedChoice>Recommended choice</RecommendedChoice>
+                  )}
+                  <InnerContainer>
+                    <DishImage src={sideDish.imageUrl} alt="" />
+                    <DishTitle>{sideDish.title}</DishTitle>
+                  </InnerContainer>
+                </SideContainer>
+              ))}
+            </ItemContainer>
+            <Button
+              onClick={() => {
+                loadRecommendedDrink(dish);
+              }}
+            >
+              I don't want a side
+            </Button>
+          </>
+        ) : (
+          <RecommendDrink
+            showItemAdded={showItemAdded}
+            dish={tempDish}
+            sendToCart={sendToCart}
+          ></RecommendDrink>
+        )}
 
         <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
@@ -103,25 +108,25 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
 
 const TitleBox = styled.h2`
   width: 100%;
-`
+`;
 
 const InnerContainer = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const ItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   padding-left: 20px;
   padding-right: 20px;
-`
+`;
 
 const BreakLine = styled.img`
   width: 95%;
   object-fit: cover;
   height: 55px;
-`
+`;
 
 const Button = styled.button`
   justify-self: center;
@@ -141,7 +146,9 @@ const SideContainer = styled.button`
   // margin-bottom: 4px;
   padding: 6px;
   align-items: center;
-  transition: color 0.3s, border-color 0.3s;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -172,7 +179,6 @@ const RecommendedChoice = styled.div`
   top: -15px;
   z-index: 1;
 `;
-
 
 const Overlay = styled.div`
   width: 100%;
@@ -210,5 +216,4 @@ const PopupContainer = styled.div`
   @media (max-width: 609px) {
     width: 95%;
   }
-
 `;

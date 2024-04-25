@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { Cart } from "../Models/Cart";
 import { CalculateCostCart, GetCart } from "../services/CartService";
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutComponent = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState<Cart>({
     id: 0,
     OrderList: [],
@@ -27,7 +29,7 @@ const CheckoutComponent = () => {
 
   const onDelete = (orderId: number) => {
     const updatedOrderList = cart.OrderList.filter(
-      (order) => order.id !== orderId
+      (order) => order.id !== orderId,
     );
     const updatedCart = {
       ...cart,
@@ -36,55 +38,71 @@ const CheckoutComponent = () => {
     };
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
+    console.log("Order removed", orderId);
+  };
+
+  const placeOrder = (e: React.MouseEvent) => {
+    // check if cart exists
+    if (cart.OrderList.length < 1 || CalculateCostCart(cart) < 1) {
+      console.log("No Items in cart");
+      e.preventDefault();
+    } else {
+      navigate("/orderconfirmation", {
+        state: {
+          OrderList: cart.OrderList,
+          TotalCost: CalculateCostCart(cart),
+        },
+      });
+    }
   };
 
   return (
     <CheckoutContainer>
-      <table>
-        <tbody>
-          {cart.OrderList.map((order) => (
-            <OrderRow key={order.id}>
-              <ProductCell>
-              {(order.main && order.sides && !order.drink)
-                    ? `${order.main.title} with ${order.sides.title}`
-                    : (order.main && order.drink && !order.sides) 
-                    ? `${order.main.title} with no side order and a ${order.drink.name} to drink`
-                    : (order.main?.title && order.sides?.title && order.drink) 
-                    ? `${order.main.title} and ${order.sides.title} and ${order.drink.name}`
-                    : order.sides?.title || order.drink?.name || "-"}
-              </ProductCell>
-              <PriceCell>{`£${order.OrderCost}`}</PriceCell>
-              <ActionCell>
-                <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>
-                  Customize
-                </StyledButton>
-                {customizeOrderId.includes(order.id) && (
-                  <CheckoutCommentComponent
-                    cart={cart}
-                    setCart={setCart}
-                    orderId={order.id}
-                  />
-                )}
-                <StyledButton onClick={() => onDelete(order.id)}>
-                  Remove
-                </StyledButton>
-              </ActionCell>
-            </OrderRow>
-          ))}
-        </tbody>
-      </table>
-      <PricePayContainer>
-        <h1>Total price: £{CalculateCostCart(cart)}</h1>
-        <button>Place order</button>
-      </PricePayContainer>
+      {cart.OrderList.map((order) => (
+        <OrderRow key={order.id}>
+          <ProductCell>
+            <StyledList>
+              {order.main?.title && <li>{order.main.title}</li>}
+              {order.sides?.title && <li>{order.sides.title}</li>}
+              {order.drink?.name && <li>{order.drink.name}</li>}
+              {order?.comment && <p>Comment: {order.comment}</p>}
+            </StyledList>
+          </ProductCell>
+          <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+          <ActionCell>
+            <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>
+              Customize
+            </StyledButton>
+            {customizeOrderId.includes(order.id) && (
+              <CheckoutCommentComponent
+                cart={cart}
+                setCart={setCart}
+                orderId={order.id}
+              />
+            )}
+            <StyledButton onClick={() => onDelete(order.id)}>
+              Remove
+            </StyledButton>
+          </ActionCell>
+        </OrderRow>
+      ))}
+
+      {cart.OrderList.length > 0 && (
+        <PricePayContainer>
+          <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+          <button onClick={(e) => placeOrder(e)}>Place order</button>
+        </PricePayContainer>
+      )}
     </CheckoutContainer>
   );
 };
 
 export default CheckoutComponent;
 
-const CheckoutContainer = styled.div`
+export const CheckoutContainer = styled.div`
   width: 900px;
+  overflow-x: auto;
+  padding-right: 20px;
 
   @media (max-width: 949px) {
     width: 500px;
@@ -95,22 +113,23 @@ const CheckoutContainer = styled.div`
   }
 `;
 
-const ActionCell = styled.div`
+export const ActionCell = styled.div`
   display: flex;
   justify-content: right;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   margin: 0px 10px;
 `;
 
-const OrderRow = styled.div`
+export const OrderRow = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  border-width: 90%;
   text-align: left;
 
   &:last-child {
@@ -127,20 +146,22 @@ const OrderRow = styled.div`
   }
 `;
 
-const ProductCell = styled.div`
+export const ProductCell = styled.div`
   display: flex;
   justify-content: left;
+  flex-direction: column;
   font-weight: bold;
 `;
 
-const PriceCell = styled.div`
+export const PriceCell = styled.div`
   text-align: right;
   @media (max-width: 949px) {
     text-align: left;
+    margin-left: 30px;
   }
 `;
 
-const PricePayContainer = styled.div`
+export const PricePayContainer = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -148,4 +169,14 @@ const PricePayContainer = styled.div`
   padding: 8px 20px;
   // background-color: var(--fifthColor);
   border-radius: 20px;
+`;
+
+export const StyledList = styled.ul`
+  margin-bottom: 0px;
+  li {
+    margin: 5px;
+  }
+  p {
+    margin: 0px;
+  }
 `;
