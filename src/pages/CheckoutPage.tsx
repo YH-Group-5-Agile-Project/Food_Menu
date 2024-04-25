@@ -1,11 +1,11 @@
-import CheckoutComponent from "../components/CheckoutComponent";
+import CheckoutComponent from "../components/Checkout/CheckoutComponent"
 
 const CheckoutPage = () => {
-  return (
-    <>
-      <CheckoutComponent />
-    </>
-  );
-};
+    return (
+        <>
+            <CheckoutComponent />
+        </>
+    )
+}
 
-export default CheckoutPage;
+export default CheckoutPage

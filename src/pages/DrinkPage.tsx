@@ -1,7 +1,7 @@
-import { DrinkListComponent } from "../components/DrinkListComponent";
+import { DrinkListComponent } from "../components/Drink/DrinkListComponent"
 
 const DrinkPage = () => {
-  return <DrinkListComponent />;
-};
+    return <DrinkListComponent />
+}
 
-export default DrinkPage;
+export default DrinkPage
