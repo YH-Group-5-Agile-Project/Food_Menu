@@ -78,16 +78,15 @@ export const DrinkListComponent = ({ onClose }: DrinkProps) => {
     setShowItemAdded(true);
     setTimeout(() => {
       setShowItemAdded(false);
-    }, 2000);
-    setTimeout(() => {
-      onClose();
+      setIsOpenInfo(false);
+      setSelectedInfo(false);
     }, 2000);
   };
 
   return (
     <DrinksContainer>
       {drinkList.map((drink, index) => {
-        console.log(drink)      ;
+        console.log(drink);
         return drink ? (
                 
         <>
@@ -135,10 +134,13 @@ export const DrinkListComponent = ({ onClose }: DrinkProps) => {
         </>
       ): <></>})
     }
-      </DrinksContainer>
+    <SpacerDiv selected={selectedInfo} isOpen={isOpenInfo}></SpacerDiv>
+    </DrinksContainer>
   );
 };
-
+const SpacerDiv = styled.div<FoodProps>`
+  height: 280px;
+`
 const ItemAddedPopup = styled.div``;
 
 const ExpandAnimation = keyframes`
@@ -200,10 +202,8 @@ const DrinksContainer = styled.div`
   width: 900px;
   column-gap: 32px;
   justify-content: center;
-  height: auto + 300px;
-
   position: relative;
-  // place-items: start;
+  place-items: start;
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;

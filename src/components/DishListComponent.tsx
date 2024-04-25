@@ -81,6 +81,8 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       setShowItemAdded(true);
       setTimeout(() => {
         setShowItemAdded(false);
+        setIsOpenInfo(false);
+        setSelectedInfo(false);
       }, 2000);
     }
   };
