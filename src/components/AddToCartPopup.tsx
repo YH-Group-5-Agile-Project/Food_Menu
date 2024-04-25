@@ -1,77 +1,135 @@
 import styled from "styled-components";
 import { Dish } from "../Models/Dish";
-import { GetDishes } from "../services/DbService";
-import { SideRecommendation } from "../services/RecommendationService";
-// import { Link } from "react-router-dom";
+import { PostQuery } from "../services/DbService";
 import { Order } from "../Models/Order";
 import {
   CalculateCostOrder,
   IncreamentId,
   SaveOrderToCart,
 } from "../services/CartService";
+import { Drink } from "../Models/Drink";
+import { useState } from "react";
+import { RecommendDrink } from "./RecommendDrinkComponent";
+import DecorationLineImage from "../assets/design-assets/DecorationLine.png";
+import Texture from "../assets/design-assets/climpek.png";
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
+
+let tempDish: Dish;
+let tempSide: Dish | undefined;
 
 interface AddToCartPopupProps {
   dish: Dish;
   onClose: () => void;
 }
 
-const sendToCart = (dish: Dish, sideDish: Dish) => {
-  // First SideDish is free
-  sideDish.price = 0;
-  // Create Order
-  let newOrder: Order = {
-    id: IncreamentId(),
-    main: dish,
-    sides: sideDish,
-    OrderCost: 0,
-  };
-  // Calculate price for Order
-  newOrder.OrderCost = CalculateCostOrder(newOrder);
-  SaveOrderToCart(newOrder);
-  location.reload();
-};
-
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
-  let sideDishes = GetDishes("sideDish");
-  let recomendation = SideRecommendation(dish._id)
+  const [sideOrDrink, setSideOrDrink] = useState<boolean>(false);
+  const { data, isLoading, error } = PostQuery("sideDish");
+  const [showItemAdded, setShowItemAdded] = useState(false);
+
+  const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
+    tempDish = { ...dish };
+    tempSide = sideDish ? { ...sideDish } : undefined;
+    setSideOrDrink(true);
+  };
+
+  const sendToCart = (_drink?: Drink) => {
+    if (tempSide != null) tempSide.price = 0;
+    let newOrder: Order = {
+      id: IncreamentId(),
+      main: tempDish,
+      sides: tempSide,
+      drink: _drink,
+      OrderCost: 0,
+    };
+
+    setShowItemAdded(true);
+    setTimeout(() => {
+      onClose();
+      setShowItemAdded(false);
+    }, 2000);
+    newOrder.OrderCost = CalculateCostOrder(newOrder);
+    SaveOrderToCart(newOrder);
+  };
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <>
       <a onClick={onClose}>
         <Overlay />
       </a>
-      {/* <AntiLink onClick={(event) => event.stopPropagation()}> */}
       <PopupContainer className="add-to-cart-popup">
+        {showItemAdded && <ItemAddedToCartPopup Item="Menu " />}
         <h3>{dish.title}</h3>
-        <h2>Choose side</h2>
-        {sideDishes?.map(
-          (sideDish) => (
-            // <Link to="/order">
-            <SideContainer
-              key={sideDish._id}
+        <BreakLine src={DecorationLineImage} />
+        {!sideOrDrink ? (
+          <>
+            <TitleBox>Select your complimentary side</TitleBox>
+            <ItemContainer>
+              {data?.map((sideDish: Dish) => (
+                <SideContainer
+                  key={sideDish._id}
+                  onClick={() => {
+                    loadRecommendedDrink(dish, sideDish);
+                  }}
+                >
+                  {sideDish.timeInMins === dish.price && (
+                    <RecommendedChoice>Recommended choice</RecommendedChoice>
+                  )}
+                  <InnerContainer>
+                    <DishImage src={sideDish.imageUrl} alt="" />
+                    <DishTitle>{sideDish.title}</DishTitle>
+                  </InnerContainer>
+                </SideContainer>
+              ))}
+            </ItemContainer>
+            <Button
               onClick={() => {
-                sendToCart(dish, sideDish), onClose();
+                loadRecommendedDrink(dish);
               }}
             >
-              {sideDish.timeInMins === dish.price && (
-                  <RecommendedChoice>Recommended choice</RecommendedChoice>
-                )}
-              <DishImage src={sideDish.imageUrl} alt="" />
-              <DishTitle>{sideDish.title}</DishTitle>
-                
-            </SideContainer>
-          )
-          // </Link>
+              I don't want a side
+            </Button>
+          </>
+        ) : (
+          <RecommendDrink
+            showItemAdded={showItemAdded}
+            dish={tempDish}
+            sendToCart={sendToCart}
+          ></RecommendDrink>
         )}
-        <CancelButton onClick={onClose}>Cancel</CancelButton>
+
+        <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
-      {/* </AntiLink> */}
     </>
   );
 }
 
-const CancelButton = styled.button`
-  border: solid 2px black;
-  border-radius: 30px;
+const TitleBox = styled.h2`
+  width: 100%;
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ItemContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
+const BreakLine = styled.img`
+  width: 95%;
+  object-fit: cover;
+  height: 55px;
+`;
+
+const Button = styled.button`
+  justify-self: center;
   &:hover,
   &:focus {
     color: grey;
@@ -80,53 +138,47 @@ const CancelButton = styled.button`
 `;
 
 const SideContainer = styled.button`
-  border: solid 2px black;
+  position: relative;
+  margin: 10px;
   border-radius: 30px;
+  // margin-left: 1rem;
+  // margin-right: 1rem;
+  // margin-bottom: 4px;
+  padding: 6px;
+  align-items: center;
+  transition:
+    color 0.3s,
+    border-color 0.3s;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: column;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-bottom: 4px;
-  padding: 0.5rem;
-  align-items: center;
-  font-size: 20px;
-  transition: color 0.3s, border-color 0.3s;
-
-  &:hover,
-  &:focus {
-    color: grey;
-    border-color: grey;
-  }
+  justify-content: center;
+  background-color: var(--fifthColor);
 `;
 const DishImage = styled.img`
   width: 50%;
-  margin-right: 2rem;
   border-radius: 20px;
+  margin-right: 10px;
 `;
 const DishTitle = styled.div`
-  margin-right: 2rem;
-  border-radius: 20px;
+  width: 50%;
+  font-size: 1rem;
+
+  @media (max-width: 949px) {
+    font-size: 0.7rem;
+  }
 `;
 const RecommendedChoice = styled.div`
-  margin-right: 2rem;
+  position: absolute;
+  width: 60%;
   margin-bottom: 1rem;
-  border: 1px solid white;
+  border: 1px solid var(--fourthColor);
   border-radius: 10px;
   padding: 5px;
-  color: white;
-  background-color: olivedrab;
+  color: var(--sixthColor);
+  background-color: var(--secondColor);
+  top: -15px;
   z-index: 1;
 `;
-
-/* const AntiLink = styled.a`
-  color: inherit;
-  &:hover,
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-  }
-` */
 
 const Overlay = styled.div`
   width: 100%;
@@ -143,12 +195,25 @@ const PopupContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40rem;
-  height: 40rem;
+  // height: 70%;
+  min-height: 600px;
+  max-width: 800px;
+  width: 65%;
   z-index: 3;
-  background-color: grey;
+  background-color: var(--firstColor);
+  background-image: url(${Texture});
   border-radius: 30px;
   overflow: scroll;
   overflow-x: hidden;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+
+  @media (max-width: 949px) {
+    width: 80%;
+  }
+  @media (max-width: 609px) {
+    width: 95%;
+  }
 `;

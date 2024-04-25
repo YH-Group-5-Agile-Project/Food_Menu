@@ -1,75 +1,92 @@
-import { Drink } from "../Models/Drink";
+import { useRef, useState } from "react";
 import styled from "styled-components";
-import { SendDrinkToCart } from "../services/CartService";
+import DrinkPopUp from "./DrinkPopUp";
+import { Drink } from "../Models/Drink";
 
-const DrinkComponent = ({ drink }: { drink: Drink | null }) => {
-  if (!drink) {
-    return null;
+interface DrinkComponentProps {
+  expandDrink: () => void;
+  drink: Drink;
+  isOpen: boolean;
+}
+
+
+const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => {
+  const [isPopUpOpen, setPopUpOpen] = useState(false);
+  
+  const togglePopUp = () => setPopUpOpen(!isPopUpOpen);
+  
+  const ExpandedRef = useRef<HTMLDivElement>(null);
+  
+  const clickedEvents = () => {
+    expandDrink();
+    if(isOpen) {
+        ExpandedRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: "start" });
+      }
   }
-  drink.price = 50;
-
-  const handleAddToCartClick = () => {
-    SendDrinkToCart(drink);
-  };
-
-  const ingredientsList = drink.ingredients.map((ingredient) => ingredient);
-  let ingredients;
-  if (ingredientsList.length > 1) {
-    ingredients =
-      ingredientsList.slice(0, -1).join(", ") +
-      " and " +
-      ingredientsList.slice(-1);
-  } else {
-    ingredients = ingredientsList[0] || "";
-  }
-  //Meningsubyggaren återanvänds nästan ofärändrad från DishComponent. Bör nog modifieras och flyttas till en separat fil så att den kan användas för båda?
-
+  
   return (
-    <DrinkContainer key={drink.id}>
-      <ImageContainer src={drink.imgUrl} alt={drink.name} />
-      <InfoContainer>
-        <h1>{drink.name}</h1>
-        <TextContainer>
-          <p> {ingredients}.</p>
-          {drink.alcoholic === false && <p>&nbsp;Non-Alcholic.</p>}
-        </TextContainer>
-        <DrinkPrice>£{drink.price}</DrinkPrice>
-
-        <CartButton onClick={handleAddToCartClick}>Add to cart</CartButton>
-      </InfoContainer>
+    <DrinkContainer ref={ExpandedRef} onClick={(clickedEvents)}>
+      <ImageContainer>
+        <DrinkImage src={drink.imgUrl} alt={drink.name} />
+        <TitleOverlay>{drink.name}</TitleOverlay>
+      </ImageContainer>
+      {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
   );
 };
 
-export default DrinkComponent;
-
 const DrinkContainer = styled.div`
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  padding: 20px;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 32px;
+
+  @media (max-width: 949px) {
+    margin-bottom: 23px;
+  }
 `;
 
-const ImageContainer = styled.img`
+const ImageContainer = styled.div`
   position: relative;
-  border-radius: 40px;
-  padding: 20px;
   width: 250px;
   height: 250px;
+
+  @media (max-width: 949px) {
+    width: 150px;
+    height: 150px;
+  }
 `;
-const InfoContainer = styled.div`
+
+const DrinkImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+`;
+
+const TitleOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 20%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-left: 20px;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em;
+  font-size: 16px;
+
+  @media (max-width: 949px) {
+    font-size: 14px;
+  }
 `;
-const TextContainer = styled.div`
-  display: flex;
-`;
-const CartButton = styled.button`
-  position: relative;
-  width: fit-content;
-  margin-top: px;
-`;
-const DrinkPrice = styled.h2`
-  display: flex;
-`;
+
+export default DrinkComponent;

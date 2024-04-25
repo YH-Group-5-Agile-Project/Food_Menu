@@ -3,18 +3,34 @@
   font-size: 18px;
   font-weight: bold;
   min-width: 10rem;
-  width: 25%;
+  width: 24%;
   height: 100%;
   padding: 10px;
   border: 1px solid black;
-  border-radius: 50px;
+  border-top-left-radius: 5%;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 5%;
   color: black;
-  background-color: rgb(127, 255, 127);
+  background: 
+  url('../assets/design-assets/Leather1.png'), 
+  linear-gradient(rgb(188, 255, 134), var(--secondColor));
+ 
 
-  @media (max-width: 549px) {
-    font-size: 12px;
-    padding: 5px;
+  &:hover {
+
+    color: #000000;
   }
+
+  @media (max-width: 949px) {
+    
+    min-width: 5rem;
+  }
+
+  @media(max-width: 549px) {
+    font-size: 12px;
+  }
+  
 }
 
 .inactiveNav {
@@ -22,16 +38,42 @@
   font-size: 18px;
   font-weight: bold;
   min-width: 10rem;
-  width: 25%;
+  width: 24%;
   height: 100%;
   padding: 10px;
-  border: 1px solid black;
-  border-radius: 50px;
-  color: black;
-  background-color: rgb(255, 178, 178);
+  border: 1px solid var(--firstColor);
+  /* border-radius: 50px; */
+  border-top-left-radius: 50px;
+  border-top-right-radius: 5%;
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 50px;
+  color: var(--firstColor);
+  background: url('../assets/design-assets/Leather1.png'), 
+  linear-gradient(rgb(253, 143, 143), var(--thirdColor));
+  
 
-  @media (max-width: 549px) {
-    font-size: 12px;
-    padding: 5px;
+  &:hover {
+    background: url('../assets/design-assets/Leather1.png'),
+    linear-gradient(rgb(244, 255, 174),var(--fourthColor));
+    color: #000000;
   }
+
+  @media (max-width: 949px) {
+    
+    min-width: 5rem;
+  }
+  @media(max-width: 549px) {
+    font-size: 12px;
+  }
+}
+
+.navbarButtonDefault {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  
+  background: url('../assets/design-assets/Leather1.png');
+  transition: background-color 0.3s ease-in-out;
+
 }
