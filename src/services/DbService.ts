@@ -1,5 +1,5 @@
 import { Drink } from "../Models/Drink";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const PostQuery = (dishType: string) => {
   return useQuery({

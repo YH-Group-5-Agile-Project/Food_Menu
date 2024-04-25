@@ -11,17 +11,19 @@ type Props = {
   cart: Cart;
   setCart: React.Dispatch<React.SetStateAction<Cart>>;
   orderId: number;
+  toggle: () => void;
 };
 
-export const CheckoutCommentComponent = ({ cart, setCart, orderId }: Props) => {
+export const CheckoutCommentComponent = ({toggle, cart, setCart, orderId }: Props) => {
   const {
     register,
     handleSubmit,
-    setError,
+
     formState: { errors },
   } = useForm<CommentFormType>();
   const onSubmit: SubmitHandler<CommentFormType> = (data) => {
     // Update Comment in Order
+    toggle();
     const updatedOrderList = cart.OrderList.map((order) => {
       if (order.id === orderId) return { ...order, comment: data.comment };
       else return order;

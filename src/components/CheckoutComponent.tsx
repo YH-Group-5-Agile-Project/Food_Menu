@@ -78,6 +78,7 @@ const CheckoutComponent = () => {
                 cart={cart}
                 setCart={setCart}
                 orderId={order.id}
+                toggle={() => toggleCustomizeOrder(order.id)}
               />
             )}
             <StyledButton onClick={() => onDelete(order.id)}>

@@ -13,11 +13,7 @@ interface FoodProps {
   isOpen: boolean;
 }
 
-interface DrinkProps {
-  drink: Drink;
-  onClose: () => void;
-}
-export const DrinkListComponent = ({ onClose }: DrinkProps) => {
+export const DrinkListComponent = () => {
   let drinkListIDs = [
     "12768",
     "12618",
@@ -65,11 +61,6 @@ export const DrinkListComponent = ({ onClose }: DrinkProps) => {
       setIsOpenInfo(true);
       setSelectedInfo(true);
       setSelectedDrink(index);
-      // setTimeout(() =>
-      //   {ExpandedRef.current?.scrollIntoView({
-      //     behavior: 'smooth',
-      //     block: "center" })
-      // }, 300)
     }
   };
 
@@ -86,7 +77,6 @@ export const DrinkListComponent = ({ onClose }: DrinkProps) => {
   return (
     <DrinksContainer>
       {drinkList.map((drink, index) => {
-        console.log(drink);
         return drink ? (
                 
         <>

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { SendDishToCart } from "../services/CartService";
+/* import styled from "styled-components";
+// import { SendDishToCart } from "../services/CartService";
 import { useState } from "react";
 import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
 
@@ -22,7 +22,7 @@ const DishPopUp = ({ dish, onClose }: DishPopUpProps) => {
   const [showItemAdded, setShowItemAdded] = useState(false);
 
   const handleAddToCartClick = () => {
-    SendDishToCart(dish);
+    // SendDishToCart(dish);
     setShowItemAdded(true);
     setTimeout(() => {
       setShowItemAdded(false);
@@ -77,3 +77,4 @@ const PopUpContent = styled.div`
   width: 70%;
   max-width: 500px;
 `;
+ */
