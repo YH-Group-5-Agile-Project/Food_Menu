@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom"
 import { Cart } from "../Models/Cart"
 import { ResetCart } from "../services/CartService"
 import {
+<<<<<<< HEAD
     CheckoutContainer,
     OrderRow,
     PriceCell,
@@ -12,6 +13,17 @@ import {
     ProductCell,
     StyledList,
 } from "../components/Checkout/CheckoutComponent"
+=======
+  BottomContainer,
+  CheckoutContainer,
+  ContentContainer,
+  OrderRow,
+  PriceCell,
+  PricePayContainer,
+  ProductCell,
+  StyledList,
+} from "../components/CheckoutComponent";
+>>>>>>> dev
 
 const OrderConfirmationPage = () => {
     const navigate = useNavigate()
@@ -24,6 +36,7 @@ const OrderConfirmationPage = () => {
         ResetCart()
     }, [])
 
+<<<<<<< HEAD
     return (
         <Container>
             <Nav>
@@ -53,6 +66,41 @@ const OrderConfirmationPage = () => {
         </Container>
     )
 }
+=======
+  return (
+    <Container>
+      <ContentContainer>
+        <Nav>
+          <h2>Thank you for your order</h2>
+          <StyledNavLink to="/">Home</StyledNavLink>
+        </Nav>
+        <table>
+          <tbody>
+            {OrderList.map((order) => (
+              <OrderRow key={order.id}>
+                <ProductCell>
+                  <StyledList>
+                    {order.main?.title && <li>{order.main.title}</li>}
+                    {order.sides?.title && <li>{order.sides.title}</li>}
+                    {order.drink?.name && <li>{order.drink.name}</li>}
+                    {order?.comment && <p>Comment: {order.comment}</p>}
+                  </StyledList>
+                </ProductCell>
+                <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+              </OrderRow>
+            ))}
+          </tbody>
+        </table>
+      </ContentContainer>
+      <BottomContainer>
+        <PricePayContainer>
+          <h1>Total price: {TotalCost} SEK</h1>
+        </PricePayContainer>
+      </BottomContainer>
+    </Container>
+  );
+};
+>>>>>>> dev
 
 const Nav = styled.div`
     width: 100%;
@@ -62,9 +110,16 @@ const Nav = styled.div`
     margin: 30px 0;
 `
 const Container = styled(CheckoutContainer)`
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
 `
+=======
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+>>>>>>> dev
 
 const StyledNavLink = styled(NavLink)`
     align-self: center;

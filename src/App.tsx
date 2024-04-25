@@ -70,8 +70,11 @@ const ContentDiv = styled.div`
     justify-content: center;
     align-items: start;
     height: 70vh;
-    max-width: 880px;
+    max-width: 900px;
     overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: overlay;
+    scrollbar-gutter: stable;
 
     @media (max-height: 999px) {
         height: 100vh;
