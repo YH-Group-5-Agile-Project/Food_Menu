@@ -58,6 +58,7 @@ const CheckoutComponent = () => {
 
   return (
     <CheckoutContainer>
+      <ContentContainer>
       {cart.OrderList.map((order) => (
         <OrderRow key={order.id}>
           <ProductCell>
@@ -88,22 +89,38 @@ const CheckoutComponent = () => {
         </OrderRow>
       ))}
 
-      {cart.OrderList.length > 0 && (
-        <PricePayContainer>
-          <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
-          <button onClick={(e) => placeOrder(e)}>Place order</button>
-        </PricePayContainer>
-      )}
+      </ContentContainer>
+      <BottomContainer>
+        {cart.OrderList.length > 0 && (
+          <PricePayContainer>
+            <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+            <button onClick={(e) => placeOrder(e)}>Place order</button>
+          </PricePayContainer>
+        )}
+      </BottomContainer>
     </CheckoutContainer>
   );
 };
 
 export default CheckoutComponent;
 
+
+export const ContentContainer = styled.div`
+  width: 100%;
+  overflow: scroll;
+`
+export const BottomContainer = styled.div`
+
+`
+
 export const CheckoutContainer = styled.div`
   width: 900px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow-x: auto;
   padding-right: 20px;
+  height: 100%;
 
   @media (max-width: 949px) {
     width: 500px;

@@ -27,9 +27,25 @@ html {
   box-sizing: border-box;
 }
 
+
 ::-webkit-scrollbar {
-  width: 0px; /* Adjust the width as needed */
+width: 3px;
+height: 0;
 }
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fifthColor);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+} 
 
 
 *, *:before, *:after {
