@@ -1,24 +1,33 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import DrinkPopUp from "./DrinkPopUp";
 import { DrinkQuery } from "../services/DbService";
 
 interface DrinkComponentProps {
-  drinkId: string;
+  expandDrink: () => void;
+  drink: Drink;
+  isOpen: boolean;
 }
 
-const DrinkComponent = ({ drinkId }: DrinkComponentProps) => {
+
+const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => {
   const [isPopUpOpen, setPopUpOpen] = useState(false);
-
+  
   const togglePopUp = () => setPopUpOpen(!isPopUpOpen);
-  const { data, isLoading, error } = DrinkQuery(drinkId);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  let drink = data;
+  
+  const ExpandedRef = useRef<HTMLDivElement>(null);
+  
+  const clickedEvents = () => {
+    expandDrink();
+    if(isOpen) {
+        ExpandedRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: "start" });
+      }
+  }
+  
   return (
-    <DrinkContainer onClick={togglePopUp}>
+    <DrinkContainer ref={ExpandedRef} onClick={(clickedEvents)}>
       <ImageContainer>
         <DrinkImage src={data.imgUrl} alt={data.name} />
         <TitleOverlay>{data.name}</TitleOverlay>
