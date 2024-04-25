@@ -117,10 +117,5 @@ const DrinkImage = styled.img`
 const Button = styled.button`
     margin: 20px;
 
-    border: solid 2px black;
-    &:hover,
-    &:focus {
-        color: grey;
-        border-color: grey;
-    }
+    border: solid 2px var(--firstColor);
 `

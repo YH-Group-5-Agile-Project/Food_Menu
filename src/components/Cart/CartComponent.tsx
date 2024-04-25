@@ -6,6 +6,7 @@ import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
 import {
     ActionCell,
+    ContentContainer,
     OrderRow,
     PriceCell,
     PricePayContainer,
@@ -35,10 +36,7 @@ export const CartComponent = (props: CloseProp) => {
         const updatedCart = {
             ...cart,
             OrderList: updatedOrderList,
-            TotalCost: CalculateCostCart({
-                ...cart,
-                OrderList: updatedOrderList,
-            }),
+            TotalCost: CalculateCostCart({ ...cart, OrderList: updatedOrderList }),
         }
 
         setCart(updatedCart)
@@ -47,7 +45,11 @@ export const CartComponent = (props: CloseProp) => {
     }
 
     const onEmpty = () => {
-        const updatedCart = { ...cart, OrderList: [], TotalCost: 0 }
+        const updatedCart = {
+            ...cart,
+            OrderList: [],
+            TotalCost: 0,
+        }
         setCart(updatedCart)
         localStorage.setItem("cart", JSON.stringify(updatedCart))
         console.log("Order Emptied")
@@ -56,46 +58,56 @@ export const CartComponent = (props: CloseProp) => {
     return (
         <>
             <div className={styles.PopUpOrder}>
-                <StyledTable>
-                    <tbody>
-                        {cart.OrderList.map((order) => (
-                            <OrderRow key={order.id}>
-                                <ProductCell>
-                                    <StyledList>
-                                        {order.main?.title && <li>{order.main.title}</li>}
-                                        {order.sides?.title && <li>{order.sides.title}</li>}
-                                        {order.drink?.name && <li>{order.drink.name}</li>}
-                                        {order?.comment && <p>Comment: {order.comment}</p>}
-                                    </StyledList>
-                                </ProductCell>
-                                <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
-                                <ActionCell>
-                                    <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
-                                </ActionCell>
-                            </OrderRow>
-                        ))}
-                    </tbody>
-                </StyledTable>
-                {cart.OrderList.length > 0 && (
-                    <PricePayContainer>
-                        <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
-                    </PricePayContainer>
-                )}
-                <ButtonContainer>
-                    <button onClick={() => onEmpty()}>Empty Order</button>
-                    <button onClick={props.CloseClick}>Close</button>
-                    <button>
-                        <StyledNavLink to={"/checkout"} onClick={props.CloseClick}>
-                            Go to checkout
-                        </StyledNavLink>
-                    </button>
-                </ButtonContainer>
+                <ContentContainer>
+                    <StyledTable>
+                        <tbody>
+                            {cart.OrderList.map((order) => (
+                                <OrderRow key={order.id}>
+                                    <ProductCell>
+                                        <StyledList>
+                                            {order.main?.title && <li>{order.main.title}</li>}
+                                            {order.sides?.title && <li>{order.sides.title}</li>}
+                                            {order.drink?.name && <li>{order.drink.name}</li>}
+                                            {order?.comment && <p>Comment: {order.comment}</p>}
+                                        </StyledList>
+                                    </ProductCell>
+                                    <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+                                    <ActionCell>
+                                        <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
+                                    </ActionCell>
+                                </OrderRow>
+                            ))}
+                        </tbody>
+                    </StyledTable>
+                </ContentContainer>
+                <BottomContainer>
+                    {cart.OrderList.length > 0 && (
+                        <PricePayContainer>
+                            <PriceHeader>Total price: {CalculateCostCart(cart)} SEK</PriceHeader>
+                        </PricePayContainer>
+                    )}
+                    <ButtonContainer>
+                        <button onClick={() => onEmpty()}>Empty Order</button>
+                        <button onClick={props.CloseClick}>Close</button>
+                        <button>
+                            <StyledNavLink to={"/checkout"} onClick={props.CloseClick}>
+                                Go to checkout
+                            </StyledNavLink>
+                        </button>
+                    </ButtonContainer>
+                </BottomContainer>
             </div>
         </>
     )
 }
 
 export default CartComponent
+
+const PriceHeader = styled.h1`
+    margin: 15px;
+`
+
+const BottomContainer = styled.div``
 
 const StyledTable = styled.table`
     width: 100%;

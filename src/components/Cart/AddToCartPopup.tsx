@@ -6,9 +6,9 @@ import { CalculateCostOrder, IncreamentId, SaveOrderToCart } from "../../service
 import { Drink } from "../../Models/Drink"
 import { useState } from "react"
 import { RecommendDrink } from "../Drink/RecommendDrinkComponent"
-import DecorationLineImage from "../../assets/design-assets/DecorationLine.png"
-import Texture from "../../assets/design-assets/climpek.png"
-import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
+import DecorationLineImage from "../assets/design-assets/DecorationLine.png"
+import Texture from "../assets/design-assets/climpek.png"
+import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 
 let tempDish: Dish
 let tempSide: Dish | undefined
@@ -85,6 +85,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                             }}>
                             I don't want a side
                         </Button>
+                        <Button onClick={onClose}>Cancel</Button>
                     </>
                 ) : (
                     <RecommendDrink
@@ -92,8 +93,6 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                         dish={tempDish}
                         sendToCart={sendToCart}></RecommendDrink>
                 )}
-
-                <Button onClick={onClose}>Cancel</Button>
             </PopupContainer>
         </>
     )
@@ -123,11 +122,6 @@ const BreakLine = styled.img`
 
 const Button = styled.button`
     justify-self: center;
-    &:hover,
-    &:focus {
-        color: grey;
-        border-color: grey;
-    }
 `
 
 const SideContainer = styled.button`

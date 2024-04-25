@@ -32,10 +32,7 @@ const CheckoutComponent = () => {
         const updatedCart = {
             ...cart,
             OrderList: updatedOrderList,
-            TotalCost: CalculateCostCart({
-                ...cart,
-                OrderList: updatedOrderList,
-            }),
+            TotalCost: CalculateCostCart({ ...cart, OrderList: updatedOrderList }),
         }
         setCart(updatedCart)
         localStorage.setItem("cart", JSON.stringify(updatedCart))
@@ -59,48 +56,63 @@ const CheckoutComponent = () => {
 
     return (
         <CheckoutContainer>
-            {cart.OrderList.map((order) => (
-                <OrderRow key={order.id}>
-                    <ProductCell>
-                        <StyledList>
-                            {order.main?.title && <li>{order.main.title}</li>}
-                            {order.sides?.title && <li>{order.sides.title}</li>}
-                            {order.drink?.name && <li>{order.drink.name}</li>}
-                            {order?.comment && <p>Comment: {order.comment}</p>}
-                        </StyledList>
-                    </ProductCell>
-                    <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
-                    <ActionCell>
-                        <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>Customize</StyledButton>
-                        {customizeOrderId.includes(order.id) && (
-                            <CheckoutCommentComponent
-                                cart={cart}
-                                setCart={setCart}
-                                orderId={order.id}
-                                toggle={() => toggleCustomizeOrder(order.id)}
-                            />
-                        )}
-                        <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
-                    </ActionCell>
-                </OrderRow>
-            ))}
-
-            {cart.OrderList.length > 0 && (
-                <PricePayContainer>
-                    <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
-                    <button onClick={(e) => placeOrder(e)}>Place order</button>
-                </PricePayContainer>
-            )}
+            <ContentContainer>
+                {cart.OrderList.map((order) => (
+                    <OrderRow key={order.id}>
+                        <ProductCell>
+                            <StyledList>
+                                {order.main?.title && <li>{order.main.title}</li>}
+                                {order.sides?.title && <li>{order.sides.title}</li>}
+                                {order.drink?.name && <li>{order.drink.name}</li>}
+                                {order?.comment && <p>Comment: {order.comment}</p>}
+                            </StyledList>
+                        </ProductCell>
+                        <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+                        <ActionCell>
+                            <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>Customize</StyledButton>
+                            {customizeOrderId.includes(order.id) && (
+                                <CheckoutCommentComponent
+                                    cart={cart}
+                                    setCart={setCart}
+                                    orderId={order.id}
+                                    toggle={() => toggleCustomizeOrder(order.id)}
+                                />
+                            )}
+                            <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
+                        </ActionCell>
+                    </OrderRow>
+                ))}
+            </ContentContainer>
+            <BottomContainer>
+                {cart.OrderList.length > 0 && (
+                    <PricePayContainer>
+                        <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
+                        <button onClick={(e) => placeOrder(e)}>Place order</button>
+                    </PricePayContainer>
+                )}
+            </BottomContainer>
         </CheckoutContainer>
     )
 }
 
 export default CheckoutComponent
 
+export const ContentContainer = styled.div`
+    width: 100%;
+    overflow: scroll;
+`
+export const BottomContainer = styled.div`
+    width: 100%;
+`
+
 export const CheckoutContainer = styled.div`
     width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     overflow-x: auto;
     padding-right: 20px;
+    height: 100%;
 
     @media (max-width: 949px) {
         width: 500px;
@@ -126,7 +138,7 @@ export const OrderRow = styled.div`
     gap: 10px;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--sixthColor);
     border-width: 90%;
     text-align: left;
 
