@@ -14,13 +14,12 @@
   max-height: 50rem;
   border: 1px solid black;
   border-radius: 20px;
-  background-image: url('../assets/design-assets/climpek.png');
+  background-image: url('../../assets/design-assets/climpek.png');
   background-color: var(--firstColor);
   z-index: 999;
   color: var(--sixthColor);
   overflow: scroll;
   padding: 20px;
-
   
   @media (max-width: 949px) {
     width: 80%;
