@@ -1,15 +1,17 @@
-name: Lint
+name: Prettier
 
 on:
   push:
     branches:
-      - fredriks-branch
+      - main
+      - dev
   pull_request:
     branches:
-      - fredriks-branch
+      - main
+      - dev
 
 jobs:
-  lint:
+  prettier:
     runs-on: ubuntu-latest
 
     steps:
