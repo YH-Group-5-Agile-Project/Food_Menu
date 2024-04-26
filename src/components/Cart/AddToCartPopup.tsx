@@ -77,12 +77,12 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                 </SideContainer>
               ))}
             </ItemContainer>
-            <Button
+            <NoSideButton
               onClick={() => {
                 loadRecommendedDrink(dish)
               }}>
               I don't want a side
-            </Button>
+            </NoSideButton>
             <Button onClick={onClose}>Cancel</Button>
           </>
         ) : (
@@ -118,6 +118,14 @@ const BreakLine = styled.img`
 const Button = styled.button`
   justify-self: center;
 `
+const NoSideButton = styled.button`
+  border-radius: 10px;
+  font-size: 0.8em;
+  font-family: inherit;
+  padding: 0.4em 0.8em;
+`
+
+
 
 const SideContainer = styled.button`
   position: relative;
