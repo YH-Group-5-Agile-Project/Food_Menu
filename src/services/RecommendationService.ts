@@ -53,3 +53,21 @@ const foodIDs = [
   "660bc29a29f983c33c49dedb",
   "660becfe29f983c33c4d5166",
 ]
+
+// Recommended SideDish
+
+let dictionary: { [key: string]: string } = {
+  '6604087a29f983c33c7b4141': '660ad46229f983c33c37ab4a', //burger : sweet fries 
+  '6604089029f983c33c7b630e': '660aef0e29f983c33c38a3c2', //salmon : wheat bulgur
+  '6604089e29f983c33c7b79eb': '660af0ea29f983c33c38fcf2', //cauliflower : aspargus
+  '660408b229f983c33c7b98fc': '660bccee29f983c33c4aaff9', //sirloin : hasselback
+  '660bc29a29f983c33c49dedb': '6604090e29f983c33c7c35c4', //poussin : spiced wedges
+  '660becfe29f983c33c4d5166': '660ad48c29f983c33c37ac34'  //risotto : garlic bread
+};
+
+export const SideRecommendation = (id: string): string => {
+  let sideRecommendation: string;
+  sideRecommendation = dictionary[id]; 
+  return sideRecommendation;
+};
+
