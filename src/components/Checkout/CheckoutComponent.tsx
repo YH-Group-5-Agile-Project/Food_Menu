@@ -69,7 +69,10 @@ const CheckoutComponent = () => {
             </ProductCell>
             <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
             <ActionCell>
-              <StyledButton onClick={() => toggleCustomizeOrder(order.id)}>Customize</StyledButton>
+              <ButtonWrapper>
+                <button onClick={() => toggleCustomizeOrder(order.id)}>Customize</button>
+              </ButtonWrapper>
+              
               {customizeOrderId.includes(order.id) && (
                 <CheckoutCommentComponent
                   cart={cart}
@@ -78,7 +81,9 @@ const CheckoutComponent = () => {
                   toggle={() => toggleCustomizeOrder(order.id)}
                 />
               )}
-              <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
+              <ButtonWrapper>
+              <button onClick={() => onDelete(order.id)}>Remove</button>
+              </ButtonWrapper>
             </ActionCell>
           </OrderRow>
         ))}
@@ -126,10 +131,6 @@ export const CheckoutContainer = styled.div`
 export const ActionCell = styled.div`
   display: flex;
   justify-content: right;
-`
-
-export const StyledButton = styled.button`
-  margin: 0px 10px;
 `
 
 export const OrderRow = styled.div`
@@ -188,5 +189,16 @@ export const StyledList = styled.ul`
   }
   p {
     margin: 0px;
+  }
+`
+export const ButtonWrapper  = styled.div`
+  margin-bottom: 5px;
+  flex-flow: row;
+  justify-content: center;
+  gap: 5px;
+
+
+  button{
+    margin: 0px 10px;
   }
 `

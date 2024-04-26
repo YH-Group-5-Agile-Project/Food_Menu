@@ -11,7 +11,7 @@ import {
   PriceCell,
   PricePayContainer,
   ProductCell,
-  StyledButton,
+  ButtonWrapper,
   StyledList,
 } from "../Checkout/CheckoutComponent"
 
@@ -73,7 +73,9 @@ export const CartComponent = (props: CloseProp) => {
                   </ProductCell>
                   <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
                   <ActionCell>
-                    <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
+                    <ButtonWrapper>
+                    <button onClick={() => onDelete(order.id)}>Remove</button>
+                    </ButtonWrapper>
                   </ActionCell>
                 </OrderRow>
               ))}
