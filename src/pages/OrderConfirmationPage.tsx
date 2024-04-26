@@ -28,11 +28,11 @@ const OrderConfirmationPage = () => {
 
   return (
     <Container>
-      <ContentContainer>
         <Nav>
           <h2>Thank you for your order</h2>
           <StyledNavLink to="/">Home</StyledNavLink>
         </Nav>
+      <ContentContainer>
         <table>
           <tbody>
             {OrderList.map((order) => (

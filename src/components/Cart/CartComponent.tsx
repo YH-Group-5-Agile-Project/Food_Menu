@@ -11,7 +11,7 @@ import {
   PriceCell,
   PricePayContainer,
   ProductCell,
-  StyledButton,
+  ButtonWrapper,
   StyledList,
 } from "../Checkout/CheckoutComponent"
 
@@ -57,8 +57,10 @@ export const CartComponent = (props: CloseProp) => {
 
   return (
     <>
-      <div className={styles.PopUpOrder}>
+      <CartContainer className={styles.PopUpOrder}>
         <ContentContainer>
+          <CartHeader>My order</CartHeader>
+          {cart.OrderList.length<1 && <EmptyHeader>Your order is empty</EmptyHeader>}
           <StyledTable>
             <tbody>
               {cart.OrderList.map((order) => (
@@ -73,7 +75,9 @@ export const CartComponent = (props: CloseProp) => {
                   </ProductCell>
                   <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
                   <ActionCell>
-                    <StyledButton onClick={() => onDelete(order.id)}>Remove</StyledButton>
+                    <ButtonWrapper>
+                    <button onClick={() => onDelete(order.id)}>Remove</button>
+                    </ButtonWrapper>
                   </ActionCell>
                 </OrderRow>
               ))}
@@ -96,7 +100,7 @@ export const CartComponent = (props: CloseProp) => {
             </button>
           </ButtonContainer>
         </BottomContainer>
-      </div>
+      </CartContainer>
     </>
   )
 }
@@ -105,6 +109,16 @@ export default CartComponent
 
 const PriceHeader = styled.h1`
   margin: 15px;
+`
+const EmptyHeader = styled.h2`
+  margin: 15px;
+`
+
+const CartHeader = styled.h1`
+  margin: 15px;
+`
+const CartContainer = styled.div`
+
 `
 
 const BottomContainer = styled.div``

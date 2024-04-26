@@ -228,7 +228,7 @@ const DishIngredients = styled.div`
 
 const StyledButton = styled.button`
   align-self: center;
-  margin: 20px;
+  /*margin: 20px;
   width: 20%;
-  height: 140px;
+  height: 140px;*/
 `

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ToCartButton } from "../Cart/CartButtonComponent"
+import { ToCartButton } from "./CartButtonComponent"
 import { ToggleCartOverlay } from "../../App"
 import CartComponent from "../Cart/CartComponent"
 import { useEffect, useReducer } from "react"

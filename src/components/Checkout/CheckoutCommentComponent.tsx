@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { Cart } from "../../Models/Cart"
 import { SaveCart } from "../../services/CartService"
+import styled from "styled-components"
 
 type CommentFormType = {
   id: number
@@ -47,9 +48,13 @@ export const CheckoutCommentComponent = ({ toggle, cart, setCart, orderId }: Pro
         defaultValue={cart.OrderList.find((order) => order.id === orderId)?.comment || ""}
       />
       {errors.comment && <p>{errors.comment.message}</p>}
-      <button type="submit" value={"Submit"}>
+      <StyledButton type="submit" value={"Submit"}>
         Submit
-      </button>
+      </StyledButton>
     </form>
   )
 }
+
+export const StyledButton = styled.button`
+width: 7rem;
+`
