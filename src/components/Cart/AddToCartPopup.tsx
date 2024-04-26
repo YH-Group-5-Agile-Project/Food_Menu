@@ -4,11 +4,12 @@ import { PostQuery } from "../../services/DbService"
 import { Order } from "../../Models/Order"
 import { CalculateCostOrder, IncreamentId, SaveOrderToCart } from "../../services/CartService"
 import { Drink } from "../../Models/Drink"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { RecommendDrink } from "../Drink/RecommendDrinkComponent"
 import DecorationLineImage from "../../assets/design-assets/DecorationLine.png"
 import Texture from "../../assets/design-assets/climpek.png"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
+import { SideRecommendation } from "../../services/RecommendationService"
 
 let tempDish: Dish
 let tempSide: Dish | undefined
@@ -22,6 +23,22 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const [sideOrDrink, setSideOrDrink] = useState<boolean>(false)
   const { data, isLoading, error } = PostQuery("sideDish")
   const [showItemAdded, setShowItemAdded] = useState(false)
+  const [recSideDish, setRecSideDish] = useState<Dish>(tempDish);
+  const [restSideDishes, setRestSideDishes] = useState<Dish[]>([]);
+
+  // Find recommended side dish 
+  useEffect(() => {
+    let i = 0;
+    let recommendedSideId = SideRecommendation(dish._id)
+    //- funkar ej med let i = 0 -> undefined reading data.legnth -> Därför index
+    for(let index in data){ 
+      i = parseInt(index); 
+      if(data[i]._id === recommendedSideId){ // find i 
+        // Set recommended side
+        setRecSideDish(data?.slice(i, i + 1)[0]); //  Recommended Side
+        setRestSideDishes([...data.slice(0, i), ...data.slice(i + 1)]); // Rest of sides
+      }}
+  },[data]) // wait until data is loaded
 
   const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
     tempDish = { ...dish }
@@ -63,7 +80,22 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
           <>
             <TitleBox>Select your complimentary side</TitleBox>
             <ItemContainer>
-              {data?.map((sideDish: Dish) => (
+              {/* Show recommended side dish */}
+              {recSideDish && (
+                <>
+                  <SideContainer 
+                  key={recSideDish._id} 
+                  onClick={() => {loadRecommendedDrink(dish, recSideDish)}}>
+                  <RecommendedChoice>Recommended choice</RecommendedChoice>
+                    <InnerContainer>
+                      <DishImage src={recSideDish.imageUrl} alt=""/>
+                      <DishTitle>{recSideDish.title}</DishTitle>
+                    </InnerContainer>
+                  </SideContainer>                
+                </>
+              )}
+              {/* Show rest of the side dishes */}
+              {restSideDishes.map((sideDish: Dish) => (
                 <SideContainer
                   key={sideDish._id}
                   onClick={() => {
