@@ -35,7 +35,10 @@ export const RecommendDrink = (props: DrinkProps) => {
       {!drinkList && (
         <>
           <h3>We recommend this drink to go with your food</h3>
-          <h2>{recommendedDrink?.name}</h2>
+          <HeaderDiv>
+            <h2>{recommendedDrink?.name}</h2>
+            <h1>{recommendedDrink?.price} SEK</h1>
+          </HeaderDiv>
           <ImageContainer>
             <DrinkImage src={recommendedDrink?.imgUrl} alt={"Loading"}></DrinkImage>
           </ImageContainer>
@@ -70,6 +73,15 @@ export const RecommendDrink = (props: DrinkProps) => {
     </DrinkRecommendationParent>
   )
 }
+
+const HeaderDiv = styled.div`
+  display: flex;
+  align-items: center;
+  width: 40vw;
+  max-width: 500px;
+  min-width: 350px;
+  justify-content: space-evenly;
+`
 
 const Test = styled.div`
 position: sticky;
