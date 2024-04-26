@@ -103,13 +103,22 @@ button {
 button:disabled {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
-    linear-gradient(rgb(0, 0, 0),var(--fifthColor));
+    linear-gradient(var(--thirdColor),var(--fifthColor));
 }
+
+
 button:disabled:hover {
   background: 
-    url('assets/design-assets/diamonds-are-forever.png'),
-    linear-gradient(rgb(0, 0, 0),var(--fifthColor));
+  url('assets/design-assets/diamonds-are-forever.png'),
+  linear-gradient(var(--thirdColor),var(--fifthColor));
 }
+
+button:active:focus {
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(var(--sixthColor),var(--fifthColor));
+}
+
 form input{
   color: var(--thirdColor);
   border-radius: 10px;
@@ -138,7 +147,7 @@ form textarea{
 button:hover {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
-    linear-gradient(rgb(200, 200, 220),var(--fifthColor));
+    linear-gradient(var(--seventhColor),var(--fifthColor));
 }
 
 /*button:focus,
