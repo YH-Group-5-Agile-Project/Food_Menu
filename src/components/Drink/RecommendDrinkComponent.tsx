@@ -5,6 +5,7 @@ import { DrinkRecommendation } from "../../services/RecommendationService"
 import { DrinkQuery } from "../../services/DbService"
 import { useState, useEffect } from "react"
 import DrinkComponentAlt from "./DrinkComponentAlt"
+import { DrinkPickList } from "./DrinkPickList"
 
 interface DrinkProps {
   dish: Dish
@@ -24,20 +25,6 @@ export const RecommendDrink = (props: DrinkProps) => {
   const [drinkList, setDrinkList] = useState(false)
   let recommendedDrink = data
 
-  let drinkListIDs = [
-    "12768",
-    "12618",
-    "15092",
-    "12630",
-    "12724",
-    "12726",
-    "11288",
-    "178365",
-    "11462",
-    "11000",
-    "11003",
-    "12528",
-  ]
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
@@ -77,26 +64,11 @@ export const RecommendDrink = (props: DrinkProps) => {
         </>
       )}
       {drinkList && (
-        <>
-          <ListContainer>
-            {drinkListIDs.map((drinkId) => (
-              <DrinkComponentAlt sendToCart={props.sendToCart} key={drinkId} drinkId={drinkId} />
-            ))}
-          </ListContainer>
-
-          <Button
-            disabled={props.showItemAdded}
-            onClick={() => {
-              props.sendToCart()
-            }}>
-            Never mind, just the food
-          </Button>
-        </>
+        <DrinkPickList dish={props.dish} sendToCart={props.sendToCart} showItemAdded={props.showItemAdded}/>
       )}
     </DrinkRecommendationParent>
   )
 }
-const ListContainer = styled.div``
 
 const ButtonContainer = styled.div`
   display: flex;
