@@ -4,8 +4,8 @@ import { Drink } from "../../Models/Drink"
 import { DrinkRecommendation } from "../../services/RecommendationService"
 import { DrinkQuery } from "../../services/DbService"
 import { useState, useEffect } from "react"
-import DrinkComponentAlt from "./DrinkComponentAlt"
 import { DrinkPickList } from "./DrinkPickList"
+import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
 
 interface DrinkProps {
   dish: Dish
@@ -31,6 +31,7 @@ export const RecommendDrink = (props: DrinkProps) => {
 
   return (
     <DrinkRecommendationParent>
+      {props.showItemAdded && <Test><ItemAddedToCartPopup Item="Menu " /></Test>}
       {!drinkList && (
         <>
           <h3>We recommend this drink to go with your food</h3>
@@ -70,6 +71,12 @@ export const RecommendDrink = (props: DrinkProps) => {
   )
 }
 
+const Test = styled.div`
+position: sticky;
+top: 0;
+left: 50%;
+z-index: 7;
+`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -85,6 +92,7 @@ const DrinkRecommendationParent = styled.div`
   flex-direction: column;
   align-items: center;
   max-height: 45rem;
+  overflow-y: scroll;
 `
 
 const DrinkImage = styled.img`

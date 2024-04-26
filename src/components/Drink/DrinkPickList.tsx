@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { Drink } from "../../Models/Drink"
 import DrinkComponentAlt from "./DrinkComponentAlt"
-import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
+
 let drinkListIDs = [
   "12768",
   "12618",
