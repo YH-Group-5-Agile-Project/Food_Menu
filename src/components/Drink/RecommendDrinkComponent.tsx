@@ -3,7 +3,7 @@ import { Dish } from "../../Models/Dish"
 import { Drink } from "../../Models/Drink"
 import { DrinkRecommendation } from "../../services/RecommendationService"
 import { DrinkQuery } from "../../services/DbService"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import DrinkComponentAlt from "./DrinkComponentAlt"
 
 interface DrinkProps {
@@ -11,12 +11,19 @@ interface DrinkProps {
   sendToCart: (drink?: Drink) => void
   showItemAdded: boolean
 }
-export const RecommendDrink = (props: DrinkProps) => {
-  let drinkId = DrinkRecommendation(props.dish._id)
-  const { data, isLoading, error } = DrinkQuery(drinkId)
-  const [drinkList, setdrinkList] = useState(false)
 
+export const RecommendDrink = (props: DrinkProps) => {
+  const [drinkId, setDrinkId] = useState<string | null>(null)
+  useEffect(() => {
+    if (!drinkId) {
+      setDrinkId(DrinkRecommendation(props.dish._id))
+    }
+  })
+
+  const { data, isLoading, error } = DrinkQuery(drinkId) //Röd squiggly men funkar, någon får försöka sig på en fix om ni känner för det
+  const [drinkList, setDrinkList] = useState(false)
   let recommendedDrink = data
+
   let drinkListIDs = [
     "12768",
     "12618",
@@ -55,7 +62,7 @@ export const RecommendDrink = (props: DrinkProps) => {
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
-                setdrinkList(true)
+                setDrinkList(true)
               }}>
               I'd like to pick a different drink
             </Button>
@@ -89,7 +96,6 @@ export const RecommendDrink = (props: DrinkProps) => {
     </DrinkRecommendationParent>
   )
 }
-
 const ListContainer = styled.div``
 
 const ButtonContainer = styled.div`
