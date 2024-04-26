@@ -59,6 +59,6 @@ const NewMapDrink = (data: any): Drink => {
       drinkData.strIngredient3,
       drinkData.strIngredient4,
     ].filter(Boolean),
-    price: 94,
+    price: drinkData.strAlcoholic === "Alcoholic" ? 230 : 125,
   }
 }
