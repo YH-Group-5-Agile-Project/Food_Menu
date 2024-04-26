@@ -39,7 +39,7 @@ export const DrinkPickList = (props: DrinkProps) => {
             }}>
             Never mind, just the food
           </Button>
-        </>
+    </>
   )
 }
 
@@ -50,4 +50,4 @@ const Button = styled.button`
 
   border: solid 2px var(--firstColor);
 `
-const ListContainer = styled.button``
+const ListContainer = styled.div``
