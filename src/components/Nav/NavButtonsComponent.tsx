@@ -96,20 +96,27 @@ export const NavButtons = () => {
 
   return (
     <PageNavWrapper>
-      {!!state.prevPage && (
-        <Link to={state.prevPage}>
-          <button>{state.prevButtonText}</button>
-        </Link>
-      )}
-
-      {!!state.nextPage && (
-        <>
-          <ToCartButton onClick={toggleCart} />
-          <Link to={state.nextPage}>
-            <button>{state.nextButtonText}</button>
+      <LeftDiv>
+        {!!state.prevPage && (
+          <Link to={state.prevPage}>
+            <button>{state.prevButtonText}</button>
           </Link>
-        </>
-      )}
+        )}
+      </LeftDiv>
+
+      <MiddleDiv>
+        {!!state.nextPage && (
+          <ToCartButton onClick={toggleCart} />
+        )}
+      </MiddleDiv>
+
+      <RightDiv>
+        {!!state.nextPage && (
+          <Link to={state.nextPage}>
+              <button>{state.nextButtonText}</button>
+            </Link>
+        )}
+      </RightDiv>
 
       {state.cartVisible && (
         <>
@@ -120,6 +127,20 @@ export const NavButtons = () => {
     </PageNavWrapper>
   )
 }
+const LeftDiv = styled.div`
+  display: flex;
+  justify-content: end;
+  width: calc(100%/5*2);
+`
+const MiddleDiv = styled.div`
+  width: calc(100%/5);
+  min-width: 110px;
+`
+const RightDiv = styled.div`
+  display: flex;
+  justify-content: start;
+  width: calc(100%/5*2);
+`
 
 const PageNavWrapper = styled.div`
   margin-bottom: 5px;
@@ -127,6 +148,7 @@ const PageNavWrapper = styled.div`
   flex-flow: row;
   justify-content: center;
   gap: 5px;
+  width: 100%;
 
   button {
     padding: 8px 20px;
