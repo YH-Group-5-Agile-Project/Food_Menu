@@ -60,7 +60,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
     setTimeout(() => {
       onClose()
       setShowItemAdded(false)
-    }, 2000)
+    }, 1000)
     newOrder.OrderCost = CalculateCostOrder(newOrder)
     SaveOrderToCart(newOrder)
   }

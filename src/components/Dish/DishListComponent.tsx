@@ -80,7 +80,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
         setShowItemAdded(false)
         setIsOpenInfo(false)
         setSelectedInfo(false)
-      }, 2000)
+      }, 1000)
     }
   }
 
