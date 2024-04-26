@@ -1,49 +1,48 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import MenuPage from "./pages/MainPage";
-import SidePage from "./pages/SidePage";
-import DrinkPage from "./pages/DrinkPage";
-import CheckoutPage from "./pages/CheckoutPage";
+import { Routes, Route, useLocation } from "react-router-dom"
+import HomePage from "./pages/HomePage"
+import MenuPage from "./pages/MainPage"
+import SidePage from "./pages/SidePage"
+import DrinkPage from "./pages/DrinkPage"
+import CheckoutPage from "./pages/CheckoutPage"
 // import CartComponent from "./components/CartComponent";
-import BackgroundImg from "../assets/design-assets/BackgrundImg.png";
+import BackgroundImg from "../assets/design-assets/BackgrundImg.png"
 
-import "./App.css";
-import { styled } from "styled-components";
-import { Navbar } from "./components/NavbarComponent";
-import { NavButtons } from "./components/NavButtonsComponent";
-import { useEffect, useState } from "react";
-import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import "./App.css"
+import { styled } from "styled-components"
+import { Navbar } from "./components/Nav/NavbarComponent"
+import { NavButtons } from "./components/Nav/NavButtonsComponent"
+import { useEffect, useState } from "react"
+import OrderConfirmationPage from "./pages/OrderConfirmationPage"
 
 function App() {
-  const [scrolled, setScrolled] = useState<boolean>(false);
-  const location = useLocation();
+  const [scrolled, setScrolled] = useState<boolean>(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
-        setScrolled(true);
+        setScrolled(true)
       } else {
-        setScrolled(false);
+        setScrolled(false)
       }
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   return (
     // navbar
     <LayoutDiv>
-      {location.pathname !== "/" &&
-        location.pathname !== "/orderconfirmation" && (
-          <NavigationWrapper>
-            <Navbar currentPage={location.pathname} />
-            <NavButtons />
-          </NavigationWrapper>
-        )}
+      {location.pathname !== "/" && location.pathname !== "/orderconfirmation" && (
+        <NavigationWrapper>
+          <Navbar currentPage={location.pathname} />
+          <NavButtons />
+        </NavigationWrapper>
+      )}
       <ContentDiv>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -51,14 +50,11 @@ function App() {
           <Route path="/sides" element={<SidePage />} />
           <Route path="/drink" element={<DrinkPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route
-            path="/orderconfirmation"
-            element={<OrderConfirmationPage />}
-          />
+          <Route path="/orderconfirmation" element={<OrderConfirmationPage />} />
         </Routes>
       </ContentDiv>
     </LayoutDiv>
-  );
+  )
 }
 
 const BackgroundImage = styled.img`
@@ -66,7 +62,7 @@ const BackgroundImage = styled.img`
   object-fit: cover;
   top: 0;
   left: 0;
-`;
+`
 
 const ContentDiv = styled.div`
   padding-top: 30px;
@@ -74,8 +70,11 @@ const ContentDiv = styled.div`
   justify-content: center;
   align-items: start;
   height: 70vh;
-  max-width: 880px;
+  max-width: 900px;
   overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  scrollbar-gutter: stable;
 
   @media (max-height: 999px) {
     height: 100vh;
@@ -84,7 +83,7 @@ const ContentDiv = styled.div`
   @media (max-height: 1200px) {
     height: 89vh;
   }
-`;
+`
 
 const LayoutDiv = styled.div`
   position: fixed;
@@ -103,7 +102,7 @@ const LayoutDiv = styled.div`
     padding-top: 0;
     top: 0;
   }
-`;
+`
 const NavigationWrapper = styled.div`
   position: sticky;
   top: 0;
@@ -111,7 +110,7 @@ const NavigationWrapper = styled.div`
   padding: 5px;
   width: 100%;
   max-width: 1100px;
-`;
+`
 
 export const ToggleCartOverlay = styled.a`
   position: fixed;
@@ -121,6 +120,6 @@ export const ToggleCartOverlay = styled.a`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 10;
-`;
+`
 
-export default App;
+export default App

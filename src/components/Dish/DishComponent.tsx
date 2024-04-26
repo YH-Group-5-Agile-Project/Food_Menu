@@ -1,16 +1,16 @@
-import { Dish } from "../Models/Dish";
-import styled from "styled-components";
+import { Dish } from "../../Models/Dish"
+import styled from "styled-components"
 
 interface DishComponentProps {
-  key: number;
-  dish: Dish;
-  isSelected: boolean;
-  onClick: () => void;
-  isSideDish: boolean;
+  key: number
+  dish: Dish
+  isSelected: boolean
+  onClick: () => void
+  isSideDish: boolean
 }
 
 interface FoodProps {
-  selected: boolean;
+  selected: boolean
 }
 
 const DishComponent = ({ dish, isSelected, onClick }: DishComponentProps) => {
@@ -21,10 +21,10 @@ const DishComponent = ({ dish, isSelected, onClick }: DishComponentProps) => {
         {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
       </ImageContainer>
     </DishContainer>
-  );
-};
+  )
+}
 
-export default DishComponent;
+export default DishComponent
 
 const DishContainer = styled.div<FoodProps>`
   position: relative;
@@ -41,7 +41,7 @@ const DishContainer = styled.div<FoodProps>`
   @media (max-width: 949px) {
     margin-bottom: 20px;
   } */
-`;
+`
 
 const ImageContainer = styled.div<FoodProps>`
   position: relative;
@@ -59,14 +59,14 @@ const ImageContainer = styled.div<FoodProps>`
       height: 100px;
       `} */
   }
-`;
+`
 
 const DishImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
-`;
+`
 
 const TitleOverlay = styled.div`
   position: absolute;
@@ -87,4 +87,4 @@ const TitleOverlay = styled.div`
   @media (max-width: 949px) {
     font-size: 9px;
   }
-`;
+`

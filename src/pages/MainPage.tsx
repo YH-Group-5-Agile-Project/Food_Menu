@@ -1,4 +1,4 @@
-import { DishListComponent } from "../components/DishListComponent";
+import { DishListComponent } from "../components/Dish/DishListComponent"
 
 const MainPage = () => {
   return (
@@ -7,7 +7,7 @@ const MainPage = () => {
         <DishListComponent dishType="mainDish" />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage

@@ -1,58 +1,54 @@
-import styled from "styled-components";
-import { Dish } from "../Models/Dish";
-import { PostQuery } from "../services/DbService";
-import { Order } from "../Models/Order";
-import {
-  CalculateCostOrder,
-  IncreamentId,
-  SaveOrderToCart,
-} from "../services/CartService";
-import { Drink } from "../Models/Drink";
-import { useState } from "react";
-import { RecommendDrink } from "./RecommendDrinkComponent";
-import DecorationLineImage from "../assets/design-assets/DecorationLine.png";
-import Texture from "../assets/design-assets/climpek.png";
-import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
+import styled from "styled-components"
+import { Dish } from "../../Models/Dish"
+import { PostQuery } from "../../services/DbService"
+import { Order } from "../../Models/Order"
+import { CalculateCostOrder, IncreamentId, SaveOrderToCart } from "../../services/CartService"
+import { Drink } from "../../Models/Drink"
+import { useState } from "react"
+import { RecommendDrink } from "../Drink/RecommendDrinkComponent"
+import DecorationLineImage from "../../assets/design-assets/DecorationLine.png"
+import Texture from "../../assets/design-assets/climpek.png"
+import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 
-let tempDish: Dish;
-let tempSide: Dish | undefined;
+let tempDish: Dish
+let tempSide: Dish | undefined
 
 interface AddToCartPopupProps {
-  dish: Dish;
-  onClose: () => void;
+  dish: Dish
+  onClose: () => void
 }
 
 export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
-  const [sideOrDrink, setSideOrDrink] = useState<boolean>(false);
-  const { data, isLoading, error } = PostQuery("sideDish");
-  const [showItemAdded, setShowItemAdded] = useState(false);
+  const [sideOrDrink, setSideOrDrink] = useState<boolean>(false)
+  const { data, isLoading, error } = PostQuery("sideDish")
+  const [showItemAdded, setShowItemAdded] = useState(false)
 
   const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
-    tempDish = { ...dish };
-    tempSide = sideDish ? { ...sideDish } : undefined;
-    setSideOrDrink(true);
-  };
+    tempDish = { ...dish }
+    tempSide = sideDish ? { ...sideDish } : undefined
+    setSideOrDrink(true)
+  }
 
   const sendToCart = (_drink?: Drink) => {
-    if (tempSide != null) tempSide.price = 0;
+    if (tempSide != null) tempSide.price = 0
     let newOrder: Order = {
       id: IncreamentId(),
       main: tempDish,
       sides: tempSide,
       drink: _drink,
       OrderCost: 0,
-    };
+    }
 
-    setShowItemAdded(true);
+    setShowItemAdded(true)
     setTimeout(() => {
-      onClose();
-      setShowItemAdded(false);
-    }, 2000);
-    newOrder.OrderCost = CalculateCostOrder(newOrder);
-    SaveOrderToCart(newOrder);
-  };
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+      onClose()
+      setShowItemAdded(false)
+    }, 2000)
+    newOrder.OrderCost = CalculateCostOrder(newOrder)
+    SaveOrderToCart(newOrder)
+  }
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
 
   return (
     <>
@@ -71,12 +67,9 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                 <SideContainer
                   key={sideDish._id}
                   onClick={() => {
-                    loadRecommendedDrink(dish, sideDish);
-                  }}
-                >
-                  {sideDish.timeInMins === dish.price && (
-                    <RecommendedChoice>Recommended choice</RecommendedChoice>
-                  )}
+                    loadRecommendedDrink(dish, sideDish)
+                  }}>
+                  {sideDish.timeInMins === dish.price && <RecommendedChoice>Recommended choice</RecommendedChoice>}
                   <InnerContainer>
                     <DishImage src={sideDish.imageUrl} alt="" />
                     <DishTitle>{sideDish.title}</DishTitle>
@@ -86,56 +79,45 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
             </ItemContainer>
             <Button
               onClick={() => {
-                loadRecommendedDrink(dish);
-              }}
-            >
+                loadRecommendedDrink(dish)
+              }}>
               I don't want a side
             </Button>
+            <Button onClick={onClose}>Cancel</Button>
           </>
         ) : (
-          <RecommendDrink
-            showItemAdded={showItemAdded}
-            dish={tempDish}
-            sendToCart={sendToCart}
-          ></RecommendDrink>
+          <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
         )}
-
-        <Button onClick={onClose}>Cancel</Button>
       </PopupContainer>
     </>
-  );
+  )
 }
 
 const TitleBox = styled.h2`
   width: 100%;
-`;
+`
 
 const InnerContainer = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
 const ItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   padding-left: 20px;
   padding-right: 20px;
-`;
+`
 
 const BreakLine = styled.img`
   width: 95%;
   object-fit: cover;
   height: 55px;
-`;
+`
 
 const Button = styled.button`
   justify-self: center;
-  &:hover,
-  &:focus {
-    color: grey;
-    border-color: grey;
-  }
-`;
+`
 
 const SideContainer = styled.button`
   position: relative;
@@ -153,12 +135,12 @@ const SideContainer = styled.button`
   flex-wrap: wrap;
   justify-content: center;
   background-color: var(--fifthColor);
-`;
+`
 const DishImage = styled.img`
   width: 50%;
   border-radius: 20px;
   margin-right: 10px;
-`;
+`
 const DishTitle = styled.div`
   width: 50%;
   font-size: 1rem;
@@ -166,7 +148,7 @@ const DishTitle = styled.div`
   @media (max-width: 949px) {
     font-size: 0.7rem;
   }
-`;
+`
 const RecommendedChoice = styled.div`
   position: absolute;
   width: 60%;
@@ -178,7 +160,7 @@ const RecommendedChoice = styled.div`
   background-color: var(--secondColor);
   top: -15px;
   z-index: 1;
-`;
+`
 
 const Overlay = styled.div`
   width: 100%;
@@ -189,7 +171,7 @@ const Overlay = styled.div`
   top: 0;
   left: 0;
   opacity: 70%;
-`;
+`
 const PopupContainer = styled.div`
   position: fixed;
   top: 50%;
@@ -216,4 +198,4 @@ const PopupContainer = styled.div`
   @media (max-width: 609px) {
     width: 95%;
   }
-`;
+`

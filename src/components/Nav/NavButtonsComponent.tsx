@@ -1,54 +1,54 @@
-import { Link } from "react-router-dom";
-import { ToCartButton } from "./CartButtonComponent";
-import { ToggleCartOverlay } from "../App";
-import CartComponent from "./CartComponent";
-import { useEffect, useReducer } from "react";
-import { styled } from "styled-components";
+import { Link } from "react-router-dom"
+import { ToCartButton } from "../Cart/CartButtonComponent"
+import { ToggleCartOverlay } from "../../App"
+import CartComponent from "../Cart/CartComponent"
+import { useEffect, useReducer } from "react"
+import { styled } from "styled-components"
 
 const setCurrentPages = (setPages: Function) => {
-  const currentPage = location.pathname;
+  const currentPage = location.pathname
   switch (currentPage) {
     case "/main":
-      setPages("", "/sides", "", "Next");
-      break;
+      setPages("", "/sides", "", "Next")
+      break
     case "/sides":
-      setPages("/main", "/drink", "Back", "Next");
-      break;
+      setPages("/main", "/drink", "Back", "Next")
+      break
     case "/drink":
-      setPages("/sides", "/checkout", "Back", "To checkout");
-      break;
+      setPages("/sides", "/checkout", "Back", "To checkout")
+      break
     case "/checkout":
-      setPages("/drink", "", "Back", "");
-      break;
+      setPages("/drink", "", "Back", "")
+      break
     default:
-      setPages("", "", "", "");
+      setPages("", "", "", "")
   }
-};
+}
 
 type PageNavState = {
-  cartVisible: boolean;
-  prevPage: string;
-  nextPage: string;
-  prevButtonText: string;
-  nextButtonText: string;
-};
+  cartVisible: boolean
+  prevPage: string
+  nextPage: string
+  prevButtonText: string
+  nextButtonText: string
+}
 
 type Action =
   | { type: "TOGGLE_CART" }
   | {
-      type: "SET_PAGES";
+      type: "SET_PAGES"
       payload: {
-        prevPage: string;
-        nextPage: string;
-        prevButtonText: string;
-        nextButtonText: string;
-      };
-    };
+        prevPage: string
+        nextPage: string
+        prevButtonText: string
+        nextButtonText: string
+      }
+    }
 
 const reducer = (state: PageNavState, action: Action) => {
   switch (action.type) {
     case "TOGGLE_CART":
-      return { ...state, cartVisible: !state.cartVisible };
+      return { ...state, cartVisible: !state.cartVisible }
     case "SET_PAGES":
       return {
         ...state,
@@ -56,11 +56,11 @@ const reducer = (state: PageNavState, action: Action) => {
         nextPage: action.payload.nextPage,
         prevButtonText: action.payload.prevButtonText,
         nextButtonText: action.payload.nextButtonText,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 const initialState = {
   cartVisible: false,
@@ -69,21 +69,16 @@ const initialState = {
   buttonText: "",
   prevButtonText: "",
   nextButtonText: "",
-};
+}
 
 export const NavButtons = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
-    setCurrentPages(setPages);
-  }, [location.pathname]);
+    setCurrentPages(setPages)
+  }, [location.pathname])
 
-  const setPages = (
-    prev: string,
-    next: string,
-    prevText: string,
-    nextText: string,
-  ) => {
+  const setPages = (prev: string, next: string, prevText: string, nextText: string) => {
     dispatch({
       type: "SET_PAGES",
       payload: {
@@ -92,12 +87,12 @@ export const NavButtons = () => {
         prevButtonText: prevText,
         nextButtonText: nextText,
       },
-    });
-  };
+    })
+  }
 
   const toggleCart = () => {
-    dispatch({ type: "TOGGLE_CART" });
-  };
+    dispatch({ type: "TOGGLE_CART" })
+  }
 
   return (
     <PageNavWrapper>
@@ -123,8 +118,8 @@ export const NavButtons = () => {
         </>
       )}
     </PageNavWrapper>
-  );
-};
+  )
+}
 
 const PageNavWrapper = styled.div`
   margin-bottom: 5px;
@@ -139,4 +134,4 @@ const PageNavWrapper = styled.div`
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
   }
-`;
+`
