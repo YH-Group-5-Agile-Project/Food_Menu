@@ -49,7 +49,9 @@ const TextSignFunction = ({ spans }: { spans: string[] }) => {
 }
 
 export const TextBox = () => {
-  let spans = ["T", "h", "a", "n", "k", " ", "Y", "o", "u", " ", "F", "o", "r", " ", "P", "a", "y", "i", "n", "g", " ", "W", "i", "t", "h", " ", "O", "u", "r", " ", "A", "p", "p"]
+  // let spans = ["T", "h", "a", "n", "k", " ", "Y", "o", "u", " ", "F", "o", "r", " ", "P", "a", "y", "i", "n", "g", " ", "W", "i", "t", "h", " ", "O", "u", "r", " ", "A", "p", "p"]
+  // let spans = ["Y", "o", "u", " ", "A", "r", "e", " ", "H", "a", "c", "k", "e", "d"]
+  let spans = ["Y", "o", "u", "'", "v", "e", " ", "B", "e", "e", "n", " ", "H", "a", "c", "k", "e", "d"]
 
   useEffect(() => {
     TextSignFunction({ spans })
