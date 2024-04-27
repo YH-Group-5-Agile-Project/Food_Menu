@@ -13,6 +13,7 @@ import { Navbar } from "./components/Nav/NavbarComponent"
 import { NavButtons } from "./components/Nav/NavButtonsComponent"
 import { useEffect, useState } from "react"
 import OrderConfirmationPage from "./pages/OrderConfirmationPage"
+import { TextBox } from "./components/Rain/TextBox"
 
 function App() {
   const [scrolled, setScrolled] = useState<boolean>(false)
@@ -36,24 +37,26 @@ function App() {
 
   return (
     // navbar
-    <LayoutDiv>
-      {location.pathname !== "/" && location.pathname !== "/orderconfirmation" && (
-        <NavigationWrapper>
-          <Navbar currentPage={location.pathname} />
-          <NavButtons />
-        </NavigationWrapper>
-      )}
-      <ContentDiv>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/main" element={<MenuPage />} />
-          <Route path="/sides" element={<SidePage />} />
-          <Route path="/drink" element={<DrinkPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/orderconfirmation" element={<OrderConfirmationPage />} />
-        </Routes>
-      </ContentDiv>
-    </LayoutDiv>
+    <>
+      <LayoutDiv>
+        {location.pathname !== "/" && location.pathname !== "/orderconfirmation" && (
+          <NavigationWrapper>
+            <Navbar currentPage={location.pathname} />
+            <NavButtons />
+          </NavigationWrapper>
+        )}
+        <ContentDiv>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/main" element={<MenuPage />} />
+            <Route path="/sides" element={<SidePage />} />
+            <Route path="/drink" element={<DrinkPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/orderconfirmation" element={<OrderConfirmationPage />} />
+          </Routes>
+        </ContentDiv>
+      </LayoutDiv>
+    </>
   )
 }
 

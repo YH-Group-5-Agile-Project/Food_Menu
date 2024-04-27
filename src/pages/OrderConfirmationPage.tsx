@@ -4,20 +4,13 @@ import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
 import { Cart } from "../Models/Cart"
 import { ResetCart } from "../services/CartService"
-import {
-  BottomContainer,
-  CheckoutContainer,
-  ContentContainer,
-  OrderRow,
-  PriceCell,
-  PricePayContainer,
-  ProductCell,
-  StyledList,
-} from "../components/Checkout/CheckoutComponent"
+import { BottomContainer, CheckoutContainer, ContentContainer, OrderRow, PriceCell, PricePayContainer, ProductCell, StyledList } from "../components/Checkout/CheckoutComponent"
+import { TextBox } from "../components/Rain/TextBox"
 
 const OrderConfirmationPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const [isRaining, setIsRaining] = useState<boolean>(true)
 
   const { OrderList = [], TotalCost = 0 }: Omit<Cart, "id"> = location.state ?? {}
 
@@ -26,40 +19,61 @@ const OrderConfirmationPage = () => {
     ResetCart()
   }, [])
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsRaining(false)
+    }, 10000)
+  })
+
   return (
-    <Container>
-        <Nav>
-          <h2>Thank you for your order</h2>
-          <StyledNavLink to="/">Home</StyledNavLink>
-        </Nav>
-      <ContentContainer>
-        <table>
-          <tbody>
-            {OrderList.map((order) => (
-              <OrderRow key={order.id}>
-                <ProductCell>
-                  <StyledList>
-                    {order.main?.title && <li>{order.main.title}</li>}
-                    {order.sides?.title && <li>{order.sides.title}</li>}
-                    {order.drink?.name && <li>{order.drink.name}</li>}
-                    {order?.comment && <p>Comment: {order.comment}</p>}
-                  </StyledList>
-                </ProductCell>
-                <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
-              </OrderRow>
-            ))}
-          </tbody>
-        </table>
-      </ContentContainer>
-      <BottomContainer>
-        <PricePayContainer>
-          <h1>Total price: {TotalCost} SEK</h1>
-        </PricePayContainer>
-      </BottomContainer>
-    </Container>
+    <>
+      {isRaining ? (
+        <FullContainer>
+          <TextBox />
+        </FullContainer>
+      ) : (
+        <Container>
+          <Nav>
+            <h2>Thank you for your order</h2>
+            <StyledNavLink to="/">Home</StyledNavLink>
+          </Nav>
+          <ContentContainer>
+            <table>
+              <tbody>
+                {OrderList.map((order) => (
+                  <OrderRow key={order.id}>
+                    <ProductCell>
+                      <StyledList>
+                        {order.main?.title && <li>{order.main.title}</li>}
+                        {order.sides?.title && <li>{order.sides.title}</li>}
+                        {order.drink?.name && <li>{order.drink.name}</li>}
+                        {order?.comment && <p>Comment: {order.comment}</p>}
+                      </StyledList>
+                    </ProductCell>
+                    <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+                  </OrderRow>
+                ))}
+              </tbody>
+            </table>
+          </ContentContainer>
+          <BottomContainer>
+            <PricePayContainer>
+              <h1>Total price: {TotalCost} SEK</h1>
+            </PricePayContainer>
+          </BottomContainer>
+        </Container>
+      )}
+    </>
   )
 }
 
+const FullContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+`
 const Nav = styled.div`
   width: 100%;
   display: flex;
@@ -85,12 +99,10 @@ const StyledNavLink = styled(NavLink)`
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  background: url("assets/design-assets/diamonds-are-forever.png"),
-    linear-gradient(rgb(244, 255, 174), var(--fifthColor));
+  background: url("assets/design-assets/diamonds-are-forever.png"), linear-gradient(rgb(244, 255, 174), var(--fifthColor));
 
   &:hover {
-    background: url("assets/design-assets/diamonds-are-forever.png"),
-      linear-gradient(rgb(200, 200, 220), var(--fifthColor));
+    background: url("assets/design-assets/diamonds-are-forever.png"), linear-gradient(rgb(200, 200, 220), var(--fifthColor));
     color: var(--firstColor);
   }
 `
