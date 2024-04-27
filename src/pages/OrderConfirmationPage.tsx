@@ -10,6 +10,8 @@ import { TextBox } from "../components/Rain/TextBox"
 const OrderConfirmationPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
+
+  // set to false to stop the raining
   const [isRaining, setIsRaining] = useState<boolean>(true)
 
   const { OrderList = [], TotalCost = 0 }: Omit<Cart, "id"> = location.state ?? {}
