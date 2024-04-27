@@ -22,7 +22,7 @@ const OrderConfirmationPage = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsRaining(false)
-    }, 10000)
+    }, 8000)
   })
 
   return (
