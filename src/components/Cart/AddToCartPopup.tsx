@@ -10,6 +10,7 @@ import DecorationLineImage from "../../assets/design-assets/DecorationLine.png"
 import Texture from "../../assets/design-assets/climpek.png"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 import { SideRecommendation } from "../../services/RecommendationService"
+import { ShortName } from "../../services/ShortNameService"
 
 let tempDish: Dish
 let tempSide: Dish | undefined
@@ -86,10 +87,10 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   <SideContainer 
                   key={recSideDish._id} 
                   onClick={() => {loadRecommendedDrink(dish, recSideDish)}}>
-                  <RecommendedChoice>Recommended choice</RecommendedChoice>
+                  <RecommendedChoice>{window.outerWidth < 800 ? "Recommended" : "Recommended choice"}</RecommendedChoice>
                     <InnerContainer>
                       <DishImage src={recSideDish.imageUrl} alt=""/>
-                      <DishTitle>{recSideDish.title}</DishTitle>
+                      <DishTitle>{window.outerWidth < 800 ? ShortName(recSideDish._id) : recSideDish.title}</DishTitle>
                     </InnerContainer>
                   </SideContainer>                
                 </>
@@ -104,7 +105,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   {sideDish.timeInMins === dish.price && <RecommendedChoice>Recommended choice</RecommendedChoice>}
                   <InnerContainer>
                     <DishImage src={sideDish.imageUrl} alt="" />
-                    <DishTitle>{sideDish.title}</DishTitle>
+                    <DishTitle>{window.outerWidth < 800 ? ShortName(sideDish._id) : sideDish.title}</DishTitle>
                   </InnerContainer>
                 </SideContainer>
               ))}
@@ -198,8 +199,11 @@ const RecommendedChoice = styled.div`
   padding: 5px;
   color: var(--sixthColor);
   background-color: var(--secondColor);
-  top: -15px;
+  top: -20px;
   z-index: 1;
+  @media (max-width: 800px) {
+    font-size: 0.7rem;
+  }
 `
 
 const Overlay = styled.div`

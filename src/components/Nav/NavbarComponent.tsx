@@ -20,10 +20,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <NavbarContainer>
       <NavLink to="/main" className={({ isActive }) => (isActive ? styles.activeNav : styles.inactiveNav)}>
-        Main dish
+      {window.outerWidth < 800 ? "Main" : "Main dish"}
       </NavLink>
       <NavLink to="/sides" className={({ isActive }) => (isActive ? styles.activeNav : styles.inactiveNav)}>
-        Side dish
+      {window.outerWidth < 800 ? "Side" : "Side dish"}
       </NavLink>
       <NavLink to="/drink" className={({ isActive }) => (isActive ? styles.activeNav : styles.inactiveNav)}>
         Drink
