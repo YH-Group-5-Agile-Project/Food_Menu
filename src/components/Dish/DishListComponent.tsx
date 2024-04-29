@@ -9,16 +9,21 @@ import { PostQuery } from "../../services/DbService"
 import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
 import React from "react"
 
+
 let tempDish: Dish
 
 interface dishInput {
   dishType: string
 }
-const transitionTime = 1
+const transitionTime = 800
 
 interface FoodProps {
   selected: boolean
   $isOpen: boolean
+}
+
+interface Spacer {
+  spacer: boolean
 }
 
 const SendToCart = (dish: Dish) => {
@@ -54,19 +59,17 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const { data, isLoading, error } = PostQuery(dishType)
   let itemName: string = "item"
 
-  useEffect(() => {
-    if (selectedDish !== null && dishRefs.current[selectedDish] !== null) {
-      const timer = setTimeout(() => {
-        if (dishRefs.current[selectedDish] !== null) {
-          dishRefs.current[selectedDish].scrollIntoView({ behavior: 'smooth', block: 'start', });
-        }
-      }, 10);
-  
-      return () => clearTimeout(timer);
-    }
-  }, [selectedDish]);
+  const [spacerDivOn, setSpacerDivOn] = useState(false)
+
+  const setSpacerWithTimeOut = () => {
+    if (isOpenInfo) setTimeout(() => {
+      setSpacerDivOn(!spacerDivOn)
+    }, 800)
+    else setSpacerDivOn(!spacerDivOn)
+  }
 
   const HandleClick = (index: number) => {
+    setSpacerWithTimeOut()
     if (index === selectedDish) {
       setIsOpenInfo(false)
       setSelectedInfo(false)
@@ -108,8 +111,9 @@ export const DishListComponent = ({ dishType }: dishInput) => {
               <DishComponent
                 key={index}
                 dish={dish}
+                isOpen={!selectedInfo}
                 isSelected={index === selectedDish}
-                onClick={() => HandleClick(index)}
+                expandDish={() => HandleClick(index)}
                 isSideDish={dishType.toLowerCase() === "sidedish"}
               />
             </div>
@@ -142,11 +146,18 @@ export const DishListComponent = ({ dishType }: dishInput) => {
             )}
           </React.Fragment>
         ))}
+        <SpacerDiv spacer={spacerDivOn}></SpacerDiv>
       </DishesContainer>
       {isPopupOpen && <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />}
+
     </>
   )
 }
+
+const SpacerDiv = styled.div<Spacer>`
+  height: 400px;
+  display: ${(props) => (props.spacer ? "block" : "none")};
+`
 
 const ExpandAnimation = keyframes`
   0% {

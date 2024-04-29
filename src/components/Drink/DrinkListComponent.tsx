@@ -13,6 +13,10 @@ interface FoodProps {
   isOpen: boolean
 }
 
+interface Spacer {
+  spacer: boolean
+}
+
 export const DrinkListComponent = () => {
   let drinkListIDs = [
     "12768",
@@ -31,6 +35,14 @@ export const DrinkListComponent = () => {
 
   const [drinkList, setDrinkList] = useState<Drink[]>([])
   const [showItemAdded, setShowItemAdded] = useState(false)
+  const [spacerDivOn, setSpacerDivOn] = useState(false)
+
+  const setSpacerWithTimeOut = () => {
+    if (isOpenInfo) setTimeout(() => {
+      setSpacerDivOn(!spacerDivOn)
+    }, 800)
+    else setSpacerDivOn(!spacerDivOn)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +59,7 @@ export const DrinkListComponent = () => {
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false)
 
   const HandleClick = (index: number) => {
+    setSpacerWithTimeOut()
     if (index === selectedDrink) {
       setIsOpenInfo(false)
       setSelectedInfo(false)
@@ -94,19 +107,19 @@ export const DrinkListComponent = () => {
                   }
                 }}>
                 <TextContainer>
-                  <DishTitle>{drink.name}</DishTitle>
-                  <DishDescription>
-                    <DishPrice>{drink.price} SEK</DishPrice>
+                  <DrinkTitle>{drink.name}</DrinkTitle>
+                  <DrinkDescription>
                     <p>{drink.alcoholic ? "Alcoholic" : "Non-Alcoholic"}</p>
-                  </DishDescription>
-                  <DishIngredients>
+                  </DrinkDescription>
+                  <DrinkIngredients>
                     <strong>Ingredients: </strong>
                     {drink.ingredients.join(", ")}.
-                  </DishIngredients>
+                  </DrinkIngredients>
+                  <PriceButtonContainer>
+                    <DrinkPrice>{drink.price} SEK</DrinkPrice>
+                    <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(drink)}>Add to order</StyledButton>
+                  </PriceButtonContainer>
                 </TextContainer>
-                <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(drink)}>
-                  <ItemAddedPopup>Add to order</ItemAddedPopup>
-                </StyledButton>
                 {showItemAdded && <ItemAddedToCartPopup Item={drink.name} />}
               </ExpandedDrink>
             )}
@@ -115,14 +128,18 @@ export const DrinkListComponent = () => {
           <></>
         )
       })}
-      <SpacerDiv selected={selectedInfo} isOpen={isOpenInfo}></SpacerDiv>
+      <SpacerDiv spacer={spacerDivOn}></SpacerDiv>
     </DrinksContainer>
   )
 }
-const SpacerDiv = styled.div<FoodProps>`
-  height: 280px;
+
+
+
+const SpacerDiv = styled.div<Spacer>`
+  height: 400px;
+  display: ${(props) => (props.spacer ? "block" : "none")};
 `
-const ItemAddedPopup = styled.div``
+
 
 const ExpandAnimation = keyframes`
   0% {
@@ -165,7 +182,7 @@ const ExpandedDrink = styled.div<FoodProps>`
   max-height: ${(props) => (props.isOpen ? "280px" : "0")};
   opacity: ${(props) => (props.isOpen ? "1" : "0")};
   height: 280px;
-  width: 90%;
+  width: 700px;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
@@ -177,6 +194,15 @@ const ExpandedDrink = styled.div<FoodProps>`
   animation-duration: ${transitionTime}ms;
   display: flex;
   align-items: start;
+  justify-content: center;
+
+  @media (max-width: 949px) {
+    width: 400px;
+  }
+
+  @media (max-width: 549px) {
+    width: 360px;
+  }
 `
 
 const DrinksContainer = styled.div`
@@ -184,13 +210,11 @@ const DrinksContainer = styled.div`
   column-gap: 32px;
   justify-content: center;
   position: relative;
-  place-items: start;
+  place-items: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
   overflow: hidden;
-
-  /* 220px -------- minmax(250px, 1fr) */
 
   @media (max-width: 949px) {
     width: 500px;
@@ -200,35 +224,46 @@ const DrinksContainer = styled.div`
 
   @media (max-width: 549px) {
     width: 360px;
-    //gap: 10px;
   }
 `
 
-const DishDescription = styled.p`
+const DrinkDescription = styled.p`
   margin: 10px 0;
   text-align: left;
 `
 
-const DishTitle = styled.h2`
+const DrinkTitle = styled.h2`
   margin: 10px;
 `
 
 const TextContainer = styled.div`
-  width: 80%;
-  @media (max-width: 768px) {
-    font-size: 2.5vw;
+  width: 90%;
+  @media (max-width: 949px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 549px) {
+    font-size: 14px;
   }
 `
 
-const DishPrice = styled.h2``
-
-const DishIngredients = styled.div`
+  const DrinkIngredients = styled.div`
   text-align: left;
 `
 
+const PriceButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const DrinkPrice = styled.h2`
+text-align: left;
+flex: 1 1 auto;
+`
+
 const StyledButton = styled.button`
-  align-self: center;
-  /*margin: 20px;
-  width: 20%;
-  height: 140px;*/
+  text-align: right;
+  flex: 0 1 auto;
 `

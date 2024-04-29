@@ -1,11 +1,13 @@
+import { useRef } from "react"
 import { Dish } from "../../Models/Dish"
 import styled from "styled-components"
 
 interface DishComponentProps {
   key: number
   dish: Dish
+  expandDish: () => void
+  isOpen: boolean
   isSelected: boolean
-  onClick: () => void
   isSideDish: boolean
 }
 
@@ -13,9 +15,25 @@ interface FoodProps {
   selected: boolean
 }
 
-const DishComponent = ({ dish, isSelected, onClick }: DishComponentProps) => {
+const DishComponent = ({ dish, expandDish, isOpen, isSelected }: DishComponentProps) => {
+
+  const ExpandedRef = useRef<HTMLDivElement>(null)
+  
+  const clickedEvents = () => {
+    expandDish()
+
+      setTimeout( () => {
+        ExpandedRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: isOpen ? "start" : "end",
+        })
+      },10)
+      
+
+  }
+
   return (
-    <DishContainer selected={isSelected} onClick={onClick}>
+    <DishContainer selected={isSelected} ref={ExpandedRef} onClick={clickedEvents}>
       <ImageContainer selected={isSelected}>
         <DishImage src={dish.imageUrl} alt={dish.title} />
         {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
@@ -32,32 +50,16 @@ const DishContainer = styled.div<FoodProps>`
   justify-content: center;
   cursor: pointer;
   margin-bottom: 32px;
-
-  /* justify-content: center;
-  cursor: pointer;
-
-  margin-bottom: 20px;
-
-  @media (max-width: 949px) {
-    margin-bottom: 20px;
-  } */
 `
 
 const ImageContainer = styled.div<FoodProps>`
   position: relative;
   width: 250px;
   height: 250px;
-  //transition: all 0.3s ease;
 
   @media (max-width: 949px) {
     width: 150px;
     height: 150px;
-    /* ${(props) =>
-      props.selected &&
-      `
-      width: 100px;
-      height: 100px;
-      `} */
   }
 `
 
