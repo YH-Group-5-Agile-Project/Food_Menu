@@ -48,7 +48,7 @@ export const RecommendDrink = (props: DrinkProps) => {
               onClick={() => {
                 props.sendToCart()
               }}>
-              {window.outerWidth < 800 ? "No tanks" : "No, just the food for now"}
+              {window.outerWidth < 800 ? "No thanks" : "No, just the food for now"}
             </Button>
             <Button
               disabled={props.showItemAdded}
