@@ -64,13 +64,13 @@ const CheckoutComponent = () => {
             <ProductCell>
               <StyledList>
                 {order.main?.title && <NoBulletLi>
-                  <GiHamburger style={{marginRight: '20px'}} />{order.main.title}
+                  <GiHamburger style={{marginRight: '20px', fontSize: '1.7rem'}} />{order.main.title}
                 </NoBulletLi>}
                 {order.sides?.title && <NoBulletLi>
-                  <GiFrenchFries style={{marginRight: '20px'}}/>{order.sides.title}
+                  <GiFrenchFries style={{marginRight: '20px', fontSize: '1.9rem'}}/>{order.sides.title}
                 </NoBulletLi>}
                 {order.drink?.name && <NoBulletLi>
-                  <BiDrink style={{marginRight: '20px'}}/>{order.drink.name}
+                  <BiDrink style={{marginRight: '20px', fontSize: '1.7rem'}}/>{order.drink.name}
                 </NoBulletLi>}
                 {order?.comment && <p>Comment: {order.comment}</p>}
               </StyledList>
