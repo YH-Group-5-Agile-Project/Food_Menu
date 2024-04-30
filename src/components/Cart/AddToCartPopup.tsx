@@ -73,7 +73,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
         <Overlay />
       </a>
       <PopupContainer className="add-to-cart-popup">
-        {showItemAdded && <ItemAddedToCartPopup Item="Menu " />}
+        {showItemAdded && <ItemAddedToCartPopup/>}
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
         {!sideOrDrink ? (
