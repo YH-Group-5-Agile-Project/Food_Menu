@@ -99,6 +99,11 @@ export const CartComponent = (props: CloseProp) => {
               <PriceHeader>Total price: {CalculateCostCart(cart)} SEK</PriceHeader>
             </PricePayContainer>
           )}
+          {cart.OrderList.length<1 ? 
+          <NavLink to="/main" onClick={props.CloseClick}>
+            <button>Start your order</button>
+          </NavLink>
+          :
           <ButtonContainer>
             <button onClick={() => onEmpty()}>Empty Order</button>
             <button onClick={props.CloseClick}>Close</button>
@@ -108,6 +113,7 @@ export const CartComponent = (props: CloseProp) => {
               </StyledNavLink>
             </button>
           </ButtonContainer>
+          }
         </BottomContainer>
       </CartContainer>
     </>
