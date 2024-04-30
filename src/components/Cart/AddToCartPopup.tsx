@@ -136,8 +136,6 @@ const InnerContainer = styled.div`
 const ItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-  padding-left: 20px;
-  padding-right: 20px;
 `
 const BreakLine = styled.img`
   width: 95%;
@@ -145,6 +143,7 @@ const BreakLine = styled.img`
   height: 55px;
 `
 const Button = styled.button`
+margin-top: 10px;
   justify-self: center;
 `
 const NoSideButton = styled.button`
@@ -156,7 +155,7 @@ const NoSideButton = styled.button`
 const SideContainer = styled.button`
   position: relative;
   margin: 10px;
-  border-radius: 30px;
+  border-radius: 20px;
   // margin-left: 1rem;
   // margin-right: 1rem;
   // margin-bottom: 4px;
@@ -180,7 +179,7 @@ const DishTitle = styled.div`
   font-size: 1rem;
 
   @media (max-width: 949px) {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `
 const RecommendedChoice = styled.div`

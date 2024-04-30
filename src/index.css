@@ -8,9 +8,9 @@
   --seventhColor: #d1fffb;
   
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: 'Bad script';
-  line-height: 1.5;
+  font-family: "Charm", cursive;
   font-weight: 400;
+  font-style: normal;
 
   color-scheme: light dark;
   color: var(--sixthColor);
