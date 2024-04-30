@@ -109,7 +109,7 @@ const DrinkRecommendationParent = styled.div`
 
 const DrinkImage = styled.img`
   width: 50%;
-  border-radius: 20px;
+  border-radius: 20px;z
 `
 
 const Button = styled.button`
