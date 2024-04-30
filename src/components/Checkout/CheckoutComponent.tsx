@@ -4,6 +4,8 @@ import { Cart } from "../../Models/Cart"
 import { CalculateCostCart, GetCart } from "../../services/CartService"
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent"
 import { useNavigate } from "react-router-dom"
+import { GiFrenchFries, GiHamburger } from "react-icons/gi"
+import { BiDrink } from "react-icons/bi"
 
 const CheckoutComponent = () => {
   const navigate = useNavigate()
@@ -53,7 +55,7 @@ const CheckoutComponent = () => {
       })
     }
   }
-
+ 
   return (
     <CheckoutContainer>
       <ContentContainer>
@@ -61,9 +63,15 @@ const CheckoutComponent = () => {
           <OrderRow key={order.id}>
             <ProductCell>
               <StyledList>
-                {order.main?.title && <li>{order.main.title}</li>}
-                {order.sides?.title && <li>{order.sides.title}</li>}
-                {order.drink?.name && <li>{order.drink.name}</li>}
+                {order.main?.title && <NoBulletLi>
+                  <GiHamburger style={{marginRight: '20px', fontSize: '1.7rem'}} />{order.main.title}
+                </NoBulletLi>}
+                {order.sides?.title && <NoBulletLi>
+                  <GiFrenchFries style={{marginRight: '20px', fontSize: '1.9rem'}}/>{order.sides.title}
+                </NoBulletLi>}
+                {order.drink?.name && <NoBulletLi>
+                  <BiDrink style={{marginRight: '20px', fontSize: '1.7rem'}}/>{order.drink.name}
+                </NoBulletLi>}
                 {order?.comment && <p>Comment: {order.comment}</p>}
               </StyledList>
             </ProductCell>
@@ -99,6 +107,10 @@ const CheckoutComponent = () => {
     </CheckoutContainer>
   )
 }
+
+export const NoBulletLi = styled.li`
+  list-style-type: none;
+`
 
 export default CheckoutComponent
 

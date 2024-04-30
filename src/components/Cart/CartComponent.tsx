@@ -13,7 +13,10 @@ import {
   ProductCell,
   ButtonWrapper,
   StyledList,
+  NoBulletLi,
 } from "../Checkout/CheckoutComponent"
+import { GiFrenchFries, GiHamburger } from "react-icons/gi"
+import { BiDrink } from "react-icons/bi"
 
 interface CloseProp {
   CloseClick: () => void
@@ -67,9 +70,15 @@ export const CartComponent = (props: CloseProp) => {
                 <OrderRow key={order.id}>
                   <ProductCell>
                     <StyledList>
-                      {order.main?.title && <li>{order.main.title}</li>}
-                      {order.sides?.title && <li>{order.sides.title}</li>}
-                      {order.drink?.name && <li>{order.drink.name}</li>}
+                      {order.main?.title && <NoBulletLi>
+                        <GiHamburger style={{marginRight: '20px', fontSize: '1.7rem'}} />{order.main.title}
+                      </NoBulletLi>}
+                      {order.sides?.title && <NoBulletLi>
+                        <GiFrenchFries style={{marginRight: '20px', fontSize: '1.9rem'}}/>{order.sides.title}
+                      </NoBulletLi>}
+                      {order.drink?.name && <NoBulletLi>
+                        <BiDrink style={{marginRight: '20px', fontSize: '1.7rem'}}/>{order.drink.name}
+                      </NoBulletLi>}
                       {order?.comment && <p>Comment: {order.comment}</p>}
                     </StyledList>
                   </ProductCell>
