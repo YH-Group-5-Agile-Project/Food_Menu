@@ -109,7 +109,7 @@ export const DrinkListComponent = () => {
                 <TextContainer>
                   <DrinkTitle>{drink.name}</DrinkTitle>
                   <DrinkDescription>
-                    <p>{drink.alcoholic ? "Alcoholic" : "Non-Alcoholic"}</p>
+                    <p>{drink.alcoholic ? <strong>Alcholic</strong> : <strong>Non-alcholic.</strong>}</p>
                   </DrinkDescription>
                   <DrinkIngredients>
                     <strong>Ingredients: </strong>

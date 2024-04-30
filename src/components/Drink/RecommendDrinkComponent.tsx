@@ -31,7 +31,7 @@ export const RecommendDrink = (props: DrinkProps) => {
 
   return (
     <DrinkRecommendationParent>
-      {props.showItemAdded && <Test><ItemAddedToCartPopup Item="Menu " /></Test>}
+      {props.showItemAdded && <Test><ItemAddedToCartPopup/></Test>}
       {!drinkList && (
         <>
           <h3>We recommend this drink to go with your food</h3>
@@ -43,26 +43,26 @@ export const RecommendDrink = (props: DrinkProps) => {
             <DrinkImage src={recommendedDrink?.imgUrl} alt={"Loading"}></DrinkImage>
           </ImageContainer>
           <ButtonContainer>
+          <Button
+              disabled={props.showItemAdded}
+              onClick={() => {
+                props.sendToCart()
+              }}>
+              {window.outerWidth < 800 ? "No thanks" : "No, just the food for now"}
+            </Button>
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
                 props.sendToCart(recommendedDrink)
               }}>
-              Yes, look delicious
+              {window.outerWidth < 800 ? "Yes please" : "Yes, looks delicious"}
             </Button>
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
                 setDrinkList(true)
               }}>
-              I'd like to pick a different drink
-            </Button>
-            <Button
-              disabled={props.showItemAdded}
-              onClick={() => {
-                props.sendToCart()
-              }}>
-              No, just the food for now
+              {window.outerWidth < 800 ? "All drinks" : "I'd like to pick a different drink"}
             </Button>
           </ButtonContainer>
         </>

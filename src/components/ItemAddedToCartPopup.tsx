@@ -2,18 +2,13 @@ import styled from "styled-components"
 import DecorationLineImage from "../assets/design-assets/DecorationLine.png"
 import Texture from "../assets/design-assets/climpek.png"
 
-interface PopUpProps {
-  Item: string
-}
-
-export const ItemAddedToCartPopup = ({ Item }: PopUpProps) => {
+export const ItemAddedToCartPopup = () => {
   return (
     <>
       <PopupContainer>
         <BreakLine src={DecorationLineImage} />
-
         <AddedToCartPopup>
-          <h2>{Item} was added to cart</h2>
+          <h2>Added to order.</h2>
         </AddedToCartPopup>
       </PopupContainer>
     </>

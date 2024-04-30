@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { Dish } from "../../Models/Dish"
 import styled from "styled-components"
+import { ShortName } from "../../services/ShortNameService"
 
 interface DishComponentProps {
   key: number
@@ -36,7 +37,7 @@ const DishComponent = ({ dish, expandDish, isOpen, isSelected }: DishComponentPr
     <DishContainer selected={isSelected} ref={ExpandedRef} onClick={clickedEvents}>
       <ImageContainer selected={isSelected}>
         <DishImage src={dish.imageUrl} alt={dish.title} />
-        {!isSelected && <TitleOverlay>{dish.title}</TitleOverlay>}
+        {!isSelected && <TitleOverlay>{window.outerWidth < 800 ? ShortName(dish._id) : dish.title}</TitleOverlay>}
       </ImageContainer>
     </DishContainer>
   )
@@ -75,7 +76,7 @@ const TitleOverlay = styled.div`
   bottom: 0;
   width: 100%;
   height: 20%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,6 +88,6 @@ const TitleOverlay = styled.div`
   font-size: 16px;
 
   @media (max-width: 949px) {
-    font-size: 10px;
+    font-size: 15px;
   }
 `

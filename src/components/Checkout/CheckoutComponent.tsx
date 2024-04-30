@@ -182,11 +182,12 @@ export const ProductCell = styled.div`
   display: flex;
   justify-content: left;
   flex-direction: column;
-  font-weight: bold;
+  font-weight: normal;
 `
 
 export const PriceCell = styled.div`
   text-align: right;
+  font-weight: bold;
   @media (max-width: 949px) {
     text-align: left;
     margin-left: 30px;
@@ -204,6 +205,7 @@ export const PricePayContainer = styled.div`
 `
 
 export const StyledList = styled.ul`
+font-size: large;
   margin-bottom: 0px;
   li {
     margin: 5px;

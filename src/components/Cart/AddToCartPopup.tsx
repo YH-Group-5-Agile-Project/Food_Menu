@@ -10,6 +10,7 @@ import DecorationLineImage from "../../assets/design-assets/DecorationLine.png"
 import Texture from "../../assets/design-assets/climpek.png"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 import { SideRecommendation } from "../../services/RecommendationService"
+import { ShortName } from "../../services/ShortNameService"
 
 let tempDish: Dish
 let tempSide: Dish | undefined
@@ -73,7 +74,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
         <Overlay />
       </a>
       <PopupContainer className="add-to-cart-popup">
-        {showItemAdded && <ItemAddedToCartPopup Item="Menu " />}
+        {showItemAdded && <ItemAddedToCartPopup/>}
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
         {!sideOrDrink ? (
@@ -86,10 +87,10 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   <SideContainer 
                   key={recSideDish._id} 
                   onClick={() => {loadRecommendedDrink(dish, recSideDish)}}>
-                  <RecommendedChoice>Recommended choice</RecommendedChoice>
+                  <RecommendedChoice>{window.outerWidth < 800 ? "Recommended" : "Recommended choice"}</RecommendedChoice>
                     <InnerContainer>
                       <DishImage src={recSideDish.imageUrl} alt=""/>
-                      <DishTitle>{recSideDish.title}</DishTitle>
+                      <DishTitle>{window.outerWidth < 800 ? ShortName(recSideDish._id) : recSideDish.title}</DishTitle>
                     </InnerContainer>
                   </SideContainer>                
                 </>
@@ -104,7 +105,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   {sideDish.timeInMins === dish.price && <RecommendedChoice>Recommended choice</RecommendedChoice>}
                   <InnerContainer>
                     <DishImage src={sideDish.imageUrl} alt="" />
-                    <DishTitle>{sideDish.title}</DishTitle>
+                    <DishTitle>{window.outerWidth < 800 ? ShortName(sideDish._id) : sideDish.title}</DishTitle>
                   </InnerContainer>
                 </SideContainer>
               ))}
@@ -135,8 +136,6 @@ const InnerContainer = styled.div`
 const ItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
-  padding-left: 20px;
-  padding-right: 20px;
 `
 const BreakLine = styled.img`
   width: 95%;
@@ -144,6 +143,7 @@ const BreakLine = styled.img`
   height: 55px;
 `
 const Button = styled.button`
+margin-top: 10px;
   justify-self: center;
 `
 const NoSideButton = styled.button`
@@ -155,7 +155,7 @@ const NoSideButton = styled.button`
 const SideContainer = styled.button`
   position: relative;
   margin: 10px;
-  border-radius: 30px;
+  border-radius: 20px;
   // margin-left: 1rem;
   // margin-right: 1rem;
   // margin-bottom: 4px;
@@ -179,7 +179,7 @@ const DishTitle = styled.div`
   font-size: 1rem;
 
   @media (max-width: 949px) {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 `
 const RecommendedChoice = styled.div`
@@ -191,8 +191,11 @@ const RecommendedChoice = styled.div`
   padding: 5px;
   color: var(--sixthColor);
   background-color: var(--secondColor);
-  top: -15px;
+  top: -20px;
   z-index: 1;
+  @media (max-width: 800px) {
+    font-size: 0.7rem;
+  }
 `
 const Overlay = styled.div`
   width: 100%;
