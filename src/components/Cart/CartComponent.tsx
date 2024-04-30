@@ -119,7 +119,7 @@ export default CartComponent
 const PriceHeader = styled.h1`
   margin: 15px;
 `
-const EmptyHeader = styled.h2`
+export const EmptyHeader = styled.h2`
   margin: 15px;
 `
 

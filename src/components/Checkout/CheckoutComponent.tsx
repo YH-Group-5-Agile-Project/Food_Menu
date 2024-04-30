@@ -3,9 +3,10 @@ import styled from "styled-components"
 import { Cart } from "../../Models/Cart"
 import { CalculateCostCart, GetCart } from "../../services/CartService"
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
+import { EmptyHeader } from "../Cart/CartComponent"
 
 const CheckoutComponent = () => {
   const navigate = useNavigate()
@@ -59,6 +60,14 @@ const CheckoutComponent = () => {
   return (
     <CheckoutContainer>
       <ContentContainer>
+      {cart.OrderList.length<1 && 
+        <>
+          <EmptyHeader>Your order is empty</EmptyHeader>
+          <NavLink to="/main">
+            <button>Start your order</button>
+          </NavLink>
+        </>
+      }
         {cart.OrderList.map((order) => (
           <OrderRow key={order.id}>
             <ProductCell>
