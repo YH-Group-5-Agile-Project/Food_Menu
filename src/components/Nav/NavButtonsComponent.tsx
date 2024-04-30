@@ -99,21 +99,21 @@ export const NavButtons = () => {
       <LeftDiv>
         {!!state.prevPage && (
           <Link to={state.prevPage}>
-            <button>{state.prevButtonText}</button>
+            <StyledButton>{state.prevButtonText}</StyledButton>
           </Link>
         )}
       </LeftDiv>
 
       <MiddleDiv>
         {!!state.nextPage && (
-          <ToCartButton onClick={toggleCart} />
+          <StyledButton onClick={toggleCart}>My order</StyledButton>
         )}
       </MiddleDiv>
 
       <RightDiv>
         {!!state.nextPage && (
           <Link to={state.nextPage}>
-              <button>{state.nextButtonText}</button>
+              <StyledButton>{state.nextButtonText}</StyledButton>
             </Link>
         )}
       </RightDiv>
@@ -127,10 +127,20 @@ export const NavButtons = () => {
     </PageNavWrapper>
   )
 }
+
+const StyledButton = styled.button`
+  width: 130px;
+
+  @media (max-width: 549px) {
+    width: auto;
+  }
+`
+
 const LeftDiv = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
   width: calc(100%/5*2);
+  min-width: 120px;
 `
 const MiddleDiv = styled.div`
   width: calc(100%/5);
@@ -138,8 +148,9 @@ const MiddleDiv = styled.div`
 `
 const RightDiv = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: center;
   width: calc(100%/5*2);
+  min-width: 120px;
 `
 
 const PageNavWrapper = styled.div`

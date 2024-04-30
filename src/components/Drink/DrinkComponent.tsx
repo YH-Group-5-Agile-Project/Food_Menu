@@ -18,12 +18,15 @@ const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => 
 
   const clickedEvents = () => {
     expandDrink()
-    if (isOpen) {
-      ExpandedRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
-    }
+    // if (isOpen) {
+      setTimeout(() => {
+        ExpandedRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: !isOpen ? "end" : "start",
+        })
+
+      }, 10)
+    // }
   }
 
   return (
@@ -37,12 +40,15 @@ const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => 
   )
 }
 
+export default DrinkComponent
+
 const DrinkContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   cursor: pointer;
   margin-bottom: 32px;
+  scroll-margin: 32px;
 
   @media (max-width: 949px) {
     margin-bottom: 23px;
@@ -88,5 +94,3 @@ const TitleOverlay = styled.div`
     font-size: 14px;
   }
 `
-
-export default DrinkComponent

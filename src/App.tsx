@@ -68,7 +68,7 @@ const BackgroundImage = styled.img`
 `
 
 const ContentDiv = styled.div`
-  padding-top: 30px;
+  //padding-top: 30px;
   display: flex;
   justify-content: center;
   align-items: start;
@@ -113,6 +113,7 @@ const NavigationWrapper = styled.div`
   padding: 5px;
   width: 100%;
   max-width: 1100px;
+  margin-bottom: 30px;
 `
 
 export const ToggleCartOverlay = styled.a`

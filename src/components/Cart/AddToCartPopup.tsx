@@ -129,25 +129,21 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
 const TitleBox = styled.h2`
   width: 100%;
 `
-
 const InnerContainer = styled.div`
   display: flex;
   align-items: center;
 `
-
 const ItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   padding-left: 20px;
   padding-right: 20px;
 `
-
 const BreakLine = styled.img`
   width: 95%;
   object-fit: cover;
   height: 55px;
 `
-
 const Button = styled.button`
   justify-self: center;
 `
@@ -157,9 +153,6 @@ const NoSideButton = styled.button`
   font-family: inherit;
   padding: 0.4em 0.8em;
 `
-
-
-
 const SideContainer = styled.button`
   position: relative;
   margin: 10px;
@@ -205,7 +198,6 @@ const RecommendedChoice = styled.div`
     font-size: 0.7rem;
   }
 `
-
 const Overlay = styled.div`
   width: 100%;
   height: 100%;

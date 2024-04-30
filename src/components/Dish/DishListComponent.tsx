@@ -1,5 +1,5 @@
 import DishComponent from "./DishComponent"
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import styled, { keyframes } from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { IncreamentId, SaveOrderToCart } from "../../services/CartService"
@@ -8,6 +8,7 @@ import { AddToCartPopup } from "../Cart/AddToCartPopup"
 import { PostQuery } from "../../services/DbService"
 import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
 import React from "react"
+
 
 let tempDish: Dish
 
@@ -19,6 +20,10 @@ const transitionTime = 800
 interface FoodProps {
   selected: boolean
   $isOpen: boolean
+}
+
+interface Spacer {
+  spacer: boolean
 }
 
 const SendToCart = (dish: Dish) => {
@@ -50,10 +55,21 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [showItemAdded, setShowItemAdded] = useState(false)
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false
+  const dishRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { data, isLoading, error } = PostQuery(dishType)
   let itemName: string = "item"
 
+  const [spacerDivOn, setSpacerDivOn] = useState(false)
+
+  const setSpacerWithTimeOut = () => {
+    if (isOpenInfo) setTimeout(() => {
+      setSpacerDivOn(!spacerDivOn)
+    }, 800)
+    else setSpacerDivOn(!spacerDivOn)
+  }
+
   const HandleClick = (index: number) => {
+    setSpacerWithTimeOut()
     if (index === selectedDish) {
       setIsOpenInfo(false)
       setSelectedInfo(false)
@@ -91,13 +107,16 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       <DishesContainer>
         {data?.map((dish: Dish, index: number) => (
           <React.Fragment key={index}>
-            <DishComponent
-              key={index}
-              dish={dish}
-              isSelected={index === selectedDish}
-              onClick={() => HandleClick(index)}
-              isSideDish={isSideDish}
-            />
+            <div ref={(el) => dishRefs.current[index] = el}>
+              <DishComponent
+                key={index}
+                dish={dish}
+                isOpen={!selectedInfo}
+                isSelected={index === selectedDish}
+                expandDish={() => HandleClick(index)}
+                isSideDish={dishType.toLowerCase() === "sidedish"}
+              />
+            </div>
             {index === selectedDish && (
               <ExpandedDish
                 $isOpen={isOpenInfo}
@@ -110,7 +129,6 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                 <TextContainer>
                   <DishTitle>{dish.title}</DishTitle>
                   <DishDescription>
-                    <DishPrice>{dish.price} SEK</DishPrice>
                     <strong>Description: </strong>
                     {dish.description}
                   </DishDescription>
@@ -118,23 +136,28 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     <strong>Ingredients: </strong>
                     {getIngredients(dish)}.
                   </DishIngredients>
+                  <PriceButtonContainer>
+                    <DishPrice>{dish.price} SEK</DishPrice>
+                    <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>Add to order</StyledButton>
+                  </PriceButtonContainer>
                 </TextContainer>
-                <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>
-                  <ItemAddedPopup>Add to order</ItemAddedPopup>
-                </StyledButton>
-
                 {showItemAdded && <ItemAddedToCartPopup Item={dish.title} />}
               </ExpandedDish>
             )}
           </React.Fragment>
         ))}
+        <SpacerDiv spacer={spacerDivOn}></SpacerDiv>
       </DishesContainer>
       {isPopupOpen && <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />}
+
     </>
   )
 }
 
-const ItemAddedPopup = styled.div``
+const SpacerDiv = styled.div<Spacer>`
+  height: 400px;
+  display: ${(props) => (props.spacer ? "block" : "none")};
+`
 
 const ExpandAnimation = keyframes`
   0% {
@@ -177,7 +200,6 @@ const ExpandedDish = styled.div<FoodProps>`
   max-height: ${(props) => (props.$isOpen ? "330px" : "0")};
   opacity: ${(props) => (props.$isOpen ? "1" : "0")};
   height: 330px;
-  width: 90%;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
@@ -189,21 +211,19 @@ const ExpandedDish = styled.div<FoodProps>`
   animation-duration: ${transitionTime}ms;
   display: flex;
   align-items: start;
+  justify-content: center;
 `
 
 const DishesContainer = styled.div`
   width: 900px;
   column-gap: 32px;
   justify-content: center;
-
   position: relative;
   place-items: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
   overflow: hidden;
-
-  /* 220px -------- minmax(250px, 1fr) */
 
   @media (max-width: 949px) {
     width: 500px;
@@ -213,7 +233,6 @@ const DishesContainer = styled.div`
 
   @media (max-width: 549px) {
     width: 360px;
-    //gap: 10px;
   }
 `
 
@@ -227,21 +246,33 @@ const DishTitle = styled.h2`
 `
 
 const TextContainer = styled.div`
-  width: 80%;
-  @media (max-width: 768px) {
-    font-size: 2.5vw;
+  width: 90%;
+  @media (max-width: 949px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 549px) {
+    font-size: 14px;
   }
 `
-
-const DishPrice = styled.h2``
 
 const DishIngredients = styled.div`
   text-align: left;
 `
 
+const PriceButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const DishPrice = styled.h2`
+text-align: left;
+flex: 1 1 auto;
+`
+
 const StyledButton = styled.button`
-  align-self: center;
-  /*margin: 20px;
-  width: 20%;
-  height: 140px;*/
+  text-align: right;
+  flex: 0 1 auto;
 `
