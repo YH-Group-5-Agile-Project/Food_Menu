@@ -187,7 +187,8 @@ export const ProductCell = styled.div`
 export const PriceTotal = styled.h1`
 font-size: 3rem;
 @media (max-width: 949px) {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    padding: 5px;
     }
 `
 export const OrderButton = styled.button`
