@@ -79,7 +79,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
       </a>
       <PopupContainer className="add-to-cart-popup">
         {showItemAdded && <ItemAddedToCartPopup />}
-        <h3>{dish.title}</h3>
+        <SelectedDishHeader>{dish.title}</SelectedDishHeader>
         <BreakLine src={DecorationLineImage} />
         {!sideOrDrink ? (
           <>
@@ -108,7 +108,6 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   onClick={() => {
                     loadRecommendedDrink(dish, sideDish)
                   }}>
-                  {sideDish.timeInMins === dish.price && <RecommendedChoice>Recommended choice</RecommendedChoice>}
                   <InnerContainer>
                     <DishImage src={sideDish.imageUrl} alt="" />
                     <DishTitle>{window.outerWidth < 949 ? ShortName(sideDish._id) : sideDish.title}</DishTitle>
@@ -131,7 +130,13 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
     </>
   )
 }
+const SelectedDishHeader = styled.h3`
+font-size: 2rem;
 
+@media (max-width: 949px) {
+    font-size: 0.8rem;
+  }
+`
 const TitleBox = styled.h2`
   width: 100%;
 `
@@ -226,7 +231,6 @@ const PopupContainer = styled.div`
   background-color: var(--firstColor);
   background-image: url(${Texture});
   border-radius: 30px;
-  overflow: scroll;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -235,6 +239,7 @@ const PopupContainer = styled.div`
 
   @media (max-width: 949px) {
     width: 80%;
+    top: 48%;
   }
   @media (max-width: 609px) {
     width: 95%;
