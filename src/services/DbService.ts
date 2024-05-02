@@ -16,19 +16,27 @@ export const PostQuery = (dishType: string) => {
   })
 }
 
-export const DrinkQueries = async (drinkIds: string[]) => {
-  const queries = await Promise.all(
-    drinkIds.map(async (drinkId) => {
-      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`)
-      if (!response.ok) {
-        throw new Error(`Failed to fetch drink with ID ${drinkId}`)
-      }
-      const data = await response.json()
-      return NewMapDrink(data)
-    }),
-  )
+export const DrinkQueries = (drinkIds: string[]) => {
+  return useQuery<Drink[]>({
+    queryKey: ["drinks", drinkIds],
+    queryFn: async () => {
+      const queries = await Promise.all(
+        drinkIds.map(async (drinkId) => {
+          const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`)
+          if (!response.ok) {
+            throw new Error(`Failed to fetch drink with ID ${drinkId}`)
+          }
+          // const data = await response.json()
+          // return NewMapDrink(data)
+          return response.json()
+        }),
+      )
 
-  return queries
+      const data = queries.map(NewMapDrink)
+      return data
+    },
+    staleTime: 300000,
+  })
 }
 
 export const DrinkQuery = (drinkId: string) => {
@@ -53,12 +61,7 @@ const NewMapDrink = (data: any): Drink => {
     name: drinkData.strDrink,
     alcoholic: drinkData.strAlcoholic === "Alcoholic" ? true : false,
     imgUrl: drinkData.strDrinkThumb,
-    ingredients: [
-      drinkData.strIngredient1,
-      drinkData.strIngredient2,
-      drinkData.strIngredient3,
-      drinkData.strIngredient4,
-    ].filter(Boolean),
+    ingredients: [drinkData.strIngredient1, drinkData.strIngredient2, drinkData.strIngredient3, drinkData.strIngredient4].filter(Boolean),
     price: drinkData.strAlcoholic === "Alcoholic" ? 230 : 125,
   }
 }
