@@ -80,8 +80,8 @@ const TitleOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 19px;
+  border-bottom-right-radius: 19px;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2em;
