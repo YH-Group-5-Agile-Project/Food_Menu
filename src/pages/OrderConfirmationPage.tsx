@@ -4,7 +4,7 @@ import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
 import { Cart } from "../Models/Cart"
 import { ResetCart } from "../services/CartService"
-import { BottomContainer, CheckoutContainer, ContentContainer, NoBulletLi, OrderRow, PriceCell, PricePayContainer, ProductCell, StyledList } from "../components/Checkout/CheckoutComponent"
+import { BottomContainer, CheckoutContainer, ContentContainer, NoBulletLi, PricePayContainer, StyledList } from "../components/Checkout/CheckoutComponent"
 import { TextBox } from "../components/Rain/TextBox"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
@@ -76,6 +76,42 @@ const OrderConfirmationPage = () => {
     </>
   )
 }
+
+const OrderRow = styled.tr`
+  display: table-row;
+  grid-template-columns: 4fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--sixthColor);
+  border-width: 90%;
+  text-align: left;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 949px) {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+`
+
+const ProductCell = styled.td`
+  display: table-cell;
+  justify-content: left;
+  flex-direction: column;
+  font-weight: normal;
+`
+
+const PriceCell = styled.td`
+  text-align: right;
+  font-weight: bold;
+  @media (max-width: 949px) {
+    text-align: left;
+    margin-left: 30px;
+  }
+`
 
 const FullContainer = styled.div`
   position: fixed;

@@ -65,8 +65,8 @@ export const TextBox = () => {
       <MatrixRain />
       <Content>
         <Random>
-          {spans.map(() => (
-            <span className="ltr str">0</span>
+          {spans.map((_, index) => (
+          <span key={index} className="ltr str">0</span>
           ))}
         </Random>
       </Content>

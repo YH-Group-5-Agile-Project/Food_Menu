@@ -5,10 +5,7 @@ import styles from "./CartComponent.module.css"
 import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
 import {
-  ActionCell,
   ContentContainer,
-  OrderRow,
-  PriceCell,
   PricePayContainer,
   ButtonWrapper,
   StyledList,
@@ -126,6 +123,44 @@ const ProductCell = styled.td`
   justify-content: left;
   flex-direction: column;
   font-weight: normal;
+`
+
+const OrderRow = styled.tr`
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid var(--sixthColor);
+  border-width: 90%;
+  text-align: left;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 949px) {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+`
+
+const PriceCell = styled.td`
+  text-align: right;
+  font-weight: bold;
+  @media (max-width: 949px) {
+    text-align: left;
+    margin-left: 30px;
+  }
+`
+
+const ActionCell = styled.td`
+  display: flex;
+  justify-content: right;
+
+  @media (max-width: 949px) {
+      justify-content: center;
+  }
 `
 
 const PriceHeader = styled.h1`
