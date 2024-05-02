@@ -134,13 +134,10 @@ export const DrinkListComponent = () => {
   )
 }
 
-
-
 const SpacerDiv = styled.div<Spacer>`
   height: 400px;
   display: ${(props) => (props.$spacer ? "block" : "none")};
 `
-
 
 const ExpandAnimation = keyframes`
   0% {

@@ -9,7 +9,6 @@ import { PostQuery } from "../../services/DbService"
 import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
 import React from "react"
 
-
 let tempDish: Dish
 
 interface dishInput {
@@ -57,8 +56,6 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false
   const dishRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { data, isLoading, error } = PostQuery(dishType)
-  // let itemName: string = "item"
-
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
   const setSpacerWithTimeOut = () => {
@@ -90,7 +87,6 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       tempDish = dish
     } else {
       SendToCart(dish)
-      // itemName = dish.title
       setShowItemAdded(true)
       setTimeout(() => {
         setShowItemAdded(false)
