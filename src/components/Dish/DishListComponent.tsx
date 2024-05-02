@@ -1,5 +1,5 @@
 import DishComponent from "./DishComponent"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef} from "react"
 import styled, { keyframes } from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { IncreamentId, SaveOrderToCart } from "../../services/CartService"
@@ -23,7 +23,7 @@ interface FoodProps {
 }
 
 interface Spacer {
-  spacer: boolean
+  $spacer: boolean
 }
 
 const SendToCart = (dish: Dish) => {
@@ -57,7 +57,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false
   const dishRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { data, isLoading, error } = PostQuery(dishType)
-  let itemName: string = "item"
+  // let itemName: string = "item"
 
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
@@ -90,7 +90,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       tempDish = dish
     } else {
       SendToCart(dish)
-      itemName = dish.title
+      // itemName = dish.title
       setShowItemAdded(true)
       setTimeout(() => {
         setShowItemAdded(false)
@@ -141,12 +141,12 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                     <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>Add to order</StyledButton>
                   </PriceButtonContainer>
                 </TextContainer>
-                {showItemAdded && <ItemAddedToCartPopup Item={dish.title} />}
+                {showItemAdded && <ItemAddedToCartPopup/>}
               </ExpandedDish>
             )}
           </React.Fragment>
         ))}
-        <SpacerDiv spacer={spacerDivOn}></SpacerDiv>
+        <SpacerDiv $spacer={spacerDivOn}></SpacerDiv>
       </DishesContainer>
       {isPopupOpen && <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />}
 
@@ -156,7 +156,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
 
 const SpacerDiv = styled.div<Spacer>`
   height: 400px;
-  display: ${(props) => (props.spacer ? "block" : "none")};
+  display: ${(props) => (props.$spacer ? "block" : "none")};
 `
 
 const ExpandAnimation = keyframes`

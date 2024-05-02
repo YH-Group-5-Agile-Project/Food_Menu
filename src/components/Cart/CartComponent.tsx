@@ -10,7 +10,6 @@ import {
   OrderRow,
   PriceCell,
   PricePayContainer,
-  ProductCell,
   ButtonWrapper,
   StyledList,
   NoBulletLi,
@@ -122,6 +121,13 @@ export const CartComponent = (props: CloseProp) => {
 
 export default CartComponent
 
+const ProductCell = styled.td`
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  font-weight: normal;
+`
+
 const PriceHeader = styled.h1`
   margin: 15px;
 `
@@ -132,9 +138,7 @@ export const EmptyHeader = styled.h2`
 const CartHeader = styled.h1`
   margin: 15px;
 `
-const CartContainer = styled.div`
-
-`
+const CartContainer = styled.div``
 
 const BottomContainer = styled.div``
 

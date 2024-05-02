@@ -5,16 +5,17 @@ import { DrinkQueries } from "../../services/DbService"
 import { Drink } from "../../Models/Drink"
 import { SendDrinkToCart } from "../../services/CartService"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
+import React from "react"
 
 const transitionTime = 800
 
 interface FoodProps {
   selected: boolean
-  isOpen: boolean
+  $isOpen: boolean
 }
 
 interface Spacer {
-  spacer: boolean
+  $spacer: boolean
 }
 
 export const DrinkListComponent = () => {
@@ -88,7 +89,7 @@ export const DrinkListComponent = () => {
     <DrinksContainer>
       {drinkList.map((drink, index) => {
         return drink ? (
-          <>
+          <React.Fragment key={drink.id}>
             <DrinkComponent
               isOpen={!isOpenInfo || !selectedInfo}
               key={drink.id}
@@ -99,7 +100,7 @@ export const DrinkListComponent = () => {
             {index === selectedDrink && (
               <ExpandedDrink
                 ref={ExpandedRef}
-                isOpen={isOpenInfo}
+                $isOpen={isOpenInfo}
                 selected={selectedInfo}
                 onAnimationEnd={() => {
                   if (!isOpenInfo) {
@@ -120,15 +121,15 @@ export const DrinkListComponent = () => {
                     <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(drink)}>Add to order</StyledButton>
                   </PriceButtonContainer>
                 </TextContainer>
-                {showItemAdded && <ItemAddedToCartPopup Item={drink.name} />}
+                {showItemAdded && <ItemAddedToCartPopup/>}
               </ExpandedDrink>
             )}
-          </>
+          </React.Fragment>
         ) : (
           <></>
         )
       })}
-      <SpacerDiv spacer={spacerDivOn}></SpacerDiv>
+      <SpacerDiv $spacer={spacerDivOn}></SpacerDiv>
     </DrinksContainer>
   )
 }
@@ -137,7 +138,7 @@ export const DrinkListComponent = () => {
 
 const SpacerDiv = styled.div<Spacer>`
   height: 400px;
-  display: ${(props) => (props.spacer ? "block" : "none")};
+  display: ${(props) => (props.$spacer ? "block" : "none")};
 `
 
 
@@ -179,16 +180,16 @@ const StayOpenAnimation = keyframes`
 `
 
 const ExpandedDrink = styled.div<FoodProps>`
-  max-height: ${(props) => (props.isOpen ? "280px" : "0")};
-  opacity: ${(props) => (props.isOpen ? "1" : "0")};
+  max-height: ${(props) => (props.$isOpen ? "280px" : "0")};
+  opacity: ${(props) => (props.$isOpen ? "1" : "0")};
   height: 280px;
   width: 700px;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
-    props.selected && props.isOpen
+    props.selected && props.$isOpen
       ? ExpandAnimation
-      : !props.selected && props.isOpen
+      : !props.selected && props.$isOpen
         ? StayOpenAnimation
         : CloseAnimation};
   animation-duration: ${transitionTime}ms;
@@ -227,7 +228,7 @@ const DrinksContainer = styled.div`
   }
 `
 
-const DrinkDescription = styled.p`
+const DrinkDescription = styled.div`
   margin: 10px 0;
   text-align: left;
 `
