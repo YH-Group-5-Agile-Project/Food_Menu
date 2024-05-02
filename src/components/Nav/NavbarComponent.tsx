@@ -17,7 +17,8 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = () => {
-  return (
+  return (<>
+    <NameHeader>COCKTAILS AND FOOD</NameHeader>
     <NavbarContainer>
       <NavLink to="/main" className={({ isActive }) => (isActive ? styles.activeNav : styles.inactiveNav)}>
       {window.outerWidth < 949 ? "Main" : "Main dish"}
@@ -31,6 +32,13 @@ export const Navbar: React.FC<NavbarProps> = () => {
       <NavLink to="/checkout" className={({ isActive }) => (isActive ? styles.activeNav : styles.inactiveNav)}>
         Checkout
       </NavLink>
-    </NavbarContainer>
+    </NavbarContainer></>
   )
 }
+
+const NameHeader = styled.h1`
+@media (max-width: 949px) {
+  font-size: 2rem;
+}
+
+`
