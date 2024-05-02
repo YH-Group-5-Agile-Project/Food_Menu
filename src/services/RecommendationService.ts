@@ -34,9 +34,6 @@ const specificAlgorithm = (foodId: string): string => {
   return foodDrinkMatching[foodId]
 }
 
-// List of our Food/Drink-ID´s
-// export const drinkIDs = ["12768", "12618", "15092", "12630", "12724", "12726", "11288", "178365", "11462", "11000", "11003", "12528"]
-
 // Recommended SideDish
 
 let dictionary: { [key: string]: string } = {
@@ -72,7 +69,6 @@ const CalcFoodPointsBasedOnCategories = (dishes: Dish[]) => {
 }
 
 const DrinkRecommendations = (dishes: Dish[], drinklist: Drink[]) => {
-  console.log("inne")
   let FoodData = CalcFoodPointsBasedOnCategories(dishes)
 
   let filteredDrinkList: Drink[] = drinklist

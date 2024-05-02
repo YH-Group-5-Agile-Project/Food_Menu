@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { Cart } from "../../Models/Cart"
 import { CalculateCostCart, GetCart } from "../../services/CartService"
-import { CheckoutCommentComponent } from "./CheckoutCommentComponent"
 import { NavLink, useNavigate } from "react-router-dom"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
 import { EmptyHeader } from "../Cart/CartComponent"
+import { CheckoutCommentComponent } from "./CheckoutCommentComponent"
 
 const CheckoutComponent = () => {
   const navigate = useNavigate()
@@ -17,6 +17,7 @@ const CheckoutComponent = () => {
   })
 
   const [customizeOrderId, setCustomizeOrderId] = useState<number[]>([])
+  const [showComment, setShowComment] = useState<number[]>([])
 
   useEffect(() => {
     setCart(GetCart())
@@ -24,10 +25,18 @@ const CheckoutComponent = () => {
 
   const toggleCustomizeOrder = (orderId: number) => {
     if (customizeOrderId.includes(orderId)) {
-      setCustomizeOrderId(customizeOrderId.filter((id) => id !== orderId))
+      setShowComment(showComment.filter((id) => id !== orderId))
     } else {
-      setCustomizeOrderId([...customizeOrderId, orderId])
+      setShowComment([...showComment, orderId])
     }
+
+    setTimeout(() => {
+      if (customizeOrderId.includes(orderId)) {
+        setCustomizeOrderId(customizeOrderId.filter((id) => id !== orderId))
+      } else {
+        setCustomizeOrderId([...customizeOrderId, orderId])
+      }
+    }, 300)
   }
 
   const onDelete = (orderId: number) => {
@@ -56,50 +65,59 @@ const CheckoutComponent = () => {
       })
     }
   }
- 
+
   return (
     <CheckoutContainer>
       <ContentContainer>
-      {cart.OrderList.length<1 && 
-        <>
-          <EmptyHeader>Your order is empty</EmptyHeader>
-          <NavLink to="/main">
-            <button>Start your order</button>
-          </NavLink>
-        </>
-      }
+        {cart.OrderList.length < 1 && (
+          <>
+            <EmptyHeader>Your order is empty</EmptyHeader>
+            <NavLink to="/main">
+              <button>Start your order</button>
+            </NavLink>
+          </>
+        )}
         {cart.OrderList.map((order) => (
           <OrderRow key={order.id}>
             <ProductCell>
               <StyledList>
-                {order.main?.title && <NoBulletLi>
-                  <GiHamburger style={{marginRight: '20px', fontSize: '1.7rem'}} />{order.main.title}
-                </NoBulletLi>}
-                {order.sides?.title && <NoBulletLi>
-                  <GiFrenchFries style={{marginRight: '20px', fontSize: '1.9rem'}}/>{order.sides.title}
-                </NoBulletLi>}
-                {order.drink?.name && <NoBulletLi>
-                  <BiDrink style={{marginRight: '20px', fontSize: '1.7rem'}}/>{order.drink.name}
-                </NoBulletLi>}
+                {order.main?.title && (
+                  <NoBulletLi>
+                    <GiHamburger style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                    {order.main.title}
+                  </NoBulletLi>
+                )}
+                {order.sides?.title && (
+                  <NoBulletLi>
+                    <GiFrenchFries style={{ marginRight: "20px", fontSize: "1.9rem" }} />
+                    {order.sides.title}
+                  </NoBulletLi>
+                )}
+                {order.drink?.name && (
+                  <NoBulletLi>
+                    <BiDrink style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                    {order.drink.name}
+                  </NoBulletLi>
+                )}
                 {order?.comment && <p>Comment: {order.comment}</p>}
               </StyledList>
             </ProductCell>
             <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
             <ActionCell>
-              <ButtonWrapper>
-                <button onClick={() => toggleCustomizeOrder(order.id)}>Customize</button>
-              </ButtonWrapper>
-              
               {customizeOrderId.includes(order.id) && (
-                <CheckoutCommentComponent
-                  cart={cart}
-                  setCart={setCart}
-                  orderId={order.id}
-                  toggle={() => toggleCustomizeOrder(order.id)}
-                />
+                <CommentContainer $displayed={showComment.includes(order.id)}>
+                  <CheckoutCommentComponent cart={cart} setCart={setCart} orderId={order.id} toggle={() => toggleCustomizeOrder(order.id)} />
+                </CommentContainer>
+              )}
+              {!customizeOrderId.includes(order.id) && (
+                <ButtonWrapper>
+                  <StyledButton $displayed={showComment.includes(order.id)} onClick={() => toggleCustomizeOrder(order.id)}>
+                    Customize
+                  </StyledButton>
+                </ButtonWrapper>
               )}
               <ButtonWrapper>
-              <button onClick={() => onDelete(order.id)}>Remove</button>
+                <button onClick={() => onDelete(order.id)}>Remove</button>
               </ButtonWrapper>
             </ActionCell>
           </OrderRow>
@@ -117,8 +135,63 @@ const CheckoutComponent = () => {
   )
 }
 
+const OpenAnimation = keyframes`
+  0% { height: 0; }
+  100% { height: 5rem; }
+`
+const CloseAnimation = keyframes`
+  0% { height: 5rem; }
+  90% {opacity: 0; height: 0px; }
+  100% { height: 0; opacity: 0;}
+`
+const OpenCommentAnimation = keyframes`
+  0% { transform: translateY(-10px);}
+  30% {transform: translateY(-10px)}
+  50% {transform: translateY(0px)}
+`
+const CloseCommentAnimation = keyframes`
+  50% { transform: translateY(0px)}
+  50% {transform: translateY(-10px)}
+  100% { transform: translateY(-10px);}
+`
+const ButtonTextAnimation = keyframes`
+  0%{ text-indent: -300px; }
+  100% { text-indent: 0px; }
+`
+const ButtonTextReverseAnimation = keyframes`
+  0%{ text-indent: 0px }
+  100% { text-indent: 300px; }
+`
+
+const StyledButton = styled.button<{ $displayed: boolean }>`
+  overflow-x: hidden;
+  width: 6.6rem;
+  animation-name: ${(props) => (props.$displayed ? ButtonTextReverseAnimation : ButtonTextAnimation)};
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+`
+const CommentContainer = styled.div<{ $displayed: boolean }>`
+  margin: 0 0 10px 10px;
+  overflow-x: hidden;
+  animation-name: ${(props) => (props.$displayed ? OpenCommentAnimation : CloseCommentAnimation)};
+  animation-duration: 0.5s;
+
+  button {
+    width: 6.6rem;
+    animation: ${(props) => (props.$displayed ? ButtonTextAnimation : ButtonTextReverseAnimation)};
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+  }
+
+  textarea {
+    animation-name: ${(props) => (props.$displayed ? OpenAnimation : CloseAnimation)};
+    animation-duration: 0.5s;
+  }
+`
+
 export const NoBulletLi = styled.li`
   list-style-type: none;
+  margin: 10px 0;
 `
 
 export default CheckoutComponent
@@ -152,6 +225,9 @@ export const CheckoutContainer = styled.div`
 export const ActionCell = styled.div`
   display: flex;
   justify-content: right;
+  align-items: center;
+  min-height: 80px;
+  min-width: 232px;
 `
 
 export const OrderRow = styled.div`
@@ -159,7 +235,7 @@ export const OrderRow = styled.div`
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
   border-bottom: 1px solid var(--sixthColor);
   border-width: 90%;
   text-align: left;
@@ -183,20 +259,24 @@ export const ProductCell = styled.div`
   justify-content: left;
   flex-direction: column;
   font-weight: normal;
+  white-space: nowrap;
+  @media (max-width: 949px) {
+    white-space: pre-wrap;
+  }
 `
 export const PriceTotal = styled.h1`
-font-size: 3rem;
-@media (max-width: 949px) {
+  font-size: 3rem;
+  @media (max-width: 949px) {
     font-size: 1.3rem;
     padding: 5px;
-    }
+  }
 `
 export const OrderButton = styled.button`
-font-size: 1.5rem;
-@media (max-width: 949px) {
+  font-size: 1.5rem;
+  @media (max-width: 949px) {
     font-size: 1.2rem;
     padding: 13px;
-    }
+  }
 `
 
 export const PriceCell = styled.div`
@@ -220,23 +300,25 @@ export const PricePayContainer = styled.div`
 `
 
 export const StyledList = styled.ul`
-font-size: large;
+  font-size: large;
   margin-bottom: 0px;
   li {
-    margin: 5px;
+    margin-bottom: 5px;
+    @media (max-width: 949px) {
+      margin-bottom: 20px;
+    }
   }
   p {
     margin: 0px;
   }
 `
-export const ButtonWrapper  = styled.div`
+export const ButtonWrapper = styled.div`
   margin-bottom: 5px;
   flex-flow: row;
   justify-content: center;
   gap: 5px;
 
-
-  button{
+  button {
     margin: 0px 10px;
   }
 `

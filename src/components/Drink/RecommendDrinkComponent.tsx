@@ -2,7 +2,7 @@ import { styled } from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { Drink } from "../../Models/Drink"
 import { DrinkRec } from "../../services/RecommendationService"
-import { DrinkQueries, DrinkQuery } from "../../services/DbService"
+import { DrinkQueries } from "../../services/DbService"
 import { useState, useEffect } from "react"
 import { DrinkPickList } from "./DrinkPickList"
 import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
@@ -39,7 +39,6 @@ export const RecommendDrink = (props: DrinkProps) => {
           <h3>We recommend this drink to go with your food</h3>
           <HeaderDiv>
             <RecommendedDrinkName>{recDrink?.name}</RecommendedDrinkName>
-            
           </HeaderDiv>
           <ImageContainer>
             <DrinkImage src={recDrink?.imgUrl} alt={"Loading"}></DrinkImage>
@@ -79,15 +78,12 @@ const RecommendedDrinkName = styled.h1`
   font-size: 3rem;
   @media (max-width: 949px) {
     font-size: 2.8rem;
-
   }
 `
 const RecommendedDrinkPrice = styled.h2`
-
   font-size: 2rem;
   @media (max-width: 949px) {
     font-size: 1.4rem;
-
   }
 `
 
@@ -124,7 +120,6 @@ const DrinkRecommendationParent = styled.div`
   overflow-y: scroll;
   @media (max-width: 949px) {
     max-height: 42rem;
-
   }
 `
 
@@ -133,7 +128,6 @@ const DrinkImage = styled.img`
   border-radius: 20px;
   @media (max-width: 949px) {
     width: 70%;
-
   }
 `
 
