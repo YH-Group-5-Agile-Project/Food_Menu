@@ -1,11 +1,12 @@
 import { styled } from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { Drink } from "../../Models/Drink"
-import { DrinkRec, DrinkRecommendation } from "../../services/RecommendationService"
-import { DrinkQuery } from "../../services/DbService"
+import { DrinkRec } from "../../services/RecommendationService"
+import { DrinkQueries, DrinkQuery } from "../../services/DbService"
 import { useState, useEffect } from "react"
 import { DrinkPickList } from "./DrinkPickList"
 import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
+import { DRINK_IDS } from "../../constants/variables"
 
 interface DrinkProps {
   dish: Dish
@@ -15,19 +16,13 @@ interface DrinkProps {
 }
 
 export const RecommendDrink = (props: DrinkProps) => {
-  const [drinkId, setDrinkId] = useState<string | null>(null)
-  const [recDrinkId, setRecDrinkId] = useState<string | null>(null)
-  useEffect(() => {
-    if (!drinkId) {
-      setDrinkId(DrinkRecommendation(props.dish._id))
-      setRecDrinkId(DrinkRec(props.dishes))
-      console.log(props)
-    }
-  })
+  const { data: drinks, isLoading, error } = DrinkQueries(DRINK_IDS)
+  const [recDrink, setRecDrink] = useState<Drink>()
+  const [showDrinkList, setShowDrinkList] = useState(false)
 
-  const { data, isLoading, error } = DrinkQuery(drinkId as string) //Röd squiggly men funkar, någon får försöka sig på en fix om ni känner för det
-  const [drinkList, setDrinkList] = useState(false)
-  let recommendedDrink = data
+  useEffect(() => {
+    if (drinks) setRecDrink(DrinkRec(props.dishes, drinks))
+  }, [])
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
@@ -39,15 +34,15 @@ export const RecommendDrink = (props: DrinkProps) => {
           <ItemAddedToCartPopup />
         </Test>
       )}
-      {!drinkList && (
+      {!showDrinkList && (
         <>
           <h3>We recommend this drink to go with your food</h3>
           <HeaderDiv>
-            <h2>{recommendedDrink?.name}</h2>
-            <h1>{recommendedDrink?.price} SEK</h1>
+            <h2>{recDrink?.name}</h2>
+            <h1>{recDrink?.price} SEK</h1>
           </HeaderDiv>
           <ImageContainer>
-            <DrinkImage src={recommendedDrink?.imgUrl} alt={"Loading"}></DrinkImage>
+            <DrinkImage src={recDrink?.imgUrl} alt={"Loading"}></DrinkImage>
           </ImageContainer>
           <ButtonContainer>
             <Button
@@ -60,21 +55,21 @@ export const RecommendDrink = (props: DrinkProps) => {
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
-                props.sendToCart(recommendedDrink)
+                props.sendToCart(recDrink)
               }}>
               {window.outerWidth < 800 ? "Yes please" : "Yes, looks delicious"}
             </Button>
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
-                setDrinkList(true)
+                setShowDrinkList(true)
               }}>
               {window.outerWidth < 800 ? "All drinks" : "I'd like to pick a different drink"}
             </Button>
           </ButtonContainer>
         </>
       )}
-      {drinkList && <DrinkPickList dish={props.dish} sendToCart={props.sendToCart} showItemAdded={props.showItemAdded} />}
+      {showDrinkList && <DrinkPickList dish={props.dish} sendToCart={props.sendToCart} showItemAdded={props.showItemAdded} />}
     </DrinkRecommendationParent>
   )
 }
@@ -105,7 +100,6 @@ const ImageContainer = styled.div`
 `
 
 const DrinkRecommendationParent = styled.div`
-
   display: flex;
   flex-direction: column;
   align-items: center;

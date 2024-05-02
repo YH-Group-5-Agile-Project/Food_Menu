@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import DrinkComponent from "./DrinkComponent"
 import styled, { keyframes } from "styled-components"
 import { DrinkQueries } from "../../services/DbService"
@@ -6,6 +6,7 @@ import { Drink } from "../../Models/Drink"
 import { SendDrinkToCart } from "../../services/CartService"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 import React from "react"
+import { DRINK_IDS } from "../../constants/variables"
 
 const transitionTime = 800
 
@@ -19,10 +20,7 @@ interface Spacer {
 }
 
 export const DrinkListComponent = () => {
-  let drinkListIDs = ["12768", "12618", "15092", "12630", "12724", "12726", "11288", "178365", "11462", "11000", "11003", "12528"]
-
-  const { data: drinkList, isLoading, error } = DrinkQueries(drinkListIDs)
-  // const [drinkList, setDrinkList] = useState<Drink[] | undefined>([])
+  const { data: drinkList, isLoading } = DrinkQueries(DRINK_IDS)
   const [showItemAdded, setShowItemAdded] = useState(false)
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
@@ -64,6 +62,10 @@ export const DrinkListComponent = () => {
       setIsOpenInfo(false)
       setSelectedInfo(false)
     }, 1000)
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>
   }
 
   return (

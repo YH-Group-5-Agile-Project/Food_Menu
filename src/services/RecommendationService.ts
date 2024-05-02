@@ -1,23 +1,23 @@
+import { Dish } from "../Models/Dish"
+import { Drink } from "../Models/Drink"
+import { DRINK_IDS, DRINK_MILK_FILTER, FOODCATEGORY_TO_DRINK_POINTS } from "../constants/variables"
+import { DrinkQueries } from "./DbService"
 // Recommend Drink
 // An algorithm that either give a specific or random recommendation :D
-
-import { get } from "react-hook-form"
-import { Dish } from "../Models/Dish"
-
 // Why? Don´t ask...
 export const DrinkRecommendation = (foodId: string): string => {
   if (Math.random() > 0.5) {
     // random
     let drinkNr: number
     drinkNr = randomAlgorithm()
-    return drinkIDs[drinkNr]
+    return DRINK_IDS[drinkNr]
   } else {
     // Specified per food
     return specificAlgorithm(foodId)
   }
 }
 const randomAlgorithm = (): number => {
-  const random = Math.random() * drinkIDs.length
+  const random = Math.random() * DRINK_IDS.length
   let drinkNr = Math.round(random)
   console.log("Random Drink NR", drinkNr)
   return drinkNr
@@ -35,8 +35,7 @@ const specificAlgorithm = (foodId: string): string => {
 }
 
 // List of our Food/Drink-ID´s
-const drinkIDs = ["12768", "12618", "15092", "12630", "12724", "12726", "11288", "178365", "11462", "11000", "11003", "12528"]
-const foodIDs = ["6604087a29f983c33c7b4141", "6604089029f983c33c7b630e", "6604089e29f983c33c7b79eb", "660408b229f983c33c7b98fc", "660bc29a29f983c33c49dedb", "660becfe29f983c33c4d5166"]
+// export const drinkIDs = ["12768", "12618", "15092", "12630", "12724", "12726", "11288", "178365", "11462", "11000", "11003", "12528"]
 
 // Recommended SideDish
 
@@ -55,39 +54,34 @@ export const SideRecommendation = (id: string): string => {
   return sideRecommendation
 }
 
-const pointsSystemBasedOnCategories: { [key: string]: number } = {
-  Beef: 1,
-  Egg: 2,
-  Chicken: 3,
-  Poultry: 4,
-  Fish: 5,
-  Wheat: 6,
-  Peanut: 7,
-  Citrus: 8,
-  Dairy: 9,
-  Vegan: 10,
-  Vegetarian: 11,
-}
-
 const CalcFoodPointsBasedOnCategories = (dishes: Dish[]) => {
   let points: number = 0
+  let milk: boolean = false
+
   dishes.forEach((dish) => {
-    let categories = dish.categories.filter((category) => category in pointsSystemBasedOnCategories)
-    points = categories.reduce((acc, category) => {
-      return acc + pointsSystemBasedOnCategories[category]
+    if (!dish.categories.includes("Vegan") || dish.categories.includes("Dairy")) milk = true
+    else milk = false
+
+    let categories = dish.categories.filter((category) => category in FOODCATEGORY_TO_DRINK_POINTS)
+    points += categories.reduce((acc, category) => {
+      return acc + FOODCATEGORY_TO_DRINK_POINTS[category]
     }, 0)
   })
 
-  return points
+  return { points, milk }
 }
 
-export const DrinkRec = (dishes: Dish[]) => {
-  CalcFoodPointsBasedOnCategories(dishes)
+const DrinkRecommendations = (dishes: Dish[], drinklist: Drink[]) => {
+  console.log("inne")
+  let FoodData = CalcFoodPointsBasedOnCategories(dishes)
 
-  return "23"
+  let filteredDrinkList: Drink[] = drinklist
+  if (FoodData.milk) {
+    filteredDrinkList = drinklist.filter(
+      (drink) => !DRINK_MILK_FILTER.some((milkIngredient) => drink.ingredients.some((ingredient) => ingredient.toLowerCase().includes(milkIngredient.toLowerCase()))),
+    )
+  }
+  return filteredDrinkList[Math.floor(FoodData.points % filteredDrinkList.length)]
 }
 
-// loop the order and check main and side,
-// Categories choose which ones and which points it will get
-// if it is vegan filter out milk drinks,
-// add points together and % with number of drinks in drinklist after filter
+export const DrinkRec = (dishes: Dish[], drinkList: Drink[]) => DrinkRecommendations(dishes, drinkList)

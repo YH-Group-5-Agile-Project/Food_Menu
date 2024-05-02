@@ -18,7 +18,7 @@ export const PostQuery = (dishType: string) => {
 
 export const DrinkQueries = (drinkIds: string[]) => {
   return useQuery<Drink[]>({
-    queryKey: ["drinks", drinkIds],
+    queryKey: [drinkIds],
     queryFn: async () => {
       const queries = await Promise.all(
         drinkIds.map(async (drinkId) => {
@@ -26,14 +26,11 @@ export const DrinkQueries = (drinkIds: string[]) => {
           if (!response.ok) {
             throw new Error(`Failed to fetch drink with ID ${drinkId}`)
           }
-          // const data = await response.json()
-          // return NewMapDrink(data)
-          return response.json()
+          const data = await response.json()
+          return NewMapDrink(data)
         }),
       )
-
-      const data = queries.map(NewMapDrink)
-      return data
+      return queries
     },
     staleTime: 300000,
   })
