@@ -22,7 +22,7 @@ export const RecommendDrink = (props: DrinkProps) => {
 
   useEffect(() => {
     if (drinks) setRecDrink(DrinkRec(props.dishes, drinks))
-  }, [])
+  }, [isLoading])
 
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
