@@ -87,10 +87,10 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   <SideContainer 
                   key={recSideDish._id} 
                   onClick={() => {loadRecommendedDrink(dish, recSideDish)}}>
-                  <RecommendedChoice>{window.outerWidth < 800 ? "Recommended" : "Recommended choice"}</RecommendedChoice>
+                  <RecommendedChoice>{window.outerWidth < 949 ? "Recommended" : "Recommended choice"}</RecommendedChoice>
                     <InnerContainer>
                       <DishImage src={recSideDish.imageUrl} alt=""/>
-                      <DishTitle>{window.outerWidth < 800 ? ShortName(recSideDish._id) : recSideDish.title}</DishTitle>
+                      <DishTitle>{window.outerWidth < 949 ? ShortName(recSideDish._id) : recSideDish.title}</DishTitle>
                     </InnerContainer>
                   </SideContainer>                
                 </>
@@ -105,7 +105,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
                   {sideDish.timeInMins === dish.price && <RecommendedChoice>Recommended choice</RecommendedChoice>}
                   <InnerContainer>
                     <DishImage src={sideDish.imageUrl} alt="" />
-                    <DishTitle>{window.outerWidth < 800 ? ShortName(sideDish._id) : sideDish.title}</DishTitle>
+                    <DishTitle>{window.outerWidth < 949 ? ShortName(sideDish._id) : sideDish.title}</DishTitle>
                   </InnerContainer>
                 </SideContainer>
               ))}
@@ -193,7 +193,7 @@ const RecommendedChoice = styled.div`
   background-color: var(--secondColor);
   top: -20px;
   z-index: 1;
-  @media (max-width: 800px) {
+  @media (max-width: 949px) {
     font-size: 0.7rem;
   }
 `

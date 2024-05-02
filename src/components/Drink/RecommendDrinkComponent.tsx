@@ -48,21 +48,21 @@ export const RecommendDrink = (props: DrinkProps) => {
               onClick={() => {
                 props.sendToCart()
               }}>
-              {window.outerWidth < 800 ? "No thanks" : "No, just the food for now"}
+              {window.outerWidth < 949 ? "No thanks" : "No, just the food for now"}
             </Button>
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
                 props.sendToCart(recommendedDrink)
               }}>
-              {window.outerWidth < 800 ? "Yes please" : "Yes, looks delicious"}
+              {window.outerWidth < 949 ? "Yes please" : "Yes, looks delicious"}
             </Button>
             <Button
               disabled={props.showItemAdded}
               onClick={() => {
                 setDrinkList(true)
               }}>
-              {window.outerWidth < 800 ? "All drinks" : "I'd like to pick a different drink"}
+              {window.outerWidth < 949 ? "All drinks" : "I'd like to pick a different drink"}
             </Button>
           </ButtonContainer>
         </>

@@ -37,7 +37,7 @@ const DishComponent = ({ dish, expandDish, isOpen, isSelected }: DishComponentPr
     <DishContainer selected={isSelected} ref={ExpandedRef} onClick={clickedEvents}>
       <ImageContainer selected={isSelected}>
         <DishImage src={dish.imageUrl} alt={dish.title} />
-        {!isSelected && <TitleOverlay>{window.outerWidth < 800 ? ShortName(dish._id) : dish.title}</TitleOverlay>}
+        {!isSelected && <TitleOverlay>{window.outerWidth < 949 ? ShortName(dish._id) : dish.title}</TitleOverlay>}
       </ImageContainer>
     </DishContainer>
   )
