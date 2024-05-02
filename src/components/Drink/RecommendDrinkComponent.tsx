@@ -100,6 +100,7 @@ const ImageContainer = styled.div`
 `
 
 const DrinkRecommendationParent = styled.div`
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,7 +110,7 @@ const DrinkRecommendationParent = styled.div`
 
 const DrinkImage = styled.img`
   width: 50%;
-  border-radius: 20px;z
+  border-radius: 20px;
 `
 
 const Button = styled.button`

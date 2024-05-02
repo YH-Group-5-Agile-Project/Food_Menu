@@ -4,14 +4,13 @@
   justify-content: space-evenly;
   align-items: center;
   position: fixed;
-  top: 20%;
+  top: 2%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 18px;
   width: 100%;
   max-width: 50rem;
-  height: 100%;
-  max-height: 50rem;
+  height: 90%;
   border: 1px solid black;
   border-radius: 20px;
   background-image: url('../../assets/design-assets/climpek.png');

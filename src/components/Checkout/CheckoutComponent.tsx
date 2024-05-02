@@ -138,7 +138,7 @@ export const CheckoutContainer = styled.div`
   justify-content: space-between;
   overflow-x: auto;
   padding-right: 20px;
-  height: 100%;
+  height: 90%;
 
   @media (max-width: 949px) {
     width: 500px;
@@ -200,6 +200,10 @@ export const PricePayContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 8px 20px;
+  font-size: 18px;
+  @media (max-width: 949px) {
+    font-size: 11px;
+    }
   // background-color: var(--fifthColor);
   border-radius: 20px;
 `
