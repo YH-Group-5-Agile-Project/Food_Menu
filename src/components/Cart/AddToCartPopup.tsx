@@ -24,26 +24,30 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   const [sideOrDrink, setSideOrDrink] = useState<boolean>(false)
   const { data, isLoading, error } = PostQuery("sideDish")
   const [showItemAdded, setShowItemAdded] = useState(false)
-  const [recSideDish, setRecSideDish] = useState<Dish>(tempDish);
-  const [restSideDishes, setRestSideDishes] = useState<Dish[]>([]);
+  const [recSideDish, setRecSideDish] = useState<Dish>(tempDish)
+  const [restSideDishes, setRestSideDishes] = useState<Dish[]>([])
+  const [dishes, setDishes] = useState<Dish[]>([])
 
-  // Find recommended side dish 
+  // Find recommended side dish
   useEffect(() => {
-    let i = 0;
+    let i = 0
     let recommendedSideId = SideRecommendation(dish._id)
     //- funkar ej med let i = 0 -> undefined reading data.legnth -> Därför index
-    for(let index in data){ 
-      i = parseInt(index); 
-      if(data[i]._id === recommendedSideId){ // find i 
+    for (let index in data) {
+      i = parseInt(index)
+      if (data[i]._id === recommendedSideId) {
+        // find i
         // Set recommended side
-        setRecSideDish(data?.slice(i, i + 1)[0]); //  Recommended Side
-        setRestSideDishes([...data.slice(0, i), ...data.slice(i + 1)]); // Rest of sides
-      }}
-  },[data]) // wait until data is loaded
+        setRecSideDish(data?.slice(i, i + 1)[0]) //  Recommended Side
+        setRestSideDishes([...data.slice(0, i), ...data.slice(i + 1)]) // Rest of sides
+      }
+    }
+  }, [data]) // wait until data is loaded
 
   const loadRecommendedDrink = (dish: Dish, sideDish?: Dish) => {
     tempDish = { ...dish }
     tempSide = sideDish ? { ...sideDish } : undefined
+    setDishes(tempSide ? [tempDish, tempSide] : [tempDish])
     setSideOrDrink(true)
   }
 
@@ -74,7 +78,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
         <Overlay />
       </a>
       <PopupContainer className="add-to-cart-popup">
-        {showItemAdded && <ItemAddedToCartPopup/>}
+        {showItemAdded && <ItemAddedToCartPopup />}
         <h3>{dish.title}</h3>
         <BreakLine src={DecorationLineImage} />
         {!sideOrDrink ? (
@@ -84,15 +88,17 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
               {/* Show recommended side dish */}
               {recSideDish && (
                 <>
-                  <SideContainer 
-                  key={recSideDish._id} 
-                  onClick={() => {loadRecommendedDrink(dish, recSideDish)}}>
-                  <RecommendedChoice>{window.outerWidth < 949 ? "Recommended" : "Recommended choice"}</RecommendedChoice>
+                  <SideContainer
+                    key={recSideDish._id}
+                    onClick={() => {
+                      loadRecommendedDrink(dish, recSideDish)
+                    }}>
+                    <RecommendedChoice>{window.outerWidth < 949 ? "Recommended" : "Recommended choice"}</RecommendedChoice>
                     <InnerContainer>
-                      <DishImage src={recSideDish.imageUrl} alt=""/>
+                      <DishImage src={recSideDish.imageUrl} alt="" />
                       <DishTitle>{window.outerWidth < 949 ? ShortName(recSideDish._id) : recSideDish.title}</DishTitle>
                     </InnerContainer>
-                  </SideContainer>                
+                  </SideContainer>
                 </>
               )}
               {/* Show rest of the side dishes */}
@@ -119,7 +125,7 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
             <Button onClick={onClose}>Cancel</Button>
           </>
         ) : (
-          <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} sendToCart={sendToCart}></RecommendDrink>
+          <RecommendDrink showItemAdded={showItemAdded} dish={tempDish} dishes={dishes} sendToCart={sendToCart}></RecommendDrink>
         )}
       </PopupContainer>
     </>
@@ -143,7 +149,7 @@ const BreakLine = styled.img`
   height: 55px;
 `
 const Button = styled.button`
-margin-top: 10px;
+  margin-top: 10px;
   justify-self: center;
 `
 const NoSideButton = styled.button`

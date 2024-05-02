@@ -19,39 +19,20 @@ interface Spacer {
 }
 
 export const DrinkListComponent = () => {
-  let drinkListIDs = [
-    "12768",
-    "12618",
-    "15092",
-    "12630",
-    "12724",
-    "12726",
-    "11288",
-    "178365",
-    "11462",
-    "11000",
-    "11003",
-    "12528",
-  ]
+  let drinkListIDs = ["12768", "12618", "15092", "12630", "12724", "12726", "11288", "178365", "11462", "11000", "11003", "12528"]
 
-  const [drinkList, setDrinkList] = useState<Drink[]>([])
+  const { data: drinkList, isLoading, error } = DrinkQueries(drinkListIDs)
+  // const [drinkList, setDrinkList] = useState<Drink[] | undefined>([])
   const [showItemAdded, setShowItemAdded] = useState(false)
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
   const setSpacerWithTimeOut = () => {
-    if (isOpenInfo) setTimeout(() => {
-      setSpacerDivOn(!spacerDivOn)
-    }, 800)
+    if (isOpenInfo)
+      setTimeout(() => {
+        setSpacerDivOn(!spacerDivOn)
+      }, 800)
     else setSpacerDivOn(!spacerDivOn)
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await DrinkQueries(drinkListIDs)
-      setDrinkList(data)
-    }
-    fetchData()
-  }, [])
 
   const ExpandedRef = useRef<HTMLDivElement>(null)
 
@@ -87,15 +68,10 @@ export const DrinkListComponent = () => {
 
   return (
     <DrinksContainer>
-      {drinkList.map((drink, index) => {
+      {drinkList?.map((drink, index) => {
         return drink ? (
           <React.Fragment key={drink.id}>
-            <DrinkComponent
-              isOpen={!isOpenInfo || !selectedInfo}
-              key={drink.id}
-              drink={drink}
-              expandDrink={() => HandleClick(index)}
-            />
+            <DrinkComponent isOpen={!isOpenInfo || !selectedInfo} key={drink.id} drink={drink} expandDrink={() => HandleClick(index)} />
 
             {index === selectedDrink && (
               <ExpandedDrink
@@ -118,10 +94,12 @@ export const DrinkListComponent = () => {
                   </DrinkIngredients>
                   <PriceButtonContainer>
                     <DrinkPrice>{drink.price} SEK</DrinkPrice>
-                    <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(drink)}>Add to order</StyledButton>
+                    <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(drink)}>
+                      Add to order
+                    </StyledButton>
                   </PriceButtonContainer>
                 </TextContainer>
-                {showItemAdded && <ItemAddedToCartPopup/>}
+                {showItemAdded && <ItemAddedToCartPopup />}
               </ExpandedDrink>
             )}
           </React.Fragment>
@@ -183,12 +161,7 @@ const ExpandedDrink = styled.div<FoodProps>`
   width: 700px;
   grid-column: 1 / -1;
   grid-row: auto;
-  animation-name: ${(props) =>
-    props.selected && props.$isOpen
-      ? ExpandAnimation
-      : !props.selected && props.$isOpen
-        ? StayOpenAnimation
-        : CloseAnimation};
+  animation-name: ${(props) => (props.selected && props.$isOpen ? ExpandAnimation : !props.selected && props.$isOpen ? StayOpenAnimation : CloseAnimation)};
   animation-duration: ${transitionTime}ms;
   display: flex;
   align-items: start;
@@ -245,7 +218,7 @@ const TextContainer = styled.div`
   }
 `
 
-  const DrinkIngredients = styled.div`
+const DrinkIngredients = styled.div`
   text-align: left;
 `
 
@@ -254,11 +227,11 @@ const PriceButtonContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-`;
+`
 
 const DrinkPrice = styled.h2`
-text-align: left;
-flex: 1 1 auto;
+  text-align: left;
+  flex: 1 1 auto;
 `
 
 const StyledButton = styled.button`
