@@ -101,13 +101,13 @@ export const CartComponent = (props: CloseProp) => {
           </NavLink>
           :
           <ButtonContainer>
-            <button onClick={() => onEmpty()}>Empty Order</button>
-            <button onClick={props.CloseClick}>Close</button>
-            <button>
+            <ContainedButton onClick={() => onEmpty()}>Empty Order</ContainedButton>
+            <ContainedButton onClick={props.CloseClick}>Close</ContainedButton>
+            <ContainedButton>
               <StyledNavLink to={"/checkout"} onClick={props.CloseClick}>
                 Go to checkout
               </StyledNavLink>
-            </button>
+            </ContainedButton>
           </ButtonContainer>
           }
         </BottomContainer>
@@ -162,9 +162,22 @@ const ActionCell = styled.td`
       justify-content: center;
   }
 `
+export const PriceTotal = styled.h1`
 
+`
 const PriceHeader = styled.h1`
   margin: 15px;
+  font-size: 3.3rem;
+@media (max-width: 949px) {
+    font-size: 1.4rem;
+    }
+`
+
+const ContainedButton = styled.button`
+@media (max-width: 949px) {
+    font-size: 1.1rem;
+    }
+
 `
 export const EmptyHeader = styled.h2`
   margin: 15px;

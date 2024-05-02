@@ -186,11 +186,11 @@ const DrinksContainer = styled.div`
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
   overflow: hidden;
-
   @media (max-width: 949px) {
     width: 500px;
     column-gap: 23px;
     grid-template-columns: repeat(auto-fill, 150px);
+    margin-bottom: 15%;
   }
 
   @media (max-width: 549px) {

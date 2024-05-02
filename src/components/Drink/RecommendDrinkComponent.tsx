@@ -105,6 +105,7 @@ const ImageContainer = styled.div`
 `
 
 const DrinkRecommendationParent = styled.div`
+
   display: flex;
   flex-direction: column;
   align-items: center;

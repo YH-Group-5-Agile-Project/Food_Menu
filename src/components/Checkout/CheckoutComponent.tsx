@@ -108,8 +108,8 @@ const CheckoutComponent = () => {
       <BottomContainer>
         {cart.OrderList.length > 0 && (
           <PricePayContainer>
-            <h1>Total price: {CalculateCostCart(cart)} SEK</h1>
-            <button onClick={(e) => placeOrder(e)}>Place order</button>
+            <PriceTotal>Total price: {CalculateCostCart(cart)} SEK</PriceTotal>
+            <OrderButton onClick={(e) => placeOrder(e)}>Place order</OrderButton>
           </PricePayContainer>
         )}
       </BottomContainer>
@@ -138,7 +138,7 @@ export const CheckoutContainer = styled.div`
   justify-content: space-between;
   overflow-x: auto;
   padding-right: 20px;
-  height: 100%;
+  height: 90%;
 
   @media (max-width: 949px) {
     width: 500px;
@@ -184,6 +184,20 @@ export const ProductCell = styled.div`
   flex-direction: column;
   font-weight: normal;
 `
+export const PriceTotal = styled.h1`
+font-size: 3rem;
+@media (max-width: 949px) {
+    font-size: 1.3rem;
+    padding: 5px;
+    }
+`
+export const OrderButton = styled.button`
+font-size: 1.5rem;
+@media (max-width: 949px) {
+    font-size: 1.2rem;
+    padding: 13px;
+    }
+`
 
 export const PriceCell = styled.div`
   text-align: right;
@@ -200,6 +214,7 @@ export const PricePayContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 8px 20px;
+  font-size: 18px;
   // background-color: var(--fifthColor);
   border-radius: 20px;
 `
