@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import DrinkComponent from "./DrinkComponent"
 import styled, { keyframes } from "styled-components"
 import { DrinkQueries } from "../../services/DbService"
@@ -7,7 +7,6 @@ import { SendDrinkToCart } from "../../services/CartService"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 import React from "react"
 import { DRINK_IDS } from "../../constants/variables"
-import { GiExpandedRays } from "react-icons/gi"
 
 const transitionTime = 800
 
