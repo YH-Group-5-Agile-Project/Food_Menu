@@ -59,8 +59,6 @@ export const DrinkListComponent = () => {
     setShowItemAdded(true)
     setTimeout(() => {
       setShowItemAdded(false)
-      setIsOpenInfo(false)
-      setSelectedInfo(false)
     }, 1000)
   }
 
