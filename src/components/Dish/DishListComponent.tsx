@@ -164,14 +164,14 @@ const ExpandAnimation = keyframes`
     opacity: 0;
   }
   100% {
-    max-height: 330px;
+    max-height: 25rem;
     opacity: 1;
   }
 `
 
 const CloseAnimation = keyframes`
   0% {
-    max-height: 330px;
+    max-height: 25rem;
     opacity: 1;
   }
   25% {
@@ -193,9 +193,9 @@ const StayOpenAnimation = keyframes`
 `
 
 const ExpandedDish = styled.div<FoodProps>`
-  max-height: ${(props) => (props.$isOpen ? "330px" : "0")};
+  //max-height: ${(props) => (props.$isOpen ? "25rem" : "0")};
   opacity: ${(props) => (props.$isOpen ? "1" : "0")};
-  height: 330px;
+  height: 25rem;
   grid-column: 1 / -1;
   grid-row: auto;
   animation-name: ${(props) =>
