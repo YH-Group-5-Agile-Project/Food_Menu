@@ -147,6 +147,12 @@ const InnerContainer = styled.div`
 const ItemContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  overflow-y: scroll;
+  @media (max-width: 949px) {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    max-height: 80rem;
+    overflow-y: scroll;
+  }
 `
 const BreakLine = styled.img`
   width: 95%;
@@ -166,6 +172,7 @@ const NoSideButton = styled.button`
 const SideContainer = styled.button`
   position: relative;
   margin: 10px;
+  margin-top: 20px;
   border-radius: 20px;
   // margin-left: 1rem;
   // margin-right: 1rem;
@@ -179,18 +186,22 @@ const SideContainer = styled.button`
   flex-wrap: wrap;
   justify-content: center;
   background-color: var(--fifthColor);
+  @media (max-width: 949px) {
+  }
 `
 const DishImage = styled.img`
   width: 50%;
   border-radius: 20px;
   margin-right: 10px;
+  
 `
 const DishTitle = styled.div`
   width: 50%;
   font-size: 1rem;
 
   @media (max-width: 949px) {
-    font-size: 0.8rem;
+    font-size: 1.6rem;
+    font-weight: 700;
   }
 `
 const RecommendedChoice = styled.div`
@@ -223,7 +234,7 @@ const PopupContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  // height: 70%;
+  height: 90%;
   min-height: 600px;
   max-width: 800px;
   width: 65%;
@@ -231,7 +242,6 @@ const PopupContainer = styled.div`
   background-color: var(--firstColor);
   background-image: url(${Texture});
   border-radius: 30px;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -240,6 +250,7 @@ const PopupContainer = styled.div`
   @media (max-width: 949px) {
     width: 80%;
     top: 48%;
+    max-height: 45rem;
   }
   @media (max-width: 609px) {
     width: 95%;
