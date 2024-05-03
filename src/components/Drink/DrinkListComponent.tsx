@@ -40,23 +40,28 @@ export const DrinkListComponent = () => {
 
   const HandleClick = (index: number) => {
     setSpacerWithTimeOut()
+    let scrollTo: ScrollLogicalPosition
     if (index === selectedDrink) {
       setIsOpenInfo(false)
       setSelectedInfo(false)
+      scrollTo = "end"
     } else if ((selectedDrink || selectedDrink === 0) && index !== selectedDrink) {
       setIsOpenInfo(true)
       setSelectedInfo(false)
       setSelectedDrink(index)
+      scrollTo = "start"
     } else {
       setIsOpenInfo(true)
       setSelectedInfo(true)
       setSelectedDrink(index)
+      scrollTo = "start"
     }
-    console.log(isOpenInfo)
-    ExpandedRef.current[index].scrollIntoView({
-      behavior: "smooth",
-      block: isOpenInfo ? "start" : "end",
-    })
+    setTimeout(() => {
+      ExpandedRef.current[index].scrollIntoView({
+        behavior: "smooth",
+        block: scrollTo,
+      })
+    }, 10)
   }
 
   const handleAddToCartClick = (drink: Drink) => {
