@@ -25,11 +25,9 @@ export const DrinkListComponent = () => {
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
   const setSpacerWithTimeOut = () => {
-    if (isOpenInfo)
-      setTimeout(() => {
-        setSpacerDivOn(!spacerDivOn)
-      }, 800)
-    else setSpacerDivOn(!spacerDivOn)
+    setTimeout(() => {
+      setSpacerDivOn(false)
+    }, 800)
   }
 
   const ExpandedRef = useRef<HTMLDivElement>(null)
@@ -39,15 +37,17 @@ export const DrinkListComponent = () => {
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false)
 
   const HandleClick = (index: number) => {
-    setSpacerWithTimeOut()
     if (index === selectedDrink) {
+      setSpacerWithTimeOut()
       setIsOpenInfo(false)
       setSelectedInfo(false)
     } else if ((selectedDrink || selectedDrink === 0) && index !== selectedDrink) {
+      setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(false)
       setSelectedDrink(index)
     } else {
+      setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(true)
       setSelectedDrink(index)

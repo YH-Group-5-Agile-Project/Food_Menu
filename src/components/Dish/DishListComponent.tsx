@@ -59,22 +59,23 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
   const setSpacerWithTimeOut = () => {
-    if (isOpenInfo) setTimeout(() => {
-      setSpacerDivOn(!spacerDivOn)
+    setTimeout(() => {
+      setSpacerDivOn(false)
     }, 800)
-    else setSpacerDivOn(!spacerDivOn)
   }
 
   const HandleClick = (index: number) => {
-    setSpacerWithTimeOut()
     if (index === selectedDish) {
+      setSpacerWithTimeOut()
       setIsOpenInfo(false)
       setSelectedInfo(false)
     } else if ((selectedDish || selectedDish === 0) && index !== selectedDish) {
+      setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(false)
       setSelectedDish(index)
     } else {
+      setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(true)
       setSelectedDish(index)
