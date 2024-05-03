@@ -3,6 +3,7 @@ import { Cart } from "../../Models/Cart"
 import { SaveCart } from "../../services/CartService"
 import styled from "styled-components"
 import { ButtonWrapper } from "./CheckoutComponent"
+import { Form } from "react-router-dom"
 
 type CommentFormType = {
   id: number
@@ -38,20 +39,30 @@ export const CheckoutCommentComponent = ({ toggle, cart, setCart, orderId }: Pro
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <textarea
-        {...register("comment", {
-          maxLength: {
-            value: 100,
-            message: "Comment must be less than 100 characters",
-          },
-          validate: (value) => value.split("\n").length <= 5 || "Comment must be less than 5 rows",
-        })}
-        defaultValue={cart.OrderList.find((order) => order.id === orderId)?.comment || ""}
-      />
-      {errors.comment && <p>{errors.comment.message}</p>}
-      <button type="submit" value={"Submit"}>
-        Submit
-      </button>
+      <FormContainer>
+        <textarea
+          {...register("comment", {
+            maxLength: {
+              value: 100,
+              message: "Comment must be less than 100 characters",
+            },
+            validate: (value) => value.split("\n").length <= 5 || "Comment must be less than 5 rows",
+          })}
+          defaultValue={cart.OrderList.find((order) => order.id === orderId)?.comment || ""}
+        />
+        {errors.comment && <p>{errors.comment.message}</p>}
+        <button type="submit" value={"Submit"}>
+          Submit
+        </button>
+      </FormContainer>
     </form>
   )
 }
+
+
+
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
