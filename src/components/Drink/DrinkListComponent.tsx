@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import DrinkComponent from "./DrinkComponent"
 import styled, { keyframes } from "styled-components"
 import { DrinkQueries } from "../../services/DbService"
@@ -7,6 +7,7 @@ import { SendDrinkToCart } from "../../services/CartService"
 import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
 import React from "react"
 import { DRINK_IDS } from "../../constants/variables"
+import { GiExpandedRays } from "react-icons/gi"
 
 const transitionTime = 800
 
@@ -32,11 +33,10 @@ export const DrinkListComponent = () => {
     else setSpacerDivOn(!spacerDivOn)
   }
 
-  const ExpandedRef = useRef<HTMLDivElement>(null)
-
   const [selectedDrink, setSelectedDrink] = useState<number | null>(null)
   const [selectedInfo, setSelectedInfo] = useState<boolean>(false)
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false)
+  const ExpandedRef = useRef<HTMLDivElement[]>([])
 
   const HandleClick = (index: number) => {
     setSpacerWithTimeOut()
@@ -52,6 +52,11 @@ export const DrinkListComponent = () => {
       setSelectedInfo(true)
       setSelectedDrink(index)
     }
+    console.log(isOpenInfo)
+    ExpandedRef.current[index].scrollIntoView({
+      behavior: "smooth",
+      block: isOpenInfo ? "start" : "end",
+    })
   }
 
   const handleAddToCartClick = (drink: Drink) => {
@@ -73,11 +78,10 @@ export const DrinkListComponent = () => {
       {drinkList?.map((drink, index) => {
         return drink ? (
           <React.Fragment key={drink.id}>
-            <DrinkComponent isOpen={!isOpenInfo || !selectedInfo} key={drink.id} drink={drink} expandDrink={() => HandleClick(index)} />
+            <DrinkComponent ref={(drink) => (ExpandedRef.current[index] = drink!)} isOpen={!isOpenInfo} key={drink.id} drink={drink} expandDrink={() => HandleClick(index)} />
 
             {index === selectedDrink && (
               <ExpandedDrink
-                ref={ExpandedRef}
                 $isOpen={isOpenInfo}
                 selected={selectedInfo}
                 onAnimationEnd={() => {
@@ -187,7 +191,7 @@ const DrinksContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
-  overflow: hidden;
+  /* overflow: hidden; */
   @media (max-width: 949px) {
     width: 500px;
     column-gap: 23px;
