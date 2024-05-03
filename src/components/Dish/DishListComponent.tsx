@@ -89,9 +89,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       SendToCart(dish)
       setShowItemAdded(true)
       setTimeout(() => {
-        setShowItemAdded(false)
-        setIsOpenInfo(false)
-        setSelectedInfo(false)
+        setShowItemAdded(false)        
       }, 1000)
     }
   }
@@ -144,7 +142,10 @@ export const DishListComponent = ({ dishType }: dishInput) => {
         ))}
         <SpacerDiv $spacer={spacerDivOn}></SpacerDiv>
       </DishesContainer>
-      {isPopupOpen && <AddToCartPopup dish={tempDish} onClose={() => setIsPopupOpen(false)} />}
+      {isPopupOpen && <AddToCartPopup dish={tempDish} onClose={() => {
+      setIsPopupOpen(false) 
+      setIsOpenInfo(false)
+      setSelectedInfo(false) }} />}
 
     </>
   )
