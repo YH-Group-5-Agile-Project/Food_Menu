@@ -17,7 +17,7 @@ const CheckoutComponent = () => {
   })
 
   const [customizeOrderId, setCustomizeOrderId] = useState<number[]>([])
-  const [showComment, setShowComment] = useState<number[]>([])
+  const [showComment, setShowComment] = useState<number[] | undefined>(undefined)
 
   useEffect(() => {
     setCart(GetCart())
@@ -25,9 +25,10 @@ const CheckoutComponent = () => {
 
   const toggleCustomizeOrder = (orderId: number) => {
     if (customizeOrderId.includes(orderId)) {
-      setShowComment(showComment.filter((id) => id !== orderId))
+      setShowComment(showComment?.filter((id) => id !== orderId))
     } else {
-      setShowComment([...showComment, orderId])
+      if (showComment !== undefined) setShowComment([...showComment, orderId])
+      setShowComment([orderId])
     }
 
     setTimeout(() => {
@@ -105,13 +106,13 @@ const CheckoutComponent = () => {
             <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
             <ActionCell>
               {customizeOrderId.includes(order.id) && (
-                <CommentContainer $displayed={showComment.includes(order.id)}>
+                <CommentContainer $displayed={showComment?.includes(order.id)}>
                   <CheckoutCommentComponent cart={cart} setCart={setCart} orderId={order.id} toggle={() => toggleCustomizeOrder(order.id)} />
                 </CommentContainer>
               )}
               {!customizeOrderId.includes(order.id) && (
                 <ButtonWrapper>
-                  <StyledButton $displayed={showComment.includes(order.id)} onClick={() => toggleCustomizeOrder(order.id)}>
+                  <StyledButton $displayed={showComment?.includes(order.id)} onClick={() => toggleCustomizeOrder(order.id)}>
                     Customize
                   </StyledButton>
                 </ButtonWrapper>
@@ -163,14 +164,14 @@ const ButtonTextReverseAnimation = keyframes`
   100% { text-indent: 300px; }
 `
 
-const StyledButton = styled.button<{ $displayed: boolean }>`
+const StyledButton = styled.button<{ $displayed?: boolean }>`
   overflow-x: hidden;
   width: 6.6rem;
-  animation-name: ${(props) => (props.$displayed ? ButtonTextReverseAnimation : ButtonTextAnimation)};
+  animation-name: ${(props) => (props.$displayed === true ? ButtonTextReverseAnimation : props.$displayed === false ? ButtonTextAnimation : "")};
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
 `
-const CommentContainer = styled.div<{ $displayed: boolean }>`
+const CommentContainer = styled.div<{ $displayed?: boolean }>`
   margin: 0 0 10px 10px;
   overflow-x: hidden;
   animation-name: ${(props) => (props.$displayed ? OpenCommentAnimation : CloseCommentAnimation)};
