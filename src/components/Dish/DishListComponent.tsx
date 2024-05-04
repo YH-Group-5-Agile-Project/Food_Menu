@@ -54,7 +54,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [showItemAdded, setShowItemAdded] = useState(false)
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false
-  const dishRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const dishRefs = useRef<HTMLDivElement[]>([]);
   const { data, isLoading, error } = PostQuery(dishType)
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
@@ -65,21 +65,31 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   }
 
   const HandleClick = (index: number) => {
+    let scrollTo: ScrollLogicalPosition
     if (index === selectedDish) {
       setSpacerWithTimeOut()
       setIsOpenInfo(false)
       setSelectedInfo(false)
+      scrollTo = "end"
     } else if ((selectedDish || selectedDish === 0) && index !== selectedDish) {
       setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(false)
       setSelectedDish(index)
+      scrollTo = "start"
     } else {
       setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(true)
       setSelectedDish(index)
+      scrollTo = "start"
     }
+    setTimeout(() => {
+        dishRefs.current[index].scrollIntoView({
+        behavior: "smooth",
+        block: scrollTo,
+      })
+    }, 10)
   }
 
   const handleAddToCartClick = (dish: Dish) => {
@@ -102,16 +112,14 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       <DishesContainer>
         {data?.map((dish: Dish, index: number) => (
           <React.Fragment key={index}>
-            <div ref={(el) => dishRefs.current[index] = el}>
-              <DishComponent
-                key={index}
-                dish={dish}
-                isOpen={!selectedInfo}
-                isSelected={index === selectedDish}
-                expandDish={() => HandleClick(index)}
-                isSideDish={dishType.toLowerCase() === "sidedish"}
-              />
-            </div>
+            <DishComponent
+              ref={(el) => (dishRefs.current[index] = el!)}
+              key={index}
+              dish={dish}
+              isSelected={index === selectedDish}
+              expandDish={() => HandleClick(index)}
+              isSideDish={dishType.toLowerCase() === "sidedish"}
+            />
             {index === selectedDish && (
               <ExpandedDish
                 $isOpen={isOpenInfo}

@@ -6,7 +6,6 @@ import { Drink } from "../../Models/Drink"
 interface DrinkComponentProps {
   expandDrink: any
   drink: Drink
-  isOpen: boolean
 }
 
 const DrinkComponent = forwardRef<HTMLDivElement, DrinkComponentProps>(({ drink, expandDrink }, ref) => {
