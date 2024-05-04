@@ -1,36 +1,21 @@
-import { useRef, useState } from "react"
+import { forwardRef, useState } from "react"
 import styled from "styled-components"
 import DrinkPopUp from "./DrinkPopUp"
 import { Drink } from "../../Models/Drink"
 
 interface DrinkComponentProps {
-  expandDrink: () => void
+  expandDrink: any
   drink: Drink
   isOpen: boolean
 }
 
-const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => {
+const DrinkComponent = forwardRef<HTMLDivElement, DrinkComponentProps>(({ drink, expandDrink }, ref) => {
   const [isPopUpOpen, setPopUpOpen] = useState(false)
 
   const togglePopUp = () => setPopUpOpen(!isPopUpOpen)
 
-  const ExpandedRef = useRef<HTMLDivElement>(null)
-
-  const clickedEvents = () => {
-    expandDrink()
-    // if (isOpen) {
-      setTimeout(() => {
-        ExpandedRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: !isOpen ? "end" : "start",
-        })
-
-      }, 10)
-    // }
-  }
-
   return (
-    <DrinkContainer ref={ExpandedRef} onClick={clickedEvents}>
+    <DrinkContainer ref={ref} onClick={expandDrink}>
       <ImageContainer>
         <DrinkImage src={drink.imgUrl} alt={drink.name} />
         <TitleOverlay>{drink.name}</TitleOverlay>
@@ -38,7 +23,7 @@ const DrinkComponent = ({ drink, isOpen, expandDrink }: DrinkComponentProps) => 
       {isPopUpOpen && <DrinkPopUp drink={drink} onClose={togglePopUp} />}
     </DrinkContainer>
   )
-}
+})
 
 export default DrinkComponent
 

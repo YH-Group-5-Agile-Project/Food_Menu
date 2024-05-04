@@ -30,28 +30,37 @@ export const DrinkListComponent = () => {
     }, 800)
   }
 
-  const ExpandedRef = useRef<HTMLDivElement>(null)
-
   const [selectedDrink, setSelectedDrink] = useState<number | null>(null)
   const [selectedInfo, setSelectedInfo] = useState<boolean>(false)
   const [isOpenInfo, setIsOpenInfo] = useState<boolean>(false)
+  const ExpandedRef = useRef<HTMLDivElement[]>([])
 
   const HandleClick = (index: number) => {
+    let scrollTo: ScrollLogicalPosition
     if (index === selectedDrink) {
       setSpacerWithTimeOut()
       setIsOpenInfo(false)
       setSelectedInfo(false)
+      scrollTo = "end"
     } else if ((selectedDrink || selectedDrink === 0) && index !== selectedDrink) {
       setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(false)
       setSelectedDrink(index)
+      scrollTo = "start"
     } else {
       setSpacerDivOn(true)
       setIsOpenInfo(true)
       setSelectedInfo(true)
       setSelectedDrink(index)
+      scrollTo = "start"
     }
+    setTimeout(() => {
+      ExpandedRef.current[index].scrollIntoView({
+        behavior: "smooth",
+        block: scrollTo,
+      })
+    }, 10)
   }
 
   const handleAddToCartClick = (drink: Drink) => {
@@ -71,11 +80,10 @@ export const DrinkListComponent = () => {
       {drinkList?.map((drink, index) => {
         return drink ? (
           <React.Fragment key={drink.id}>
-            <DrinkComponent isOpen={!isOpenInfo || !selectedInfo} key={drink.id} drink={drink} expandDrink={() => HandleClick(index)} />
+            <DrinkComponent ref={(drink) => (ExpandedRef.current[index] = drink!)} isOpen={!isOpenInfo} key={drink.id} drink={drink} expandDrink={() => HandleClick(index)} />
 
             {index === selectedDrink && (
               <ExpandedDrink
-                ref={ExpandedRef}
                 $isOpen={isOpenInfo}
                 selected={selectedInfo}
                 onAnimationEnd={() => {
@@ -185,7 +193,7 @@ const DrinksContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   grid-auto-flow: dense;
-  overflow: hidden;
+  /* overflow: hidden; */
   @media (max-width: 949px) {
     width: 500px;
     column-gap: 23px;
