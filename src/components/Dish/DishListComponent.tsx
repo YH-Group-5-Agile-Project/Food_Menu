@@ -71,16 +71,10 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       setIsOpenInfo(false)
       setSelectedInfo(false)
       scrollTo = "end"
-    } else if ((selectedDish || selectedDish === 0) && index !== selectedDish) {
-      setSpacerDivOn(true)
-      setIsOpenInfo(true)
-      setSelectedInfo(false)
-      setSelectedDish(index)
-      scrollTo = "start"
     } else {
       setSpacerDivOn(true)
       setIsOpenInfo(true)
-      setSelectedInfo(true)
+      setSelectedInfo((selectedDish || selectedDish === 0) && index !== selectedDish ? false : true)
       setSelectedDish(index)
       scrollTo = "start"
     }

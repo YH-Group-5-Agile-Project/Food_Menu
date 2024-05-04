@@ -42,16 +42,10 @@ export const DrinkListComponent = () => {
       setIsOpenInfo(false)
       setSelectedInfo(false)
       scrollTo = "end"
-    } else if ((selectedDrink || selectedDrink === 0) && index !== selectedDrink) {
-      setSpacerDivOn(true)
-      setIsOpenInfo(true)
-      setSelectedInfo(false)
-      setSelectedDrink(index)
-      scrollTo = "start"
     } else {
       setSpacerDivOn(true)
       setIsOpenInfo(true)
-      setSelectedInfo(true)
+      setSelectedInfo((selectedDrink || selectedDrink === 0) && index !== selectedDrink ? false : true)
       setSelectedDrink(index)
       scrollTo = "start"
     }
