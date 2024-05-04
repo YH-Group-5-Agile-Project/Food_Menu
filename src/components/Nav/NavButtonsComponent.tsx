@@ -104,17 +104,13 @@ export const NavButtons = () => {
         )}
       </LeftDiv>
 
-      <MiddleDiv>
-        {!!state.nextPage && (
-          <StyledButton onClick={toggleCart}>My order</StyledButton>
-        )}
-      </MiddleDiv>
+      <MiddleDiv>{!!state.nextPage && <StyledButton onClick={toggleCart}>My order</StyledButton>}</MiddleDiv>
 
       <RightDiv>
         {!!state.nextPage && (
           <Link to={state.nextPage}>
-              <StyledButton>{state.nextButtonText}</StyledButton>
-            </Link>
+            <StyledButton>{state.nextButtonText}</StyledButton>
+          </Link>
         )}
       </RightDiv>
 
@@ -139,17 +135,17 @@ const StyledButton = styled.button`
 const LeftDiv = styled.div`
   display: flex;
   justify-content: center;
-  width: calc(100%/5*2);
+  width: calc(100% / 5 * 2);
   min-width: 120px;
 `
 const MiddleDiv = styled.div`
-  width: calc(100%/5);
+  width: calc(100% / 5);
   min-width: 110px;
 `
 const RightDiv = styled.div`
   display: flex;
   justify-content: center;
-  width: calc(100%/5*2);
+  width: calc(100% / 5 * 2);
   min-width: 120px;
 `
 

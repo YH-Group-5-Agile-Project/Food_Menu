@@ -47,7 +47,7 @@ const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
           Close
         </button>
       </PopUpContent>
-      {showItemAdded && <ItemAddedToCartPopup/>}
+      {showItemAdded && <ItemAddedToCartPopup />}
     </PopUpContainer>
   )
 }

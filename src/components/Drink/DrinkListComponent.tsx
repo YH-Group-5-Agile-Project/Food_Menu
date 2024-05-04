@@ -74,12 +74,7 @@ export const DrinkListComponent = () => {
       {drinkList?.map((drink, index) => {
         return drink ? (
           <React.Fragment key={drink.id}>
-            <DrinkComponent 
-              ref={(drink) => (ExpandedRef.current[index] = drink!)} 
-              key={drink.id} 
-              drink={drink} 
-              expandDrink={() => HandleClick(index)} 
-            />
+            <DrinkComponent ref={(drink) => (ExpandedRef.current[index] = drink!)} key={drink.id} drink={drink} expandDrink={() => HandleClick(index)} />
 
             {index === selectedDrink && (
               <ExpandedDrink

@@ -1,5 +1,5 @@
 import DishComponent from "./DishComponent"
-import { useState, useRef} from "react"
+import { useState, useRef } from "react"
 import styled, { keyframes } from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { IncreamentId, SaveOrderToCart } from "../../services/CartService"
@@ -54,7 +54,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [showItemAdded, setShowItemAdded] = useState(false)
   const isSideDish = dishType.toLowerCase() === "sidedish" ? true : false
-  const dishRefs = useRef<HTMLDivElement[]>([]);
+  const dishRefs = useRef<HTMLDivElement[]>([])
   const { data, isLoading, error } = PostQuery(dishType)
   const [spacerDivOn, setSpacerDivOn] = useState(false)
 
@@ -79,7 +79,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       scrollTo = "start"
     }
     setTimeout(() => {
-        dishRefs.current[index].scrollIntoView({
+      dishRefs.current[index].scrollIntoView({
         behavior: "smooth",
         block: scrollTo,
       })
@@ -94,7 +94,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
       SendToCart(dish)
       setShowItemAdded(true)
       setTimeout(() => {
-        setShowItemAdded(false)        
+        setShowItemAdded(false)
       }, 1000)
     }
   }
@@ -135,21 +135,28 @@ export const DishListComponent = ({ dishType }: dishInput) => {
                   </DishIngredients>
                   <PriceButtonContainer>
                     <DishPrice>{dish.price} SEK</DishPrice>
-                    <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>Add to order</StyledButton>
+                    <StyledButton disabled={showItemAdded} onClick={() => handleAddToCartClick(dish)}>
+                      Add to order
+                    </StyledButton>
                   </PriceButtonContainer>
                 </TextContainer>
-                {showItemAdded && <ItemAddedToCartPopup/>}
+                {showItemAdded && <ItemAddedToCartPopup />}
               </ExpandedDish>
             )}
           </React.Fragment>
         ))}
         <SpacerDiv $spacer={spacerDivOn}></SpacerDiv>
       </DishesContainer>
-      {isPopupOpen && <AddToCartPopup dish={tempDish} onClose={() => {
-      setIsPopupOpen(false) 
-      setIsOpenInfo(false)
-      setSelectedInfo(false) }} />}
-
+      {isPopupOpen && (
+        <AddToCartPopup
+          dish={tempDish}
+          onClose={() => {
+            setIsPopupOpen(false)
+            setIsOpenInfo(false)
+            setSelectedInfo(false)
+          }}
+        />
+      )}
     </>
   )
 }
@@ -202,12 +209,7 @@ const ExpandedDish = styled.div<FoodProps>`
   height: 25rem;
   grid-column: 1 / -1;
   grid-row: auto;
-  animation-name: ${(props) =>
-    props.selected && props.$isOpen
-      ? ExpandAnimation
-      : !props.selected && props.$isOpen
-        ? StayOpenAnimation
-        : CloseAnimation};
+  animation-name: ${(props) => (props.selected && props.$isOpen ? ExpandAnimation : !props.selected && props.$isOpen ? StayOpenAnimation : CloseAnimation)};
   animation-duration: ${transitionTime}ms;
   display: flex;
   align-items: start;
@@ -265,11 +267,11 @@ const PriceButtonContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-`;
+`
 
 const DishPrice = styled.h2`
-text-align: left;
-flex: 1 1 auto;
+  text-align: left;
+  flex: 1 1 auto;
 `
 
 const StyledButton = styled.button`

@@ -4,13 +4,7 @@ import { CalculateCostCart, GetCart } from "../../services/CartService"
 import styles from "./CartComponent.module.css"
 import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
-import {
-  ContentContainer,
-  PricePayContainer,
-  ButtonWrapper,
-  StyledList,
-  NoBulletLi,
-} from "../Checkout/CheckoutComponent"
+import { ContentContainer, PricePayContainer, ButtonWrapper, StyledList, NoBulletLi } from "../Checkout/CheckoutComponent"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
 
@@ -59,29 +53,38 @@ export const CartComponent = (props: CloseProp) => {
       <CartContainer className={styles.PopUpOrder}>
         <ContentContainer>
           <CartHeader>My order</CartHeader>
-          {cart.OrderList.length<1 && <EmptyHeader>Your order is empty</EmptyHeader>}
+          {cart.OrderList.length < 1 && <EmptyHeader>Your order is empty</EmptyHeader>}
           <StyledTable>
             <tbody>
               {cart.OrderList.map((order) => (
                 <OrderRow key={order.id}>
                   <ProductCell>
                     <StyledList>
-                      {order.main?.title && <NoBulletLi>
-                        <GiHamburger style={{marginRight: '20px', fontSize: '1.7rem'}} />{order.main.title}
-                      </NoBulletLi>}
-                      {order.sides?.title && <NoBulletLi>
-                        <GiFrenchFries style={{marginRight: '20px', fontSize: '1.9rem'}}/>{order.sides.title}
-                      </NoBulletLi>}
-                      {order.drink?.name && <NoBulletLi>
-                        <BiDrink style={{marginRight: '20px', fontSize: '1.7rem'}}/>{order.drink.name}
-                      </NoBulletLi>}
+                      {order.main?.title && (
+                        <NoBulletLi>
+                          <GiHamburger style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                          {order.main.title}
+                        </NoBulletLi>
+                      )}
+                      {order.sides?.title && (
+                        <NoBulletLi>
+                          <GiFrenchFries style={{ marginRight: "20px", fontSize: "1.9rem" }} />
+                          {order.sides.title}
+                        </NoBulletLi>
+                      )}
+                      {order.drink?.name && (
+                        <NoBulletLi>
+                          <BiDrink style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                          {order.drink.name}
+                        </NoBulletLi>
+                      )}
                       {order?.comment && <p>Comment: {order.comment}</p>}
                     </StyledList>
                   </ProductCell>
                   <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
                   <ActionCell>
                     <ButtonWrapper>
-                    <button onClick={() => onDelete(order.id)}>Remove</button>
+                      <button onClick={() => onDelete(order.id)}>Remove</button>
                     </ButtonWrapper>
                   </ActionCell>
                 </OrderRow>
@@ -95,21 +98,21 @@ export const CartComponent = (props: CloseProp) => {
               <PriceHeader>Total price: {CalculateCostCart(cart)} SEK</PriceHeader>
             </PricePayContainer>
           )}
-          {cart.OrderList.length<1 ? 
-          <NavLink to="/main" onClick={props.CloseClick}>
-            <button>Start your order</button>
-          </NavLink>
-          :
-          <ButtonContainer>
-            <ContainedButton onClick={() => onEmpty()}>Empty Order</ContainedButton>
-            <ContainedButton onClick={props.CloseClick}>Close</ContainedButton>
-            <ContainedButton>
-              <StyledNavLink to={"/checkout"} onClick={props.CloseClick}>
-                Go to checkout
-              </StyledNavLink>
-            </ContainedButton>
-          </ButtonContainer>
-          }
+          {cart.OrderList.length < 1 ? (
+            <NavLink to="/main" onClick={props.CloseClick}>
+              <button>Start your order</button>
+            </NavLink>
+          ) : (
+            <ButtonContainer>
+              <ContainedButton onClick={() => onEmpty()}>Empty Order</ContainedButton>
+              <ContainedButton onClick={props.CloseClick}>Close</ContainedButton>
+              <ContainedButton>
+                <StyledNavLink to={"/checkout"} onClick={props.CloseClick}>
+                  Go to checkout
+                </StyledNavLink>
+              </ContainedButton>
+            </ButtonContainer>
+          )}
         </BottomContainer>
       </CartContainer>
     </>
@@ -159,25 +162,22 @@ const ActionCell = styled.td`
   justify-content: right;
 
   @media (max-width: 949px) {
-      justify-content: center;
+    justify-content: center;
   }
 `
-export const PriceTotal = styled.h1`
-
-`
+export const PriceTotal = styled.h1``
 const PriceHeader = styled.h1`
   margin: 15px;
   font-size: 3.3rem;
-@media (max-width: 949px) {
+  @media (max-width: 949px) {
     font-size: 1.4rem;
-    }
+  }
 `
 
 const ContainedButton = styled.button`
-@media (max-width: 949px) {
+  @media (max-width: 949px) {
     font-size: 1.1rem;
-    }
-
+  }
 `
 export const EmptyHeader = styled.h2`
   margin: 15px;

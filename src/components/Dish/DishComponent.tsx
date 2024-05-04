@@ -16,7 +16,6 @@ interface FoodProps {
 }
 
 const DishComponent = forwardRef<HTMLDivElement, DishComponentProps>(({ dish, expandDish, isSelected }, ref) => {
-
   return (
     <DishContainer selected={isSelected} ref={ref} onClick={expandDish}>
       <ImageContainer selected={isSelected}>

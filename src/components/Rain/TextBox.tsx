@@ -66,7 +66,9 @@ export const TextBox = () => {
       <Content>
         <Random>
           {spans.map((_, index) => (
-          <span key={index} className="ltr str">0</span>
+            <span key={index} className="ltr str">
+              0
+            </span>
           ))}
         </Random>
       </Content>

@@ -4,5 +4,5 @@ import react from "@vitejs/plugin-react"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {host: false} //Ändra ALLTID till false innan uppladdning på git
+  server: { host: false }, //Ändra ALLTID till false innan uppladdning på git
 })

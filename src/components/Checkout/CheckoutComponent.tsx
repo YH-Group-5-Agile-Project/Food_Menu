@@ -17,18 +17,26 @@ const CheckoutComponent = () => {
   })
 
   const [customizeOrderId, setCustomizeOrderId] = useState<number[]>([])
-  const [showComment, setShowComment] = useState<number[] | undefined>(undefined)
+  // const [showComment, setShowComment] = useState<number[] | undefined>(undefined)
+  const [showComment, setShowComment] = useState<boolean[]>([])
 
   useEffect(() => {
     setCart(GetCart())
   }, [])
 
-  const toggleCustomizeOrder = (orderId: number) => {
-    if (customizeOrderId.includes(orderId)) {
-      setShowComment(showComment?.filter((id) => id !== orderId))
+  const toggleCustomizeOrder = (orderId: number, index: number) => {
+    if (showComment.length < 1) setShowComment(new Array(cart.OrderList.length).fill(null))
+
+    if (showComment[index]) {
+      setShowComment((prev) => {
+        prev[index] = false
+        return [...prev]
+      })
     } else {
-      if (showComment !== undefined) setShowComment([...showComment, orderId])
-      setShowComment([orderId])
+      setShowComment((prev) => {
+        prev[index] = true
+        return [...prev]
+      })
     }
 
     setTimeout(() => {
@@ -78,7 +86,7 @@ const CheckoutComponent = () => {
             </NavLink>
           </>
         )}
-        {cart.OrderList.map((order) => (
+        {cart.OrderList.map((order, index) => (
           <OrderRow key={order.id}>
             <ProductCell>
               <StyledList>
@@ -106,16 +114,14 @@ const CheckoutComponent = () => {
             <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
             <ActionCell>
               {customizeOrderId.includes(order.id) && (
-                <CommentContainer $displayed={showComment?.includes(order.id)}>
-                  <CheckoutCommentComponent cart={cart} setCart={setCart} orderId={order.id} toggle={() => toggleCustomizeOrder(order.id)} />
+                <CommentContainer $displayed={showComment[index]}>
+                  <CheckoutCommentComponent cart={cart} setCart={setCart} orderId={order.id} toggle={() => toggleCustomizeOrder(order.id, index)} />
                 </CommentContainer>
               )}
               {!customizeOrderId.includes(order.id) && (
-                <ButtonWrapper>
-                  <StyledButton $displayed={showComment?.includes(order.id)} onClick={() => toggleCustomizeOrder(order.id)}>
-                    Customize
-                  </StyledButton>
-                </ButtonWrapper>
+                <StyledButton $displayed={showComment[index]} onClick={() => toggleCustomizeOrder(order.id, index)}>
+                  Customize
+                </StyledButton>
               )}
               <ButtonWrapper>
                 <button onClick={() => onDelete(order.id)}>Remove</button>
@@ -145,16 +151,6 @@ const CloseAnimation = keyframes`
   90% {opacity: 0; height: 0px; }
   100% { height: 0; opacity: 0;}
 `
-const OpenCommentAnimation = keyframes`
-  0% { transform: translateY(-10px);}
-  30% {transform: translateY(-10px)}
-  50% {transform: translateY(0px)}
-`
-const CloseCommentAnimation = keyframes`
-  0% { transform: translateY(0px)}
-  50% {transform: translateY(-10px)}
-  100% { transform: translateY(-10px);}
-`
 const ButtonTextAnimation = keyframes`
   0%{ text-indent: -300px; }
   100% { text-indent: 0px; }
@@ -166,7 +162,7 @@ const ButtonTextReverseAnimation = keyframes`
 
 const StyledButton = styled.button<{ $displayed?: boolean }>`
   overflow-x: hidden;
-  width: 6.6rem;
+  width: 6.7rem;
   animation-name: ${(props) => (props.$displayed === true ? ButtonTextReverseAnimation : props.$displayed === false ? ButtonTextAnimation : "")};
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
@@ -174,17 +170,16 @@ const StyledButton = styled.button<{ $displayed?: boolean }>`
 const CommentContainer = styled.div<{ $displayed?: boolean }>`
   margin: 0 0 10px 10px;
   overflow-x: hidden;
-  animation-name: ${(props) => (props.$displayed ? OpenCommentAnimation : CloseCommentAnimation)};
-  animation-duration: 0.5s;
 
   button {
-    width: 6.6rem;
+    width: 6.7rem;
     animation: ${(props) => (props.$displayed ? ButtonTextAnimation : ButtonTextReverseAnimation)};
     animation-duration: 0.5s;
     animation-timing-function: ease-in-out;
   }
 
   textarea {
+    width: 6.7rem;
     animation-name: ${(props) => (props.$displayed ? OpenAnimation : CloseAnimation)};
     animation-duration: 0.5s;
   }

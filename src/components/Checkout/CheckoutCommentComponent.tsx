@@ -3,7 +3,6 @@ import { Cart } from "../../Models/Cart"
 import { SaveCart } from "../../services/CartService"
 import styled from "styled-components"
 import { ButtonWrapper } from "./CheckoutComponent"
-import { Form } from "react-router-dom"
 
 type CommentFormType = {
   id: number
@@ -58,8 +57,6 @@ export const CheckoutCommentComponent = ({ toggle, cart, setCart, orderId }: Pro
     </form>
   )
 }
-
-
 
 const FormContainer = styled.div`
   display: flex;

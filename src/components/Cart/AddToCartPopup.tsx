@@ -131,9 +131,9 @@ export function AddToCartPopup({ dish, onClose }: AddToCartPopupProps) {
   )
 }
 const SelectedDishHeader = styled.h3`
-font-size: 2rem;
+  font-size: 2rem;
 
-@media (max-width: 949px) {
+  @media (max-width: 949px) {
     font-size: 0.8rem;
   }
 `
@@ -193,7 +193,6 @@ const DishImage = styled.img`
   width: 50%;
   border-radius: 20px;
   margin-right: 10px;
-  
 `
 const DishTitle = styled.div`
   width: 50%;

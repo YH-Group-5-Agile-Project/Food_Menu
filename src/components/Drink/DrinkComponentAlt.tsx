@@ -20,9 +20,9 @@ const DrinkComponentAlt = ({ drinkId, sendToCart }: DrinkComponentProps) => {
       </ImageContainer>
       <TextContainer>
         <DrinkDescription>
-         {data?.alcoholic ? "" : <strong>Non-alcholic.</strong>}
-         <br/>
-         {data?.ingredients.join(", ")}.
+          {data?.alcoholic ? "" : <strong>Non-alcholic.</strong>}
+          <br />
+          {data?.ingredients.join(", ")}.
         </DrinkDescription>
         <button onClick={() => sendToCart(data)}> Add to menu</button>
       </TextContainer>
@@ -31,10 +31,10 @@ const DrinkComponentAlt = ({ drinkId, sendToCart }: DrinkComponentProps) => {
 }
 
 const TextContainer = styled.div`
-display: flex;
-width: 65%;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  width: 65%;
+  flex-direction: column;
+  align-items: center;
 `
 
 const DrinkDescription = styled.div`
