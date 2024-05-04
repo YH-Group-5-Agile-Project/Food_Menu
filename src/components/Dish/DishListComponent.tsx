@@ -197,7 +197,7 @@ const StayOpenAnimation = keyframes`
 `
 
 const ExpandedDish = styled.div<FoodProps>`
-  //max-height: ${(props) => (props.$isOpen ? "25rem" : "0")};
+  max-height: ${(props) => (props.$isOpen ? "25rem" : "0")};
   opacity: ${(props) => (props.$isOpen ? "1" : "0")};
   height: 25rem;
   grid-column: 1 / -1;
