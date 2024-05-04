@@ -165,7 +165,7 @@ const StyledButton = styled.button<{ $displayed?: boolean }>`
   width: 6.7rem;
   animation-name: ${(props) => (props.$displayed === true ? ButtonTextReverseAnimation : props.$displayed === false ? ButtonTextAnimation : "")};
   animation-duration: 0.5s;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease;
 `
 const CommentContainer = styled.div<{ $displayed?: boolean }>`
   margin: 0 0 10px 10px;
@@ -175,7 +175,7 @@ const CommentContainer = styled.div<{ $displayed?: boolean }>`
     width: 6.7rem;
     animation: ${(props) => (props.$displayed ? ButtonTextAnimation : ButtonTextReverseAnimation)};
     animation-duration: 0.5s;
-    animation-timing-function: ease-in-out;
+    animation-timing-function: ease;
   }
 
   textarea {
