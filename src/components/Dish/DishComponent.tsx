@@ -1,31 +1,3 @@
-// import { forwardRef, useRef } from "react"
-// import { Dish } from "../../Models/Dish"
-// import styled from "styled-components"
-// import { ShortName } from "../../services/ShortNameService"
-
-// interface DishComponentProps {
-//   key: number
-//   dish: Dish
-//   expandDish: () => void
-//   isSelected: boolean
-//   isSideDish: boolean
-// }
-
-// interface FoodProps {
-//   selected: boolean
-// }
-
-// const DishComponent = forwardRef<HTMLDivElement, DishComponentProps>(({ dish, expandDish, isSelected }, ref) => {
-//   return (
-//     <DishContainer selected={isSelected} ref={ref} onClick={expandDish}>
-//       <ImageContainer selected={isSelected}>
-//         <DishImage src={dish.imageUrl} alt={dish.title} />
-//         {!isSelected && <TitleOverlay>{window.outerWidth < 949 ? ShortName(dish._id) : dish.title}</TitleOverlay>}
-//       </ImageContainer>
-//     </DishContainer>
-//   )
-// })
-
 import { forwardRef, useState, useEffect } from "react";
 import { Dish } from "../../Models/Dish";
 import styled from "styled-components";
