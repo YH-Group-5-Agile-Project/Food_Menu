@@ -76,12 +76,14 @@ export const RecommendDrink = (props: DrinkProps) => {
 
 const RecommendedDrinkName = styled.h1`
   font-size: 3rem;
+  margin: 1rem;
   @media (max-width: 949px) {
     font-size: 2.8rem;
   }
 `
 const RecommendedDrinkPrice = styled.h2`
   font-size: 2rem;
+  margin: 0px;
   @media (max-width: 949px) {
     font-size: 1.4rem;
   }
@@ -109,7 +111,8 @@ const ButtonContainer = styled.div`
 `
 
 const ImageContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 `
 
 const DrinkRecommendationParent = styled.div`
