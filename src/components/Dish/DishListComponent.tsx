@@ -154,6 +154,7 @@ export const DishListComponent = ({ dishType }: dishInput) => {
             setIsPopupOpen(false)
             setIsOpenInfo(false)
             setSelectedInfo(false)
+            setSpacerDivOn(false)
           }}
         />
       )}
