@@ -37,8 +37,7 @@ export const CheckoutCommentComponent = ({ toggle, cart, setCart, orderId }: Pro
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormContainer>
+    <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <textarea
           {...register("comment", {
             maxLength: {
@@ -53,13 +52,12 @@ export const CheckoutCommentComponent = ({ toggle, cart, setCart, orderId }: Pro
         <button type="submit" value={"Submit"}>
           Submit
         </button>
-      </FormContainer>
-    </form>
+    </FormContainer>
   )
 }
 
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+
+
+const FormContainer = styled.form`
+  display: contents;
 `
