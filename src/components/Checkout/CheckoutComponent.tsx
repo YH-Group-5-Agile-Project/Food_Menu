@@ -177,6 +177,8 @@ const ButtonTextReverseAnimation = keyframes`
 
 const StyledButton = styled.button<{ $displayed?: boolean; $animating: boolean }>`
   overflow-x: hidden;
+  grid-row: 2;
+  grid-column: 1/2;
   width: 6.7rem;
   animation-name: ${(props) => (props.$displayed === true ? ButtonTextReverseAnimation : props.$displayed === false ? ButtonTextAnimation : "")};
   animation-duration: 0.5s;
@@ -184,19 +186,25 @@ const StyledButton = styled.button<{ $displayed?: boolean; $animating: boolean }
   animation-play-state: ${(props) => (props.$animating ? "running" : "paused")};
 `
 const CommentContainer = styled.div<{ $displayed?: boolean; $animating: boolean }>`
-  margin: 0 0 10px 10px;
+  // margin: 5px 5px 10px 10px;
   overflow-x: hidden;
-
+  display: contents;
   button {
+    grid-row: 2/2;
+    grid-column: 1/2;
     width: 6.7rem;
     animation: ${(props) => (props.$displayed ? ButtonTextAnimation : ButtonTextReverseAnimation)};
     animation-duration: 0.5s;
     animation-timing-function: ease;
     animation-play-state: ${(props) => (props.$animating ? "running" : "paused")};
   }
-
+  
   textarea {
-    width: 6.7rem;
+    margin-bottom: 5px;
+    resize: none;
+    grid-row: 1;
+    grid-column: 1/3;
+    width: 100%;
     animation-name: ${(props) => (props.$displayed ? OpenAnimation : CloseAnimation)};
     animation-duration: 0.5s;
     animation-play-state: ${(props) => (props.$animating ? "running" : "paused")};
@@ -205,7 +213,7 @@ const CommentContainer = styled.div<{ $displayed?: boolean; $animating: boolean 
 
 export const NoBulletLi = styled.li`
   list-style-type: none;
-  margin: 10px 0;
+  padding-bottom: 1rem;
 `
 
 export default CheckoutComponent
@@ -235,10 +243,19 @@ export const CheckoutContainer = styled.div`
     width: 360px;
   }
 `
+export const ButtonWrapper = styled.div`
+  /* margin-bottom: 5px; */
+  gap: 5px;
+  grid-row: 2/2;
+  grid-column: 2/2;
+`
 
 export const ActionCell = styled.div`
-  display: flex;
-  justify-content: right;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-evenly;
   align-items: center;
   min-height: 80px;
   min-width: 232px;
@@ -326,13 +343,4 @@ export const StyledList = styled.ul`
     margin: 0px;
   }
 `
-export const ButtonWrapper = styled.div`
-  /* margin-bottom: 5px; */
-  flex-flow: row;
-  justify-content: center;
-  gap: 5px;
 
-  button {
-    margin: 0px 10px;
-  }
-`
