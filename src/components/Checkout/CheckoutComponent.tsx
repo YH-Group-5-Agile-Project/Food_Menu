@@ -135,7 +135,7 @@ const CheckoutComponent = () => {
               )}
               {!customizeOrderId.includes(order.id) && (
                 <StyledButton $displayed={showComment[order.id]!} $animating={isAnimation} onClick={() => toggleCustomizeOrder(order.id)}>
-                  Customize
+                  Comment
                 </StyledButton>
               )}
               <ButtonWrapper>
