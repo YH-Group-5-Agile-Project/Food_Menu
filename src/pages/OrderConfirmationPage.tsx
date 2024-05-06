@@ -42,34 +42,34 @@ const OrderConfirmationPage = () => {
             <StyledNavLink to="/">Home</StyledNavLink>
           </Nav>
           <ContentContainer>
-          {OrderList.map((order) => (
-          <OrderRow key={order.id}>
-            <ProductCell>
-              <StyledList>
-                {order.main?.title && (
-                  <NoBulletLi>
-                    <GiHamburger style={{ marginRight: "20px", fontSize: "1.7rem" }} />
-                    {order.main.title}
-                  </NoBulletLi>
-                )}
-                {order.sides?.title && (
-                  <NoBulletLi>
-                    <GiFrenchFries style={{ marginRight: "20px", fontSize: "1.9rem" }} />
-                    {order.sides.title}
-                  </NoBulletLi>
-                )}
-                {order.drink?.name && (
-                  <NoBulletLi>
-                    <BiDrink style={{ marginRight: "20px", fontSize: "1.7rem" }} />
-                    {order.drink.name}
-                  </NoBulletLi>
-                )}
-                {order?.comment && <p>Comment: {order.comment}</p>}
-              </StyledList>
-            </ProductCell>
-            <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
-                  </OrderRow>
-                ))}
+            {OrderList.map((order) => (
+              <OrderRow key={order.id}>
+                <ProductCell>
+                  <StyledList>
+                    {order.main?.title && (
+                      <NoBulletLi>
+                        <GiHamburger style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                        {order.main.title}
+                      </NoBulletLi>
+                    )}
+                    {order.sides?.title && (
+                      <NoBulletLi>
+                        <GiFrenchFries style={{ marginRight: "20px", fontSize: "1.9rem" }} />
+                        {order.sides.title}
+                      </NoBulletLi>
+                    )}
+                    {order.drink?.name && (
+                      <NoBulletLi>
+                        <BiDrink style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                        {order.drink.name}
+                      </NoBulletLi>
+                    )}
+                    {order?.comment && <p>Comment: {order.comment}</p>}
+                  </StyledList>
+                </ProductCell>
+                <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+              </OrderRow>
+            ))}
           </ContentContainer>
           <BottomContainer>
             <PricePayContainer>
@@ -133,21 +133,21 @@ const Nav = styled.div`
   margin: 30px 0;
 `
 const ComfirmationContainer = styled.div`
-width: 100%;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-overflow-x: auto;
-padding-right: 20px;
-height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: auto;
+  padding-right: 20px;
+  height: 90%;
 
-@media (max-width: 949px) {
-  width: 500px;
-}
+  @media (max-width: 949px) {
+    width: 500px;
+  }
 
-@media (max-width: 549px) {
-  width: 360px;
-}
+  @media (max-width: 549px) {
+    width: 360px;
+  }
 `
 const StyledNavLink = styled(NavLink)`
   align-self: center;
