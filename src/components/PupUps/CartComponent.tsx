@@ -209,7 +209,7 @@ max-width: 50rem;
 height: 90%;
 border: 1px solid black;
 border-radius: 20px;
-background-image: url('../../assets/design-assets/climpek.png');
+background-image: url('src/assets/design-assets/climpek.png');
 background-color: var(--firstColor);
 z-index: 999;
 color: var(--sixthColor);
