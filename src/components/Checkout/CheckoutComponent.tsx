@@ -244,7 +244,6 @@ export const CheckoutContainer = styled.div`
   }
 `
 export const ButtonWrapper = styled.div`
-  /* margin-bottom: 5px; */
   gap: 5px;
   grid-row: 2/2;
   grid-column: 2/2;
@@ -266,7 +265,6 @@ export const OrderRow = styled.div`
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
-  /* padding: 10px; */
   border-bottom: 1px solid var(--sixthColor);
   border-width: 90%;
   text-align: left;
@@ -326,7 +324,6 @@ export const PricePayContainer = styled.div`
   justify-content: space-between;
   padding: 8px 20px;
   font-size: 18px;
-  // background-color: var(--fifthColor);
   border-radius: 20px;
 `
 
@@ -343,4 +340,3 @@ export const StyledList = styled.ul`
     margin: 0px;
   }
 `
-

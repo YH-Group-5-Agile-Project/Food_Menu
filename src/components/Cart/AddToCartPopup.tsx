@@ -174,9 +174,6 @@ const SideContainer = styled.button`
   margin: 10px;
   margin-top: 20px;
   border-radius: 20px;
-  // margin-left: 1rem;
-  // margin-right: 1rem;
-  // margin-bottom: 4px;
   padding: 6px;
   align-items: center;
   transition:

@@ -3,6 +3,22 @@ import MainImg from "../../assets/design-assets/animationImages/MainImg.png";
 import SideImg from "../../assets/design-assets/animationImages/SideImg.png";
 import DrinkImg from "../../assets/design-assets/animationImages/DrinkkImg.png";
 
+export const Animation = () => {
+  return (
+    <AnimationContainer>
+      <Image1>
+        <img src={MainImg} alt="Main"/>
+      </Image1>
+      <Image2>
+        <img src={SideImg} alt="Side" />
+      </Image2>
+      <Image3>
+        <img src={DrinkImg} alt="Drink" />
+      </Image3>
+    </AnimationContainer>
+  );
+};
+
 const bounceAnimation = keyframes`
   0% {
     transform: translateY(0);
@@ -46,19 +62,3 @@ const Image3 = styled(FallingImage)`
   animation-name: ${bounceAnimation};
   animation-delay: 1s; /* Delay for the third image */
 `;
-
-export const Animation = () => {
-  return (
-    <AnimationContainer>
-      <Image1>
-        <img src={MainImg} alt="Main"/>
-      </Image1>
-      <Image2>
-        <img src={SideImg} alt="Side" />
-      </Image2>
-      <Image3>
-        <img src={DrinkImg} alt="Drink" />
-      </Image3>
-    </AnimationContainer>
-  );
-};

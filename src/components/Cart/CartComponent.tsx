@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { Cart } from "../../Models/Cart"
 import { CalculateCostCart, GetCart } from "../../services/CartService"
-import styles from "./CartComponent.module.css"
 import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
 import { ContentContainer, PricePayContainer, ButtonWrapper, NoBulletLi } from "../Checkout/CheckoutComponent"
@@ -50,7 +49,7 @@ export const CartComponent = (props: CloseProp) => {
 
   return (
     <>
-      <CartContainer className={styles.PopUpOrder}>
+      <CartContainer>
         <ContentContainer>
           <CartHeader>My order</CartHeader>
           {cart.OrderList.length < 1 && <EmptyHeader>Your order is empty</EmptyHeader>}
@@ -195,7 +194,35 @@ export const EmptyHeader = styled.h2`
 const CartHeader = styled.h1`
   margin: 15px;
 `
-const CartContainer = styled.div``
+const CartContainer = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: center;
+position: fixed;
+top: 2%;
+left: 50%;
+transform: translateX(-50%);
+font-size: 18px;
+width: 100%;
+max-width: 50rem;
+height: 90%;
+border: 1px solid black;
+border-radius: 20px;
+background-image: url('../../assets/design-assets/climpek.png');
+background-color: var(--firstColor);
+z-index: 999;
+color: var(--sixthColor);
+overflow: scroll;
+padding: 20px;
+
+@media (max-width: 949px) {
+  width: 80%;
+}
+@media (max-width: 609px) {
+  width: 95%;
+}
+`
 
 const BottomContainer = styled.div``
 
