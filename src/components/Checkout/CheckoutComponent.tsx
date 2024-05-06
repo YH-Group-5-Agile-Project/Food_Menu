@@ -212,7 +212,7 @@ export default CheckoutComponent
 
 export const ContentContainer = styled.div`
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
 `
 export const BottomContainer = styled.div`
   width: 100%;
