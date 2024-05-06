@@ -30,7 +30,7 @@ const NavbarContainer = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
-  width: 100%; /* Set a fixed width for the NavbarContainer */
+  width: 100%;
   margin-bottom: 20px;
   padding: 5px;
 `
@@ -63,7 +63,6 @@ const StyledNavLink = styled(NavLink)`
     font-size: 16px;
   }
 
-  /* Conditional styles when NavLink is active */
   &.active {
     font-weight: bold;
     color: blue;
