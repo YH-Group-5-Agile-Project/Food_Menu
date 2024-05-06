@@ -4,7 +4,7 @@ import { CalculateCostCart, GetCart } from "../../services/CartService"
 import styles from "./CartComponent.module.css"
 import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
-import { ContentContainer, PricePayContainer, ButtonWrapper, StyledList, NoBulletLi } from "../Checkout/CheckoutComponent"
+import { ContentContainer, PricePayContainer, ButtonWrapper, NoBulletLi } from "../Checkout/CheckoutComponent"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
 
@@ -128,12 +128,12 @@ const ProductCell = styled.td`
   font-weight: normal;
 `
 
-const OrderRow = styled.tr`
+const OrderRow = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
   border-bottom: 1px solid var(--sixthColor);
   border-width: 90%;
   text-align: left;
@@ -147,8 +147,21 @@ const OrderRow = styled.tr`
     text-align: left;
   }
 `
+export const StyledList = styled.ul`
+  font-size: medium;
+  margin-bottom: 0px;
+  li {
+    margin-bottom: 5px;
+    @media (max-width: 949px) {
+      margin-bottom: 20px;
+    }
+  }
+  p {
+    margin: 0px;
+  }
+`
 
-const PriceCell = styled.td`
+const PriceCell = styled.div`
   text-align: right;
   font-weight: bold;
   @media (max-width: 949px) {
@@ -157,7 +170,7 @@ const PriceCell = styled.td`
   }
 `
 
-const ActionCell = styled.td`
+const ActionCell = styled.div`
   display: flex;
   justify-content: right;
 
