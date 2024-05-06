@@ -213,7 +213,7 @@ const CommentContainer = styled.div<{ $displayed?: boolean; $animating: boolean 
 
 export const NoBulletLi = styled.li`
   list-style-type: none;
-  margin: 10px 0;
+  padding-bottom: 1rem;
 `
 
 export default CheckoutComponent

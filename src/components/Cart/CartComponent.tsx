@@ -54,8 +54,6 @@ export const CartComponent = (props: CloseProp) => {
         <ContentContainer>
           <CartHeader>My order</CartHeader>
           {cart.OrderList.length < 1 && <EmptyHeader>Your order is empty</EmptyHeader>}
-          <StyledTable>
-            <tbody>
               {cart.OrderList.map((order) => (
                 <OrderRow key={order.id}>
                   <ProductCell>
@@ -89,8 +87,6 @@ export const CartComponent = (props: CloseProp) => {
                   </ActionCell>
                 </OrderRow>
               ))}
-            </tbody>
-          </StyledTable>
         </ContentContainer>
         <BottomContainer>
           {cart.OrderList.length > 0 && (
@@ -121,7 +117,7 @@ export const CartComponent = (props: CloseProp) => {
 
 export default CartComponent
 
-const ProductCell = styled.td`
+const ProductCell = styled.div`
   display: flex;
   justify-content: left;
   flex-direction: column;
@@ -202,10 +198,6 @@ const CartHeader = styled.h1`
 const CartContainer = styled.div``
 
 const BottomContainer = styled.div``
-
-const StyledTable = styled.table`
-  width: 100%;
-`
 
 const ButtonContainer = styled.div`
   width: 100%;
