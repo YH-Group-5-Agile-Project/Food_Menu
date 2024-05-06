@@ -12,8 +12,7 @@
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 5%;
   color: black;
-  background: 
-  url('../../assets/design-assets/Leather1.png'), 
+  background: url('../../assets/design-assets/Leather1.png'), 
   linear-gradient(rgb(188, 255, 134), var(--secondColor));
  
 
@@ -65,14 +64,4 @@
   @media(max-width: 549px) {
     font-size: 16px;
   }
-}
-
-.navbarButtonDefault {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  
-  background: url('../../assets/design-assets/Leather1.png');
-  transition: background-color 0.3s ease-in-out;
 }

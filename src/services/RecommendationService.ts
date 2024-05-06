@@ -1,10 +1,6 @@
 import { Dish } from "../Models/Dish"
 import { Drink } from "../Models/Drink"
 import { DRINK_IDS, DRINK_MILK_FILTER, FOODCATEGORY_TO_DRINK_POINTS } from "../constants/variables"
-import { DrinkQueries } from "./DbService"
-// Recommend Drink
-// An algorithm that either give a specific or random recommendation :D
-// Why? Don´t ask...
 export const DrinkRecommendation = (foodId: string): string => {
   if (Math.random() > 0.5) {
     // random

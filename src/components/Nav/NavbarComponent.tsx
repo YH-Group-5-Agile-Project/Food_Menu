@@ -15,7 +15,7 @@ const NavbarContainer = styled.div`
 interface NavbarProps {
   currentPage: string
 }
-
+  
 export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <>
