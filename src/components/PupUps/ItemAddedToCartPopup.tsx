@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import DecorationLineImage from "../assets/design-assets/DecorationLine.png"
-import Texture from "../assets/design-assets/climpek.png"
+import DecorationLineImage from "../../assets/design-assets/DecorationLine.png"
+import Texture from "../../assets/design-assets/climpek.png"
 
 export const ItemAddedToCartPopup = () => {
   return (
