@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { SendDrinkToCart } from "../../services/CartService"
 import { useState } from "react"
-import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup"
 import Texture from "../../assets/design-assets/climpek.png"
 
 export type Drink = {

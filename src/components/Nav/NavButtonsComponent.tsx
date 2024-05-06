@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { ToggleCartOverlay } from "../../App"
-import CartComponent from "../Cart/CartComponent"
+import CartComponent from "../PupUps/CartComponent"
 import { useEffect, useReducer } from "react"
 import { styled } from "styled-components"
 

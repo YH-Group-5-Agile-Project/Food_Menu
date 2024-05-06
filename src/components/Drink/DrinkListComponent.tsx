@@ -4,7 +4,7 @@ import styled, { keyframes } from "styled-components"
 import { DrinkQueries } from "../../services/DbService"
 import { Drink } from "../../Models/Drink"
 import { SendDrinkToCart } from "../../services/CartService"
-import { ItemAddedToCartPopup } from ".././ItemAddedToCartPopup"
+import { ItemAddedToCartPopup } from "../PupUps/ItemAddedToCartPopup"
 import React from "react"
 import { DRINK_IDS } from "../../constants/variables"
 

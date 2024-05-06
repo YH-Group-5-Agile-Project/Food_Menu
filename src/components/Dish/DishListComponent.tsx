@@ -4,9 +4,9 @@ import styled, { keyframes } from "styled-components"
 import { Dish } from "../../Models/Dish"
 import { IncreamentId, SaveOrderToCart } from "../../services/CartService"
 import { Order } from "../../Models/Order"
-import { AddToCartPopup } from "../Cart/AddToCartPopup"
+import { AddToCartPopup } from "../PupUps/AddToCartPopup"
 import { PostQuery } from "../../services/DbService"
-import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
+import { ItemAddedToCartPopup } from "../PupUps/ItemAddedToCartPopup"
 import React from "react"
 
 let tempDish: Dish

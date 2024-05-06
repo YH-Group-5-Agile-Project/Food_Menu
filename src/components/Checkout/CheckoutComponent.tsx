@@ -5,7 +5,7 @@ import { CalculateCostCart, GetCart } from "../../services/CartService"
 import { NavLink, useNavigate } from "react-router-dom"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
-import { EmptyHeader } from "../Cart/CartComponent"
+import { EmptyHeader } from "../PupUps/CartComponent"
 import { CheckoutCommentComponent } from "./CheckoutCommentComponent"
 
 const CheckoutComponent = () => {

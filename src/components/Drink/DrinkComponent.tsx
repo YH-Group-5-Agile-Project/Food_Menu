@@ -1,6 +1,6 @@
 import { forwardRef, useState } from "react"
 import styled from "styled-components"
-import DrinkPopUp from "./DrinkPopUp"
+import DrinkPopUp from "../PupUps/DrinkPopUp"
 import { Drink } from "../../Models/Drink"
 
 interface DrinkComponentProps {

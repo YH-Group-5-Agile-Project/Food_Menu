@@ -5,7 +5,7 @@ import { DrinkRec } from "../../services/RecommendationService"
 import { DrinkQueries } from "../../services/DbService"
 import { useState, useEffect } from "react"
 import { DrinkPickList } from "./DrinkPickList"
-import { ItemAddedToCartPopup } from "../ItemAddedToCartPopup"
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup"
 import { DRINK_IDS } from "../../constants/variables"
 
 interface DrinkProps {
