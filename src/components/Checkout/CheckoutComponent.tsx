@@ -27,6 +27,7 @@ const CheckoutComponent = () => {
     setCart(GetCart())
   }, [])
 
+  // used for pausing the animation in some rerenders
   useEffect(() => {
     setTimeout(() => {
       setIsAnimation(true)
@@ -49,6 +50,7 @@ const CheckoutComponent = () => {
       [orderId]: prev[orderId] === true ? false : true,
     }))
 
+    // Timeout so that animation can finish before switching render component
     setTimeout(() => {
       if (customizeOrderId.includes(orderId)) {
         setCustomizeOrderId(customizeOrderId.filter((id) => id !== orderId))
@@ -59,7 +61,9 @@ const CheckoutComponent = () => {
   }
 
   const onDelete = (orderId: number) => {
+    // Pause animation
     setIsAnimation(false)
+
     const updatedOrderList = cart.OrderList.filter((order) => order.id !== orderId)
     const updatedCart = {
       ...cart,
