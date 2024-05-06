@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom"
 import { Cart } from "../Models/Cart"
 import { ResetCart } from "../services/CartService"
 import { BottomContainer, ContentContainer, NoBulletLi, PricePayContainer, StyledList } from "../components/Checkout/CheckoutComponent"
-import { TextBox } from "../components/Rain/TextBox"
+import { Animation } from "../components/confirmationAnimation/Animation"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
 
@@ -14,7 +14,7 @@ const OrderConfirmationPage = () => {
   const location = useLocation()
 
   // set to false to stop the raining
-  const [isRaining, setIsRaining] = useState<boolean>(false)
+  const [isAnimating, setIsAnimating] = useState<boolean>(true)
 
   const { OrderList = [], TotalCost = 0 }: Omit<Cart, "id"> = location.state ?? {}
 
@@ -25,15 +25,15 @@ const OrderConfirmationPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setIsRaining(false)
-    }, 8000)
+      setIsAnimating(false)
+    }, 2000)
   })
 
   return (
     <>
-      {isRaining ? (
+      {isAnimating ? (
         <FullContainer>
-          <TextBox />
+          <Animation />
         </FullContainer>
       ) : (
         <ComfirmationContainer>
