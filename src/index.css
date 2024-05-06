@@ -14,7 +14,6 @@
 
   color-scheme: light dark;
   color: var(--sixthColor);
-  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,6 +21,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
 
 html {
   box-sizing: border-box;
@@ -62,17 +66,8 @@ height: 0;
   color: #646cff;
   text-decoration: inherit;
 }
-/*
-a:hover {
-  color: #535bf2;
-} */
 
 body {
-  /* margin: 0; */
-  /* display: flex;
-  place-items: center;
-  min-width: 320px;
-  height: 100vh; */
   background-image: url('assets/design-assets/BackgroundImg.png');
   background-size: cover;
   background-position:center;
@@ -149,21 +144,3 @@ button:hover {
     url('assets/design-assets/diamonds-are-forever.png'),
     linear-gradient(var(--seventhColor),var(--fifthColor));
 }
-
-/*button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}*/
-
-/*@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}*/

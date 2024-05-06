@@ -54,9 +54,6 @@ export const CheckoutCommentComponent = ({ toggle, cart, setCart, orderId }: Pro
     </FormContainer>
   )
 }
-
-
-
 const FormContainer = styled.form`
   display: contents;
 `

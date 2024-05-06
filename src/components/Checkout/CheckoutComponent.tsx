@@ -256,7 +256,7 @@ export const ActionCell = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: start;
   min-height: 80px;
   min-width: 232px;
 `
