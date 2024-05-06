@@ -4,7 +4,7 @@ import { styled } from "styled-components"
 import { NavLink } from "react-router-dom"
 import { Cart } from "../Models/Cart"
 import { ResetCart } from "../services/CartService"
-import { BottomContainer, CheckoutContainer, ContentContainer, NoBulletLi, PricePayContainer, StyledList } from "../components/Checkout/CheckoutComponent"
+import { BottomContainer, ContentContainer, NoBulletLi, PricePayContainer, StyledList } from "../components/Checkout/CheckoutComponent"
 import { TextBox } from "../components/Rain/TextBox"
 import { GiFrenchFries, GiHamburger } from "react-icons/gi"
 import { BiDrink } from "react-icons/bi"
@@ -14,7 +14,7 @@ const OrderConfirmationPage = () => {
   const location = useLocation()
 
   // set to false to stop the raining
-  const [isRaining, setIsRaining] = useState<boolean>(true)
+  const [isRaining, setIsRaining] = useState<boolean>(false)
 
   const { OrderList = [], TotalCost = 0 }: Omit<Cart, "id"> = location.state ?? {}
 
@@ -36,62 +36,58 @@ const OrderConfirmationPage = () => {
           <TextBox />
         </FullContainer>
       ) : (
-        <Container>
+        <ComfirmationContainer>
           <Nav>
             <h2>Thank you for your order</h2>
             <StyledNavLink to="/">Home</StyledNavLink>
           </Nav>
           <ContentContainer>
-            <table>
-              <tbody>
-                {OrderList.map((order) => (
-                  <OrderRow key={order.id}>
-                    <ProductCell>
-                      <StyledList>
-                        {order.main?.title && (
-                          <NoBulletLi>
-                            <GiHamburger style={{ marginRight: "20px", fontSize: "1.7rem" }} />
-                            {order.main.title}
-                          </NoBulletLi>
-                        )}
-                        {order.sides?.title && (
-                          <NoBulletLi>
-                            <GiFrenchFries style={{ marginRight: "20px", fontSize: "1.9rem" }} />
-                            {order.sides.title}
-                          </NoBulletLi>
-                        )}
-                        {order.drink?.name && (
-                          <NoBulletLi>
-                            <BiDrink style={{ marginRight: "20px", fontSize: "1.7rem" }} />
-                            {order.drink.name}
-                          </NoBulletLi>
-                        )}
-                        {order?.comment && <p>Comment: {order.comment}</p>}
-                      </StyledList>
-                    </ProductCell>
-                    <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
+          {OrderList.map((order) => (
+          <OrderRow key={order.id}>
+            <ProductCell>
+              <StyledList>
+                {order.main?.title && (
+                  <NoBulletLi>
+                    <GiHamburger style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                    {order.main.title}
+                  </NoBulletLi>
+                )}
+                {order.sides?.title && (
+                  <NoBulletLi>
+                    <GiFrenchFries style={{ marginRight: "20px", fontSize: "1.9rem" }} />
+                    {order.sides.title}
+                  </NoBulletLi>
+                )}
+                {order.drink?.name && (
+                  <NoBulletLi>
+                    <BiDrink style={{ marginRight: "20px", fontSize: "1.7rem" }} />
+                    {order.drink.name}
+                  </NoBulletLi>
+                )}
+                {order?.comment && <p>Comment: {order.comment}</p>}
+              </StyledList>
+            </ProductCell>
+            <PriceCell>{`${order.OrderCost} SEK`}</PriceCell>
                   </OrderRow>
                 ))}
-              </tbody>
-            </table>
           </ContentContainer>
           <BottomContainer>
             <PricePayContainer>
               <h1>Total price: {TotalCost} SEK</h1>
             </PricePayContainer>
           </BottomContainer>
-        </Container>
+        </ComfirmationContainer>
       )}
     </>
   )
 }
 
-const OrderRow = styled.tr`
-  display: table-row;
+const OrderRow = styled.div`
+  display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   gap: 10px;
   align-items: center;
-  padding: 10px;
+  /* padding: 10px; */
   border-bottom: 1px solid var(--sixthColor);
   border-width: 90%;
   text-align: left;
@@ -106,14 +102,14 @@ const OrderRow = styled.tr`
   }
 `
 
-const ProductCell = styled.td`
+const ProductCell = styled.div`
   display: table-cell;
   justify-content: left;
   flex-direction: column;
   font-weight: normal;
 `
 
-const PriceCell = styled.td`
+const PriceCell = styled.div`
   text-align: right;
   font-weight: bold;
   @media (max-width: 949px) {
@@ -136,12 +132,23 @@ const Nav = styled.div`
   gap: 10px;
   margin: 30px 0;
 `
-const Container = styled(CheckoutContainer)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`
+const ComfirmationContainer = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+overflow-x: auto;
+padding-right: 20px;
+height: 90%;
 
+@media (max-width: 949px) {
+  width: 500px;
+}
+
+@media (max-width: 549px) {
+  width: 360px;
+}
+`
 const StyledNavLink = styled(NavLink)`
   align-self: center;
   max-width: 75px;

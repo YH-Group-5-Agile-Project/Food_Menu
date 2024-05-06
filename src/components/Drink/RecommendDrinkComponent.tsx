@@ -127,7 +127,7 @@ const DrinkRecommendationParent = styled.div`
 `
 
 const DrinkImage = styled.img`
-  width: 50%;
+  width: 45%;
   border-radius: 20px;
   @media (max-width: 949px) {
     width: 70%;
