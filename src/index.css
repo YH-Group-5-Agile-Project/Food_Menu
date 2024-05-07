@@ -8,13 +8,12 @@
   --seventhColor: #d1fffb;
   
   /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
-  font-family: 'Bad script';
-  line-height: 1.5;
+  font-family: "Charm", cursive;
   font-weight: 400;
+  font-style: normal;
 
   color-scheme: light dark;
   color: var(--sixthColor);
-  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,14 +21,35 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
 
 html {
   box-sizing: border-box;
 }
 
+
 ::-webkit-scrollbar {
-  width: 0px; /* Adjust the width as needed */
+width: 3px;
+height: 0;
 }
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fifthColor);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+} 
 
 
 *, *:before, *:after {
@@ -46,17 +66,8 @@ html {
   color: #646cff;
   text-decoration: inherit;
 }
-/*
-a:hover {
-  color: #535bf2;
-} */
 
 body {
-  /* margin: 0; */
-  /* display: flex;
-  place-items: center;
-  min-width: 320px;
-  height: 100vh; */
   background-image: url('assets/design-assets/BackgroundImg.png');
   background-size: cover;
   background-position:center;
@@ -83,16 +94,26 @@ button {
     url('assets/design-assets/diamonds-are-forever.png'),
     linear-gradient(rgb(244, 255, 174),var(--fifthColor));
 }
+
 button:disabled {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
-    linear-gradient(rgb(0, 0, 0),var(--fifthColor));
+    linear-gradient(var(--thirdColor),var(--fifthColor));
 }
+
+
 button:disabled:hover {
   background: 
-    url('assets/design-assets/diamonds-are-forever.png'),
-    linear-gradient(rgb(0, 0, 0),var(--fifthColor));
+  url('assets/design-assets/diamonds-are-forever.png'),
+  linear-gradient(var(--thirdColor),var(--fifthColor));
 }
+
+button:active:focus {
+  background: 
+    url('assets/design-assets/diamonds-are-forever.png'),
+    linear-gradient(var(--sixthColor),var(--fifthColor));
+}
+
 form input{
   color: var(--thirdColor);
   border-radius: 10px;
@@ -121,23 +142,5 @@ form textarea{
 button:hover {
   background: 
     url('assets/design-assets/diamonds-are-forever.png'),
-    linear-gradient(rgb(200, 200, 220),var(--fifthColor));
+    linear-gradient(var(--seventhColor),var(--fifthColor));
 }
-
-/*button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}*/
-
-/*@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}*/

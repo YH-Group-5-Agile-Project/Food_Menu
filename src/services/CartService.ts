@@ -1,84 +1,84 @@
-import { Cart } from "../Models/Cart";
-import { Drink } from "../Models/Drink";
-import { Order } from "../Models/Order";
+import { Cart } from "../Models/Cart"
+import { Drink } from "../Models/Drink"
+import { Order } from "../Models/Order"
 
 export const SaveCart = (cart: Cart): void => {
-  localStorage.setItem("cart", JSON.stringify(cart));
-};
+  localStorage.setItem("cart", JSON.stringify(cart))
+}
 
 export const SaveOrderToCart = (order: Order): void => {
-  console.log("Saving order...", order);
+  console.log("Saving order...", order)
   // Get
-  let storedCart: Cart = GetCart();
+  let storedCart: Cart = GetCart()
   // Add
-  storedCart.OrderList.push(order);
+  storedCart.OrderList.push(order)
   // Save
-  localStorage.setItem("cart", JSON.stringify(storedCart));
-};
+  localStorage.setItem("cart", JSON.stringify(storedCart))
+}
 
 export const SendDrinkToCart = (drink: Drink): void => {
   const newOrder: Order = {
     id: IncreamentId(),
     drink: drink,
     OrderCost: drink.price,
-  };
-  SaveOrderToCart(newOrder);
-};
+  }
+  SaveOrderToCart(newOrder)
+}
 
 export const GetCart = () => {
-  console.log("Getting Cart...");
-  const storedCart = localStorage.getItem("cart");
+  console.log("Getting Cart...")
+  const storedCart = localStorage.getItem("cart")
   let cart: Cart = {
     id: 1,
     OrderList: [],
     TotalCost: 0,
-  };
-  if (storedCart) {
-    cart = JSON.parse(storedCart);
   }
-  return cart;
-};
+  if (storedCart) {
+    cart = JSON.parse(storedCart)
+  }
+  return cart
+}
 
 export const ResetCart = () => {
-  console.log("Reset Cart");
+  console.log("Reset Cart")
   let newCart: Cart = {
     id: 1,
     OrderList: [],
     TotalCost: 0,
-  };
-  SaveCart(newCart);
-};
+  }
+  SaveCart(newCart)
+}
 
 // Simple ID setter
 export const IncreamentId = () => {
-  let id = 0;
-  const lastId = localStorage.getItem("id");
+  let id = 0
+  const lastId = localStorage.getItem("id")
   if (lastId && typeof Number) {
-    id = JSON.parse(lastId);
+    id = JSON.parse(lastId)
   }
-  id++;
-  localStorage.setItem("id", JSON.stringify(id));
-  return id;
-};
+  id++
+  localStorage.setItem("id", JSON.stringify(id))
+  return id
+}
 
 export const CalculateCostOrder = (order: Order) => {
-  let cost = 0;
+  let cost = 0
   if (order.main) {
-    cost = order.main !== undefined ? +order.main.price : 0;
+    cost = order.main !== undefined ? +order.main.price : 0
   }
   if (order.sides) {
-    cost += +order.sides.price;
+    cost += +order.sides.price
   }
   if (order.drink) {
-    cost += +order.drink.price;
+    cost += +order.drink.price
   }
-  return cost;
-};
+  return cost
+}
 
 export const CalculateCostCart = (cart: Cart) => {
-  let cost = 0;
+  let cost = 0
   cart.OrderList.forEach((order) => {
-    cost += +order.OrderCost;
-  });
-  return cost;
-};
+    cost += +order.OrderCost
+  })
+  return cost
+}

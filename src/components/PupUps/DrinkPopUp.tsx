@@ -1,36 +1,36 @@
-import styled from "styled-components";
-import { SendDrinkToCart } from "../services/CartService";
-import { useState } from "react";
-import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup";
-import Texture from "../assets/design-assets/climpek.png";
+import styled from "styled-components"
+import { SendDrinkToCart } from "../../services/CartService"
+import { useState } from "react"
+import { ItemAddedToCartPopup } from "./ItemAddedToCartPopup"
+import Texture from "../../assets/design-assets/climpek.png"
 
 export type Drink = {
-  id: string;
-  name: string;
-  alcoholic: boolean;
-  imgUrl: string;
-  ingredients: string[];
-  price: number;
-};
+  id: string
+  name: string
+  alcoholic: boolean
+  imgUrl: string
+  ingredients: string[]
+  price: number
+}
 
 interface DrinkPopUpProps {
-  drink: Drink;
-  onClose: () => void;
+  drink: Drink
+  onClose: () => void
 }
 
 const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
-  const [showItemAdded, setShowItemAdded] = useState(false);
+  const [showItemAdded, setShowItemAdded] = useState(false)
 
   const handleAddToCartClick = () => {
-    SendDrinkToCart(drink);
-    setShowItemAdded(true);
+    SendDrinkToCart(drink)
+    setShowItemAdded(true)
     setTimeout(() => {
-      setShowItemAdded(false);
-    }, 2000);
+      setShowItemAdded(false)
+    }, 2000)
     setTimeout(() => {
-      onClose();
-    }, 2000);
-  };
+      onClose()
+    }, 2000)
+  }
 
   return (
     <PopUpContainer>
@@ -47,12 +47,12 @@ const DrinkPopUp = ({ drink, onClose }: DrinkPopUpProps) => {
           Close
         </button>
       </PopUpContent>
-      {showItemAdded && <ItemAddedToCartPopup Item={drink.name} />}
+      {showItemAdded && <ItemAddedToCartPopup />}
     </PopUpContainer>
-  );
-};
+  )
+}
 
-export default DrinkPopUp;
+export default DrinkPopUp
 
 const PopUpContainer = styled.div`
   position: fixed;
@@ -65,7 +65,7 @@ const PopUpContainer = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 2;
-`;
+`
 
 const PopUpContent = styled.div`
   background-color: var(--firstColor);
@@ -76,4 +76,4 @@ const PopUpContent = styled.div`
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 70%;
   max-width: 500px;
-`;
+`
