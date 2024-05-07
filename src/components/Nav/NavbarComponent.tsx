@@ -65,7 +65,7 @@ const StyledNavLink = styled(NavLink)`
 
   &.active {
     font-weight: bold;
-    color: blue;
+    color: var(--firstColor);
     background: url(${backgroundImg}), linear-gradient(rgb(188, 255, 134), var(--secondColor));
   }
 `
